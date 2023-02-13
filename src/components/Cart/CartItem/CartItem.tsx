@@ -34,11 +34,11 @@ export default function CartItem(props: CartItemProps) {
         <div className="flex items-center justify-between">
           <span className="font-secondary">{`$${price}`}</span>
           <div className="flex items-center">
-            <IconButton icon={PlusIcon} size="small" />
+            <IconButton icon={MinusIcon} size="small" />
             <span className="w-8 font-secondary text-label-base-600 text-center">
               {amount}
             </span>
-            <IconButton icon={MinusIcon} size="small" />
+            <IconButton icon={PlusIcon} size="small" />
           </div>
         </div>
       </div>

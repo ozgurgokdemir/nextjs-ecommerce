@@ -24,12 +24,12 @@ export default function IconButton(props: IconButtonProps) {
   return (
     <button
       className={clsx(
-        'flex items-center justify-center rounded-lg transition',
+        'flex items-center justify-center transition',
         size === 'small'
-          ? 'w-6 h-6'
+          ? 'w-6 h-6 rounded-md'
           : size === 'medium'
-          ? 'w-9 h-9'
-          : 'w-12 h-12',
+          ? 'w-9 h-9 rounded-lg'
+          : 'w-12 h-12 rounded-lg',
         variant === 'primary'
           ? 'text-slate-100 bg-slate-800 hover:bg-slate-700'
           : 'text-slate-400 bg-slate-100 hover:bg-slate-50',
