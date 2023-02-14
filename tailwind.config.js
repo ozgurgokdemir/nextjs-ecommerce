@@ -27,6 +27,9 @@ module.exports = {
         'heading-4xl': ['2.25rem', { lineHeight: '1.25', fontWeight: '600' }],
         display: ['2.5rem', { lineHeight: '1.25', fontWeight: '600' }],
       },
+      aspectRatio: {
+        '4/3': '4 / 3',
+      },
     },
   },
   plugins: [],
