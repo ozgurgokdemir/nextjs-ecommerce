@@ -1,4 +1,5 @@
 const { fontFamily } = require('tailwindcss/defaultTheme');
+const colors = require('tailwindcss/colors');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -29,6 +30,18 @@ module.exports = {
       },
       aspectRatio: {
         '4/3': '4 / 3',
+      },
+      boxShadow: {
+        stroke: `inset 0 0 0 1px ${colors.slate[100]}`,
+        'stroke-t': `inset 0 1px 0 0 ${colors.slate[100]}`,
+        'stroke-r': `inset -1px 0 0 0 ${colors.slate[100]}`,
+        'stroke-b': `inset 0 -1px 0 0 ${colors.slate[100]}`,
+        'stroke-l': `inset 1px 0 0 0 ${colors.slate[100]}`,
+        'stroke-2': `inset 0 0 0 2px ${colors.slate[100]}`,
+        'stroke-t-2': `inset 0 2px 0 0 ${colors.slate[100]}`,
+        'stroke-r-2': `inset -2px 0 0 0 ${colors.slate[100]}`,
+        'stroke-b-2': `inset 0 -2px 0 0 ${colors.slate[100]}`,
+        'stroke-l-2': `inset 2px 0 0 0 ${colors.slate[100]}`,
       },
     },
   },
