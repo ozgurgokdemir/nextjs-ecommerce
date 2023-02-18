@@ -1,5 +1,7 @@
-const { fontFamily } = require('tailwindcss/defaultTheme');
+const { fontFamily, screens } = require('tailwindcss/defaultTheme');
 const colors = require('tailwindcss/colors');
+
+const { '2xl': _, ...containerScreens } = screens;
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -42,6 +44,11 @@ module.exports = {
         'stroke-r-2': `inset -2px 0 0 0 ${colors.slate[100]}`,
         'stroke-b-2': `inset 0 -2px 0 0 ${colors.slate[100]}`,
         'stroke-l-2': `inset 2px 0 0 0 ${colors.slate[100]}`,
+      },
+      container: {
+        center: true,
+        padding: '1.5rem',
+        screens: containerScreens,
       },
     },
   },
