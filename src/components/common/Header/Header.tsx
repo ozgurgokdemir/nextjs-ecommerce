@@ -47,7 +47,7 @@ export default function Header(props: HeaderProps) {
   const { icon: NavIcon, link } = nav;
 
   return (
-    <header className="bg-white shadow-stroke-b">
+    <header className="sticky top-0 inset-x-0 bg-white shadow-stroke-b">
       <div className="flex items-center justify-between sm:hidden">
         <Link className="p-6" href={link}>
           {<NavIcon className="h-6" />}

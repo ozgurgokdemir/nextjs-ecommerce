@@ -19,7 +19,7 @@ export default function NavBar() {
   const { pathname } = useRouter();
 
   return (
-    <nav className="fixed bottom-0 w-screen h-[4.5rem] flex shadow-stroke-t">
+    <nav className="fixed bottom-0 inset-x-0 h-[4.5rem] flex shadow-stroke-t bg-white sm:hidden">
       <Link className="h-full flex-1 flex items-center justify-center" href="/">
         {pathname === '/' ? (
           <HomeIconSolid className="h-6" />
