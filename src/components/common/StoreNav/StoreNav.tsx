@@ -8,7 +8,11 @@ const categories = [
 
 export default function StoreNav() {
   return (
-    <nav className="hidden h-24 container sm:flex items-center gap-4">
+    <nav
+      className="hidden h-24 container sm:flex items-center gap-4"
+      role="navigation"
+      aria-label="Secondary"
+    >
       {categories.map(({ key, label, link }) => (
         <CategoryChip key={key} label={label} link={link} />
       ))}

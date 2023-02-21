@@ -61,7 +61,7 @@ export default function Header(props: HeaderProps) {
           <ShoppingBagIcon className="h-7" />
           <span className="font-secondary text-heading-2xl">eCommerce</span>
         </Link>
-        <nav className="flex gap-4">
+        <nav className="flex gap-4" role="navigation" aria-label="Primary">
           <button
             type="button"
             className="w-60 h-12 rounded-lg flex items-center justify-between px-3 text-slate-400 bg-slate-100 hover:bg-slate-50 transition-colors"
