@@ -15,7 +15,7 @@ export default function InfoCard(props: InfoCardProps) {
     <div
       className={clsx(
         'rounded-lg flex items-center gap-4 p-4 shadow-stroke-2',
-        'sm:w-[18.125rem] sm:shadow-md sm:shadow-slate-400/10',
+        'sm:shadow-md sm:shadow-slate-400/10 xl:w-[18.125rem]',
         className
       )}
     >
