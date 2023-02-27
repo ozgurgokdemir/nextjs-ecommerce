@@ -22,7 +22,7 @@ export default function ProductCard(props: ProductCardProps) {
     <Link
       className={clsx(
         'flex gap-4 p-6 bg-white border-b border-slate-100',
-        'sm:w-[18.125rem] sm:flex-col sm:gap-0 sm:p-0 sm:border sm:rounded-lg sm:overflow-hidden',
+        'sm:flex-col sm:gap-0 sm:p-0 sm:border sm:rounded-lg sm:overflow-hidden',
         className
       )}
       href={`/store/${slug}`}
