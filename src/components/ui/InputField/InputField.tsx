@@ -5,16 +5,17 @@ import { clsx } from 'clsx';
 type InputFieldProps = {
   id: string;
   label: string;
-  type?: HTMLInputTypeAttribute;
+  type?: HTMLInputTypeAttribute | 'textarea';
   size?: 'medium' | 'large';
   error?: string;
+  className?: string;
 };
 
 export default function InputField(props: InputFieldProps) {
-  const { id, label, type = 'text', size = 'medium', error } = props;
+  const { id, label, type = 'text', size = 'medium', error, className } = props;
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className={clsx('flex flex-col gap-2', className)}>
       <label
         className={clsx(
           size === 'medium' ? 'text-label-base-600' : 'text-label-xl-600'
@@ -23,14 +24,26 @@ export default function InputField(props: InputFieldProps) {
       >
         {label}
       </label>
-      <input
-        className={clsx(
-          'h-12 px-2 rounded-lg border-2 border-slate-100',
-          error && 'border-red-500'
-        )}
-        id={id}
-        type={type}
-      />
+      {type === 'textarea' ? (
+        <textarea
+          className={clsx(
+            'min-h-[3rem] max-h-96 px-4 py-2.5 rounded-lg resize-none sm:resize-y border-2 border-slate-100 text-body-base-500',
+            error && 'border-red-500'
+          )}
+          id={id}
+          rows={4}
+        />
+      ) : (
+        <input
+          className={clsx(
+            'h-12 px-4 rounded-lg border-2 border-slate-100 text-body-base-500',
+            error && 'border-red-500'
+          )}
+          id={id}
+          type={type}
+        />
+      )}
+
       {error && (
         <div className="flex items-center gap-2 text-red-500">
           <ExclamationCircleIcon
