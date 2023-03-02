@@ -12,6 +12,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.10",
     "@heroicons/react": "^2.0.14",
+    "@hookform/resolvers": "^2.9.11",
     "@next/font": "13.1.6",
     "@types/node": "18.11.18",
     "@types/react": "18.0.27",
@@ -23,7 +24,9 @@
     "next": "13.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "typescript": "4.9.5"
+    "react-hook-form": "^7.43.3",
+    "typescript": "4.9.5",
+    "zod": "^3.20.6"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.50.0",

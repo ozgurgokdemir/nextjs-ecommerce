@@ -1,10 +1,12 @@
 import type { HTMLInputTypeAttribute } from 'react';
+import type { UseFormRegisterReturn } from 'react-hook-form';
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
 import { clsx } from 'clsx';
 
 type InputFieldProps = {
   id: string;
   label: string;
+  register: UseFormRegisterReturn;
   type?: HTMLInputTypeAttribute | 'textarea';
   size?: 'medium' | 'large';
   error?: string;
@@ -12,7 +14,15 @@ type InputFieldProps = {
 };
 
 export default function InputField(props: InputFieldProps) {
-  const { id, label, type = 'text', size = 'medium', error, className } = props;
+  const {
+    id,
+    label,
+    register,
+    type = 'text',
+    size = 'medium',
+    error,
+    className,
+  } = props;
 
   return (
     <div className={clsx('flex flex-col gap-2', className)}>
@@ -32,6 +42,7 @@ export default function InputField(props: InputFieldProps) {
           )}
           id={id}
           rows={4}
+          {...register}
         />
       ) : (
         <input
@@ -41,9 +52,9 @@ export default function InputField(props: InputFieldProps) {
           )}
           id={id}
           type={type}
+          {...register}
         />
       )}
-
       {error && (
         <div className="flex items-center gap-2 text-red-500">
           <ExclamationCircleIcon
