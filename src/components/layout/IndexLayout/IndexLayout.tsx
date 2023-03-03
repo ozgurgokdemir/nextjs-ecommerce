@@ -4,7 +4,7 @@ import {
   ShoppingBagIcon,
   MagnifyingGlassIcon,
 } from '@heroicons/react/24/solid';
-import { Header, NavBar, StoreNav } from '@/components/common';
+import { Footer, Header, NavBar, StoreNav } from '@/components/common';
 
 type IndexLayoutProps = { children: ReactNode };
 
@@ -17,6 +17,7 @@ export default function IndexLayout({ children }: IndexLayoutProps) {
       />
       <StoreNav />
       {children}
+      <Footer />
       <NavBar />
     </Fragment>
   );
