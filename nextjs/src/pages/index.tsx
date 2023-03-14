@@ -1,3 +1,4 @@
+import type { GetStaticProps } from 'next';
 import Image from 'next/image';
 import { ArrowLongRightIcon } from '@heroicons/react/24/outline';
 import {
@@ -10,47 +11,22 @@ import { IndexLayout } from '@/components/layout';
 import { Button, InfoCard } from '@/components/ui';
 import { ProductCard } from '@/components/product';
 import { ContactForm } from '@/components/form';
+import { strapi } from '@/lib/api';
 
-const DUMMY_PRODUCTS = [
-  {
-    key: 0,
-    title: 'Laptop 2',
-    price: '000',
-    oldPrice: '000',
-    image: '',
-    imageAlt: '',
-    slug: '',
-  },
-  {
-    key: 0,
-    title: 'Smartwatch 1',
-    price: '000',
-    oldPrice: '000',
-    image: '',
-    imageAlt: '',
-    slug: '',
-  },
-  {
-    key: 0,
-    title: 'Smartphone 2',
-    price: '000',
-    oldPrice: '000',
-    image: '',
-    imageAlt: '',
-    slug: '',
-  },
-  {
-    key: 0,
-    title: 'Smartwatch 2',
-    price: '000',
-    oldPrice: '000',
-    image: '',
-    imageAlt: '',
-    slug: '',
-  },
-];
-
-export default function Home() {
+type Props = {
+  products: {
+    id: string;
+    title: string;
+    description: string;
+    price: number;
+    discount: number;
+    images: string[];
+    imageAlt: string;
+    category: string;
+    slug: string;
+  }[];
+};
+export default function Home({ products }: Props) {
   return (
     <main className="pb-[4.5rem] sm:pb-0">
       <section className="container py-12 grid gap-6 sm:min-h-fit sm:py-16 sm:grid-cols-2 sm:grid-rows-2 sm:gap-x-6 sm:gap-y-0">
@@ -106,16 +82,20 @@ export default function Home() {
           Hot Sales
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
-          {DUMMY_PRODUCTS.map((product) => (
+          {products.map((product) => (
             <ProductCard
               className="last:border-b-0 last:sm:border-b"
-              key={product.key}
+              key={product.id}
               title={product.title}
-              price={product.price}
-              oldPrice={product.oldPrice}
-              image={product.image}
+              price={product.price.toString()}
+              oldPrice={
+                product.discount !== 0
+                  ? (product.price * (product.discount / 100)).toString()
+                  : undefined
+              }
+              image={product.images[0]}
               imageAlt={product.imageAlt}
-              slug={product.slug}
+              slug={`${product.category}/${product.slug}`}
             />
           ))}
         </div>
@@ -128,3 +108,8 @@ export default function Home() {
 }
 
 Home.PageLayout = IndexLayout;
+
+export const getStaticProps: GetStaticProps = async () => {
+  const products = await strapi.getProducts(undefined, true);
+  return { props: { products }, revalidate: 3600 };
+};
