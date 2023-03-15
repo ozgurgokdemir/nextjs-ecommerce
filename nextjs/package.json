@@ -29,6 +29,7 @@
     "zod": "^3.20.6"
   },
   "devDependencies": {
+    "@types/eslint": "^8.21.2",
     "@typescript-eslint/eslint-plugin": "^5.50.0",
     "@typescript-eslint/parser": "^5.50.0",
     "autoprefixer": "^10.4.13",
