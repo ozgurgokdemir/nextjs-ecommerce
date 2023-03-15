@@ -87,12 +87,8 @@ export default function Home({ products }: Props) {
               className="last:border-b-0 last:sm:border-b"
               key={product.id}
               title={product.title}
-              price={product.price.toString()}
-              oldPrice={
-                product.discount !== 0
-                  ? (product.price * (product.discount / 100)).toString()
-                  : undefined
-              }
+              price={product.price}
+              discount={product.discount}
               image={product.images[0]}
               imageAlt={product.imageAlt}
               slug={`${product.category}/${product.slug}`}

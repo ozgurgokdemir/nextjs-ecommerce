@@ -6,17 +6,21 @@ import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/24/solid';
 import { IconButton } from '@/components/ui';
 
 type ProductCardProps = {
+  title: string;
+  price: number;
+  discount: number;
   image: string;
   imageAlt: string;
-  title: string;
-  price: string;
   slug: string;
-  oldPrice?: string;
   className?: string;
 };
 
 export default function ProductCard(props: ProductCardProps) {
-  const { image, imageAlt, title, price, slug, oldPrice, className } = props;
+  const { title, price, discount, image, imageAlt, slug, className } = props;
+
+  const discountAmount = price * (discount / 100);
+  const newPrice = Math.trunc(price - discountAmount);
+  const oldPrice = Math.trunc(price);
 
   return (
     <Link
@@ -37,8 +41,8 @@ export default function ProductCard(props: ProductCardProps) {
       <div className="flex-1 flex flex-col justify-between sm:flex-none sm:gap-3 sm:p-6 sm:justify-start">
         <h5 className="text-label-base-500 sm:text-label-xl-500">{title}</h5>
         <div className="flex items-center gap-1 font-secondary text-label-sm-600">
-          <span>{`$${price}`}</span>
-          {oldPrice && (
+          <span>{`$${newPrice}`}</span>
+          {discount > 0 && (
             <Fragment>
               <span className="text-slate-400">{'·'}</span>
               <span className="text-slate-400">{`$${oldPrice}`}</span>
