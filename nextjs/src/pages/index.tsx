@@ -14,6 +14,12 @@ import { ContactForm } from '@/components/form';
 import { strapi } from '@/lib/api';
 
 type Props = {
+  title: string;
+  subtitle: string;
+  image: {
+    url: string;
+    alternativeText: string;
+  };
   products: {
     id: string;
     title: string;
@@ -26,27 +32,29 @@ type Props = {
     slug: string;
   }[];
 };
-export default function Home({ products }: Props) {
+
+export default function Home(props: Props) {
+  const { title, subtitle, image, products } = props;
+
   return (
     <main className="pb-[4.5rem] sm:pb-0">
       <section className="container py-12 grid gap-6 sm:min-h-fit sm:py-16 sm:grid-cols-2 sm:grid-rows-2 sm:gap-x-6 sm:gap-y-0">
         <div className="flex flex-col gap-2 text-center sm:gap-4 sm:text-left sm:place-content-end">
           <h1 className="font-secondary text-heading-2xl md:text-heading-3xl lg:text-display">
-            Shop the Latest Laptop
-            <br />
-            at eCommerce
+            {title}
           </h1>
           <p className="text-body-xs-500 md:text-body-sm-500 lg:text-body-base-500">
-            The smartest way to buy the products you love
+            {subtitle}
           </p>
         </div>
-        <div className="w-full aspect-square xl:w-[37.75rem] xl:aspect-4/3 sm:row-span-2">
+        <div className="w-full aspect-square py-4 sm:py-0 sm:row-span-2 xl:w-[37.75rem] xl:aspect-4/3">
           <Image
-            className="w-full h-full object-contain"
-            src=""
-            alt=""
+            className="w-full h-full object-cover sm:-scale-x-100 sm:rotate-[45deg]"
+            src={image.url}
+            alt={image.alternativeText}
             width={604}
             height={453}
+            priority={true}
           />
         </div>
         <Button
@@ -106,6 +114,7 @@ export default function Home({ products }: Props) {
 Home.PageLayout = IndexLayout;
 
 export const getStaticProps: GetStaticProps = async () => {
+  const homePageData = await strapi.getHomePageData();
   const products = await strapi.getProducts(undefined, true);
-  return { props: { products }, revalidate: 3600 };
+  return { props: { ...homePageData, products }, revalidate: 3600 };
 };

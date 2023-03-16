@@ -14,11 +14,12 @@ import {
   BooleanAttribute,
   EnumerationAttribute,
   BigIntegerAttribute,
-  TextAttribute,
-  DecimalAttribute,
-  MediaAttribute,
   IntegerAttribute,
+  DecimalAttribute,
   SetMinMax,
+  SingleTypeSchema,
+  MediaAttribute,
+  TextAttribute,
 } from '@strapi/strapi';
 
 export interface AdminPermission extends CollectionTypeSchema {
@@ -373,47 +374,6 @@ export interface AdminTransferTokenPermission extends CollectionTypeSchema {
   };
 }
 
-export interface ApiProductProduct extends CollectionTypeSchema {
-  info: {
-    singularName: 'product';
-    pluralName: 'products';
-    displayName: 'Product';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    title: StringAttribute & RequiredAttribute;
-    description: TextAttribute & RequiredAttribute;
-    price: DecimalAttribute & RequiredAttribute;
-    images: MediaAttribute & RequiredAttribute;
-    category: StringAttribute & RequiredAttribute;
-    slug: StringAttribute & RequiredAttribute;
-    discount: IntegerAttribute &
-      RequiredAttribute &
-      SetMinMax<{
-        min: 0;
-        max: 100;
-      }> &
-      DefaultTo<0>;
-    createdAt: DateTimeAttribute;
-    updatedAt: DateTimeAttribute;
-    publishedAt: DateTimeAttribute;
-    createdBy: RelationAttribute<
-      'api::product.product',
-      'oneToOne',
-      'admin::user'
-    > &
-      PrivateAttribute;
-    updatedBy: RelationAttribute<
-      'api::product.product',
-      'oneToOne',
-      'admin::user'
-    > &
-      PrivateAttribute;
-  };
-}
-
 export interface PluginUploadFile extends CollectionTypeSchema {
   info: {
     singularName: 'file';
@@ -722,6 +682,79 @@ export interface PluginI18NLocale extends CollectionTypeSchema {
   };
 }
 
+export interface ApiHomePageHomePage extends SingleTypeSchema {
+  info: {
+    singularName: 'home-page';
+    pluralName: 'home-pages';
+    displayName: 'Home Page';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: StringAttribute & RequiredAttribute;
+    subtitle: StringAttribute & RequiredAttribute;
+    image: MediaAttribute & RequiredAttribute;
+    createdAt: DateTimeAttribute;
+    updatedAt: DateTimeAttribute;
+    publishedAt: DateTimeAttribute;
+    createdBy: RelationAttribute<
+      'api::home-page.home-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      PrivateAttribute;
+    updatedBy: RelationAttribute<
+      'api::home-page.home-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      PrivateAttribute;
+  };
+}
+
+export interface ApiProductProduct extends CollectionTypeSchema {
+  info: {
+    singularName: 'product';
+    pluralName: 'products';
+    displayName: 'Product';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: StringAttribute & RequiredAttribute;
+    description: TextAttribute & RequiredAttribute;
+    price: DecimalAttribute & RequiredAttribute;
+    images: MediaAttribute & RequiredAttribute;
+    category: StringAttribute & RequiredAttribute;
+    slug: StringAttribute & RequiredAttribute;
+    discount: IntegerAttribute &
+      RequiredAttribute &
+      SetMinMax<{
+        min: 0;
+        max: 100;
+      }> &
+      DefaultTo<0>;
+    createdAt: DateTimeAttribute;
+    updatedAt: DateTimeAttribute;
+    publishedAt: DateTimeAttribute;
+    createdBy: RelationAttribute<
+      'api::product.product',
+      'oneToOne',
+      'admin::user'
+    > &
+      PrivateAttribute;
+    updatedBy: RelationAttribute<
+      'api::product.product',
+      'oneToOne',
+      'admin::user'
+    > &
+      PrivateAttribute;
+  };
+}
+
 declare global {
   namespace Strapi {
     interface Schemas {
@@ -732,13 +765,14 @@ declare global {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::product.product': ApiProductProduct;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
+      'api::home-page.home-page': ApiHomePageHomePage;
+      'api::product.product': ApiProductProduct;
     }
   }
 }
