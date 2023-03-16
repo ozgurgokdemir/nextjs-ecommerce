@@ -32,7 +32,7 @@ export default function ProductCard(props: ProductCardProps) {
       href={`/store/${slug}`}
     >
       <Image
-        className="w-24 h-24 rounded-lg sm:w-full sm:h-auto sm:rounded-none sm:aspect-4/3"
+        className="w-24 h-24 rounded-lg object-cover sm:w-full sm:h-auto sm:rounded-none sm:aspect-4/3"
         src={image}
         alt={imageAlt}
         width={290}
