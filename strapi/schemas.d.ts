@@ -17,8 +17,8 @@ import {
   IntegerAttribute,
   DecimalAttribute,
   SetMinMax,
-  SingleTypeSchema,
   MediaAttribute,
+  SingleTypeSchema,
   TextAttribute,
 } from '@strapi/strapi';
 
@@ -682,6 +682,43 @@ export interface PluginI18NLocale extends CollectionTypeSchema {
   };
 }
 
+export interface ApiCategoryCategory extends CollectionTypeSchema {
+  info: {
+    singularName: 'category';
+    pluralName: 'categories';
+    displayName: 'Category';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    products: RelationAttribute<
+      'api::category.category',
+      'oneToMany',
+      'api::product.product'
+    >;
+    title: StringAttribute & RequiredAttribute;
+    thumbnail: MediaAttribute & RequiredAttribute;
+    slug: StringAttribute & RequiredAttribute;
+    createdAt: DateTimeAttribute;
+    updatedAt: DateTimeAttribute;
+    publishedAt: DateTimeAttribute;
+    createdBy: RelationAttribute<
+      'api::category.category',
+      'oneToOne',
+      'admin::user'
+    > &
+      PrivateAttribute;
+    updatedBy: RelationAttribute<
+      'api::category.category',
+      'oneToOne',
+      'admin::user'
+    > &
+      PrivateAttribute;
+  };
+}
+
 export interface ApiHomePageHomePage extends SingleTypeSchema {
   info: {
     singularName: 'home-page';
@@ -719,6 +756,7 @@ export interface ApiProductProduct extends CollectionTypeSchema {
     singularName: 'product';
     pluralName: 'products';
     displayName: 'Product';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -728,7 +766,6 @@ export interface ApiProductProduct extends CollectionTypeSchema {
     description: TextAttribute & RequiredAttribute;
     price: DecimalAttribute & RequiredAttribute;
     images: MediaAttribute & RequiredAttribute;
-    category: StringAttribute & RequiredAttribute;
     slug: StringAttribute & RequiredAttribute;
     discount: IntegerAttribute &
       RequiredAttribute &
@@ -737,6 +774,11 @@ export interface ApiProductProduct extends CollectionTypeSchema {
         max: 100;
       }> &
       DefaultTo<0>;
+    category: RelationAttribute<
+      'api::product.product',
+      'manyToOne',
+      'api::category.category'
+    >;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;
     publishedAt: DateTimeAttribute;
@@ -771,6 +813,7 @@ declare global {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
+      'api::category.category': ApiCategoryCategory;
       'api::home-page.home-page': ApiHomePageHomePage;
       'api::product.product': ApiProductProduct;
     }
