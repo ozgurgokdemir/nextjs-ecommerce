@@ -697,9 +697,10 @@ export interface ApiCategoryCategory extends CollectionTypeSchema {
       'api::category.category',
       'oneToMany',
       'api::product.product'
-    >;
+    > &
+      PrivateAttribute;
     title: StringAttribute & RequiredAttribute;
-    thumbnail: MediaAttribute & RequiredAttribute;
+    image: MediaAttribute & RequiredAttribute;
     slug: StringAttribute & RequiredAttribute;
     createdAt: DateTimeAttribute;
     updatedAt: DateTimeAttribute;

@@ -16,19 +16,20 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::product.product",
+      "private": true,
       "mappedBy": "category"
     },
     "title": {
       "type": "string",
       "required": true
     },
-    "thumbnail": {
-      "allowedTypes": [
-        "images"
-      ],
+    "image": {
       "type": "media",
       "multiple": false,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     },
     "slug": {
       "type": "string",
