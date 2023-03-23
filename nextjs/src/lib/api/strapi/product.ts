@@ -19,13 +19,10 @@ type StrapiProduct = StrapiData<
 const STRAPI_URL = process.env.STRAPI_URL ?? 'http://127.0.0.1:1337';
 const STRAPI_API = STRAPI_URL + '/api';
 
-type Category = 'laptop' | 'smartphone' | 'smartwatch';
-
-export async function getProducts(category?: Category, discount?: boolean) {
-  const params: string[] = [];
-  if (category) params.push(`filters[category][$eq]=${category}`);
+export async function getProducts(category?: string, discount?: boolean) {
+  const params = ['populate=*'];
+  if (category) params.push(`filters[category][slug][$eq]=${category}`);
   if (discount) params.push('filters[discount][$gt]=0');
-  params.push('populate=*');
 
   const response = await fetch(`${STRAPI_API}/products?${params.join('&')}`);
   const { data } = (await response.json()) as StrapiResponse<StrapiProduct[]>;
