@@ -19,7 +19,7 @@ export default function NavBar() {
   const { pathname } = useRouter();
 
   return (
-    <nav className="fixed bottom-0 inset-x-0 h-[4.5rem] flex shadow-stroke-t bg-white sm:hidden">
+    <nav className="fixed z-40 bottom-0 inset-x-0 h-[4.5rem] flex shadow-stroke-t bg-white sm:hidden">
       <Link className="h-full flex-1 flex items-center justify-center" href="/">
         {pathname === '/' ? (
           <HomeIconSolid className="h-6" />
@@ -31,7 +31,7 @@ export default function NavBar() {
         className="h-full flex-1 flex items-center justify-center"
         href="/store"
       >
-        {pathname === '/store' ? (
+        {pathname.startsWith('/store') ? (
           <Squares2X2IconSolid className="h-6" />
         ) : (
           <Squares2X2IconOutline className="h-6" />
@@ -41,7 +41,7 @@ export default function NavBar() {
         className="h-full flex-1 flex items-center justify-center"
         href="/cart"
       >
-        {pathname === '/cart' ? (
+        {pathname.startsWith('/cart') ? (
           <ShoppingCartIconSolid className="h-6" />
         ) : (
           <ShoppingCartIconOutline className="h-6" />
@@ -51,7 +51,7 @@ export default function NavBar() {
         className="h-full flex-1 flex items-center justify-center"
         href="/wishlist"
       >
-        {pathname === '/wishlist' ? (
+        {pathname.startsWith('/wishlist') ? (
           <HeartIconSolid className="h-6" />
         ) : (
           <HeartIconOutline className="h-6" />
@@ -61,7 +61,7 @@ export default function NavBar() {
         className="h-full flex-1 flex items-center justify-center"
         href="/account"
       >
-        {pathname === '/account' ? (
+        {pathname.startsWith('/account') ? (
           <UserIconSolid className="h-6" />
         ) : (
           <UserIconOutline className="h-6" />

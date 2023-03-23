@@ -31,7 +31,6 @@ export default function Category({ title, products }: Props) {
           {products.map((product) => (
             <li key={product.id}>
               <ProductCard
-                className="last:border-b-0 last:sm:border-b"
                 title={product.title}
                 price={product.price}
                 discount={product.discount}
