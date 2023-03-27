@@ -1,4 +1,5 @@
 import type { GetStaticProps } from 'next';
+import { Fragment } from 'react';
 import Image from 'next/image';
 import { ArrowLongRightIcon } from '@heroicons/react/24/outline';
 import {
@@ -37,7 +38,7 @@ export default function Home(props: Props) {
   const { title, subtitle, image, products } = props;
 
   return (
-    <main className="pb-[4.5rem] sm:pb-0">
+    <Fragment>
       <section className="container py-12 grid gap-6 sm:min-h-fit sm:py-16 sm:grid-cols-2 sm:grid-rows-2 sm:gap-x-6 sm:gap-y-0">
         <div className="flex flex-col gap-2 text-center sm:gap-4 sm:text-left sm:place-content-end">
           <h1 className="font-secondary text-heading-2xl md:text-heading-3xl lg:text-display">
@@ -107,7 +108,7 @@ export default function Home(props: Props) {
       <section className="px-6 py-8 bg-white transition-colors sm:py-16 sm:bg-slate-50">
         <ContactForm />
       </section>
-    </main>
+    </Fragment>
   );
 }
 

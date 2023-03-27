@@ -19,20 +19,18 @@ type Props = {
 
 export default function Store({ categories }: Props) {
   return (
-    <main className="pb-[4.5rem] sm:min-h-[calc(100vh-12rem)] sm:pb-0">
-      <ul className="sm:hidden">
-        {categories.map(({ id, title, image, slug }) => (
-          <ListItem
-            key={id}
-            href={`store/${slug}`}
-            text={title}
-            image={image.url}
-            imageAlt={image.alternativeText}
-            size="large"
-          />
-        ))}
-      </ul>
-    </main>
+    <ul className="sm:hidden">
+      {categories.map(({ id, title, image, slug }) => (
+        <ListItem
+          key={id}
+          href={`store/${slug}`}
+          text={title}
+          image={image.url}
+          imageAlt={image.alternativeText}
+          size="large"
+        />
+      ))}
+    </ul>
   );
 }
 
