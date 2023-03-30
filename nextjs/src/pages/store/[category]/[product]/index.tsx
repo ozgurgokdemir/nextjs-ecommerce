@@ -3,7 +3,7 @@ import { Fragment, useState } from 'react';
 import Image from 'next/image';
 import { clsx } from 'clsx';
 import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/24/solid';
-import { IndexLayout } from '@/components/layout';
+import { ProductLayout } from '@/components/layout';
 import { ProductCard } from '@/components/product';
 import { Button, IconButton } from '@/components/ui';
 import { strapi } from '@/lib/api';
@@ -121,7 +121,7 @@ export default function Product({ product, otherProducts }: Props) {
   );
 }
 
-Product.PageLayout = IndexLayout;
+Product.PageLayout = ProductLayout;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const products = await strapi.getProducts();

@@ -1,4 +1,5 @@
 import type { ReactNode, ComponentType, SVGProps } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import {
   ShoppingBagIcon,
@@ -10,7 +11,8 @@ import { IconButton } from '@/components/ui';
 
 type Navigation = {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
-  link: string;
+  url?: string;
+  navigateBack?: boolean;
 };
 
 type CallToAction = {
@@ -25,7 +27,7 @@ type HeaderProps = {
   children?: ReactNode;
 };
 
-function CTA({ cta }: { cta: CallToAction | undefined }) {
+function CTA({ cta }: { cta?: CallToAction }) {
   if (!cta)
     return (
       <div className="p-6">
@@ -44,14 +46,21 @@ function CTA({ cta }: { cta: CallToAction | undefined }) {
 
 export default function Header(props: HeaderProps) {
   const { nav, cta, label, children } = props;
-  const { icon: NavIcon, link } = nav;
+  const { icon: NavIcon, url, navigateBack } = nav;
+
+  const router = useRouter();
+
+  const handleNavigation = async () => {
+    if (navigateBack) router.back();
+    else if (url) await router.push(url);
+  };
 
   return (
     <header className="sticky z-40 top-0 inset-x-0 bg-white shadow-stroke-b">
       <div className="flex items-center justify-between sm:hidden">
-        <Link className="p-6" href={link}>
+        <button className="p-6" type="button" onClick={() => handleNavigation}>
           {<NavIcon className="h-6" />}
-        </Link>
+        </button>
         {children}
         {!children && <span className="text-label-base-600">{label}</span>}
         {!children && <CTA cta={cta} />}

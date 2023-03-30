@@ -1,20 +1,19 @@
 import type { ReactNode } from 'react';
 import { Fragment } from 'react';
 import { motion } from 'framer-motion';
-import {
-  ShoppingBagIcon,
-  MagnifyingGlassIcon,
-} from '@heroicons/react/24/solid';
+import { ShoppingBagIcon } from '@heroicons/react/24/solid';
+import { HeartIcon } from '@heroicons/react/24/outline';
 import { Footer, Header, NavBar, StoreNav } from '@/components/common';
 
-type IndexLayoutProps = { children: ReactNode };
+type ProductLayoutProps = { children: ReactNode };
 
-export default function IndexLayout({ children }: IndexLayoutProps) {
+export default function ProductLayout({ children }: ProductLayoutProps) {
   return (
     <Fragment>
       <Header
-        nav={{ icon: ShoppingBagIcon, url: '/' }}
-        cta={{ icon: MagnifyingGlassIcon, onClick: () => undefined }}
+        nav={{ icon: ShoppingBagIcon, navigateBack: true }}
+        label="Details"
+        cta={{ icon: HeartIcon, onClick: () => undefined }}
       />
       <StoreNav />
       <motion.main
