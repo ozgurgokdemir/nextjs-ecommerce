@@ -50,15 +50,15 @@ export default function Header(props: HeaderProps) {
 
   const router = useRouter();
 
-  const handleNavigation = async () => {
+  const handleNavigation = () => {
     if (navigateBack) router.back();
-    else if (url) await router.push(url);
+    else if (url) void router.push(url);
   };
 
   return (
     <header className="sticky z-40 top-0 inset-x-0 bg-white shadow-stroke-b">
       <div className="flex items-center justify-between sm:hidden">
-        <button className="p-6" type="button" onClick={() => handleNavigation}>
+        <button className="p-6" type="button" onClick={handleNavigation}>
           {<NavIcon className="h-6" />}
         </button>
         {children}
