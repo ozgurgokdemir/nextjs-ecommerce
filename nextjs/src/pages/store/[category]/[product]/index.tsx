@@ -1,8 +1,12 @@
 import type { GetStaticProps, GetStaticPaths } from 'next';
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import Image from 'next/image';
 import { clsx } from 'clsx';
-import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/24/solid';
+import {
+  HeartIcon,
+  ShoppingCartIcon,
+  TrashIcon,
+} from '@heroicons/react/24/solid';
 import { ProductLayout } from '@/components/layout';
 import { ProductCard } from '@/components/product';
 import { Button, IconButton } from '@/components/ui';
@@ -30,9 +34,29 @@ export default function Product({ product, otherProducts }: Props) {
 
   const [displayedImage, setDisplayedImage] = useState(images[0]);
 
+  const [cart, setCart] = useState<Product[]>();
+
+  useEffect(() => {
+    const storedCart = localStorage.getItem('cart');
+    if (!storedCart) return setCart([]);
+    setCart(JSON.parse(storedCart) as Product[]);
+  }, []);
+
+  if (!cart) return;
+
+  const isProductAdded = cart.findIndex(({ id }) => product.id === id) !== -1;
+
   const discountAmount = price * (discount / 100);
   const newPrice = Math.trunc(price - discountAmount);
   const oldPrice = Math.trunc(price);
+
+  const handleCartAction = () => {
+    const newCart = isProductAdded
+      ? cart.filter(({ id }) => product.id !== id)
+      : [...cart, product];
+    localStorage.setItem('cart', JSON.stringify(newCart));
+    setCart(newCart);
+  };
 
   return (
     <Fragment>
@@ -90,8 +114,10 @@ export default function Product({ product, otherProducts }: Props) {
               <IconButton icon={HeartIcon} size="large" />
               <Button
                 className="flex-1"
-                text="Add to Cart"
-                icon={ShoppingCartIcon}
+                text={isProductAdded ? 'Remove' : 'Add to Cart'}
+                icon={isProductAdded ? TrashIcon : ShoppingCartIcon}
+                variant={isProductAdded ? 'secondary' : 'primary'}
+                onClick={handleCartAction}
               />
             </div>
           </div>
