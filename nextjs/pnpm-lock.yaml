@@ -28,6 +28,7 @@ specifiers:
   tailwindcss: ^3.2.4
   typescript: 4.9.5
   zod: ^3.20.6
+  zustand: ^4.3.7
 
 dependencies:
   '@headlessui/react': 1.7.10_biqbaboplfbrettd7655fr4n2y
@@ -47,6 +48,7 @@ dependencies:
   react-hook-form: 7.43.3_react@18.2.0
   typescript: 4.9.5
   zod: 3.20.6
+  zustand: 4.3.7_react@18.2.0
 
 devDependencies:
   '@types/eslint': 8.21.2
@@ -4021,6 +4023,17 @@ packages:
     dependencies:
       punycode: 2.3.0
 
+  /use-sync-external-store/1.2.0_react@18.2.0:
+    resolution:
+      {
+        integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==,
+      }
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+    dev: false
+
   /util-deprecate/1.0.2:
     resolution:
       {
@@ -4157,4 +4170,23 @@ packages:
       {
         integrity: sha512-oyu0m54SGCtzh6EClBVqDDlAYRz4jrVtKwQ7ZnsEmMI9HnzuZFj8QFwAY1M5uniIYACdGvv0PBWPF2kO0aNofA==,
       }
+    dev: false
+
+  /zustand/4.3.7_react@18.2.0:
+    resolution:
+      {
+        integrity: sha512-dY8ERwB9Nd21ellgkBZFhudER8KVlelZm8388B5nDAXhO/+FZDhYMuRnqDgu5SYyRgz/iaf8RKnbUs/cHfOGlQ==,
+      }
+    engines: { node: '>=12.7.0' }
+    peerDependencies:
+      immer: '>=9.0'
+      react: '>=16.8'
+    peerDependenciesMeta:
+      immer:
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      use-sync-external-store: 1.2.0_react@18.2.0
     dev: false

@@ -10,6 +10,7 @@ import {
 import { ProductLayout } from '@/components/layout';
 import { ProductCard } from '@/components/product';
 import { Button, IconButton } from '@/components/ui';
+import { useCartStore } from '@/lib/store';
 import { strapi } from '@/lib/api';
 
 type Product = {
@@ -34,13 +35,9 @@ export default function Product({ product, otherProducts }: Props) {
 
   const [displayedImage, setDisplayedImage] = useState(images[0]);
 
-  const [cart, setCart] = useState<Product[]>();
+  const { cart, syncStoredCart, addToCart, removeFromCart } = useCartStore();
 
-  useEffect(() => {
-    const storedCart = localStorage.getItem('cart');
-    if (!storedCart) return setCart([]);
-    setCart(JSON.parse(storedCart) as Product[]);
-  }, []);
+  useEffect(syncStoredCart, [syncStoredCart]);
 
   if (!cart) return;
 
@@ -49,14 +46,6 @@ export default function Product({ product, otherProducts }: Props) {
   const discountAmount = price * (discount / 100);
   const newPrice = Math.trunc(price - discountAmount);
   const oldPrice = Math.trunc(price);
-
-  const handleCartAction = () => {
-    const newCart = isProductAdded
-      ? cart.filter(({ id }) => product.id !== id)
-      : [...cart, product];
-    localStorage.setItem('cart', JSON.stringify(newCart));
-    setCart(newCart);
-  };
 
   return (
     <Fragment>
@@ -117,7 +106,11 @@ export default function Product({ product, otherProducts }: Props) {
                 text={isProductAdded ? 'Remove' : 'Add to Cart'}
                 icon={isProductAdded ? TrashIcon : ShoppingCartIcon}
                 variant={isProductAdded ? 'secondary' : 'primary'}
-                onClick={handleCartAction}
+                onClick={
+                  isProductAdded
+                    ? removeFromCart.bind(null, product.id)
+                    : addToCart.bind(null, product)
+                }
               />
             </div>
           </div>
