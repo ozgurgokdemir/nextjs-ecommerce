@@ -3,7 +3,7 @@ import { WishlistItem } from '@/components/wishlist';
 import { useCartStore } from '@/lib/store';
 
 export default function Wishlist() {
-  const { cart } = useCartStore();
+  const { cart, removeFromCart, addToCart } = useCartStore();
 
   if (!cart || cart.length === 0) {
     return (
@@ -23,14 +23,12 @@ export default function Wishlist() {
     <section className="flex flex-col">
       <ul className="grid grid-cols-1">
         {cart.map((product) => (
-          <li key={product.id}>
-            <WishlistItem
-              title={product.title}
-              price={product.price}
-              image={product.images[0]}
-              imageAlt={product.imageAlt}
-            />
-          </li>
+          <WishlistItem
+            key={product.id}
+            product={product}
+            onDelete={removeFromCart}
+            onAddToCart={addToCart}
+          />
         ))}
       </ul>
     </section>
