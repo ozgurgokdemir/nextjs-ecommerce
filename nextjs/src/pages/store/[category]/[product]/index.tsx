@@ -1,4 +1,5 @@
 import type { GetStaticProps, GetStaticPaths } from 'next';
+import type { Product } from '@/lib/types';
 import { Fragment, useState, useEffect } from 'react';
 import Image from 'next/image';
 import { clsx } from 'clsx';
@@ -12,18 +13,6 @@ import { ProductCard } from '@/components/product';
 import { Button, IconButton } from '@/components/ui';
 import { useCartStore } from '@/lib/store';
 import { strapi } from '@/lib/api';
-
-type Product = {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  discount: number;
-  images: string[];
-  imageAlt: string;
-  category: string;
-  slug: string;
-};
 
 type Props = {
   product: Product;

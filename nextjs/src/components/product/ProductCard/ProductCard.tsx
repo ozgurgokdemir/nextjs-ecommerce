@@ -1,3 +1,4 @@
+import type { Product } from '@/lib/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment } from 'react';
@@ -5,13 +6,11 @@ import { clsx } from 'clsx';
 import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/24/solid';
 import { IconButton } from '@/components/ui';
 
-type ProductCardProps = {
-  title: string;
-  price: number;
-  discount: number;
-  image: string;
-  imageAlt: string;
-  slug: string;
+type ProductCardProps = Omit<
+  Product,
+  'id' | 'description' | 'images' | 'category'
+> & {
+  image: Product['images'][0];
   className?: string;
 };
 

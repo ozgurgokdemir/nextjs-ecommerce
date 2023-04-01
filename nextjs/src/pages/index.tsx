@@ -1,4 +1,5 @@
 import type { GetStaticProps } from 'next';
+import type { Product } from '@/lib/types';
 import { Fragment } from 'react';
 import Image from 'next/image';
 import { ArrowLongRightIcon } from '@heroicons/react/24/outline';
@@ -21,17 +22,7 @@ type Props = {
     url: string;
     alternativeText: string;
   };
-  products: {
-    id: string;
-    title: string;
-    description: string;
-    price: number;
-    discount: number;
-    images: string[];
-    imageAlt: string;
-    category: string;
-    slug: string;
-  }[];
+  products: Product[];
 };
 
 export default function Home(props: Props) {

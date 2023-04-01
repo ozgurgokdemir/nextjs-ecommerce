@@ -1,13 +1,14 @@
+import type { Product } from '@/lib/types';
 import Image from 'next/image';
 import { clsx } from 'clsx';
 import { TrashIcon, ShoppingCartIcon } from '@heroicons/react/24/solid';
 import { IconButton } from '@/components/ui';
 
-type WishlistItemProps = {
-  title: string;
-  price: string;
-  image: string;
-  imageAlt: string;
+type WishlistItemProps = Omit<
+  Product,
+  'id' | 'description' | 'discount' | 'images' | 'category' | 'slug'
+> & {
+  image: Product['images'][0];
   className?: string;
 };
 
@@ -30,7 +31,7 @@ export default function WishlistItem(props: WishlistItemProps) {
       />
       <div className="flex-1 flex flex-col justify-around h-full text-label-base-500">
         <span>{title}</span>
-        <span className="font-secondary">{'$' + price}</span>
+        <span className="font-secondary">{`$${price}`}</span>
       </div>
       <div className=" flex flex-col justify-around">
         <IconButton icon={TrashIcon} />

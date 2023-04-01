@@ -1,16 +1,4 @@
-// import type { ApiProductProduct } from '../../../../../strapi/schemas';
-
-export type Product = {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  discount: number;
-  images: string[];
-  imageAlt: string;
-  category: string;
-  slug: string;
-};
+import type { Product } from '@/lib/types';
 
 type StrapiResponse<T> = { data: T };
 type StrapiData<T> = { id: number; attributes: T };

@@ -1,19 +1,8 @@
 import type { GetStaticProps, GetStaticPaths } from 'next';
+import type { Product } from '@/lib/types';
 import { IndexLayout } from '@/components/layout';
 import { ProductCard } from '@/components/product';
 import { strapi } from '@/lib/api';
-
-type Product = {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  discount: number;
-  images: string[];
-  imageAlt: string;
-  category: string;
-  slug: string;
-};
 
 type Props = {
   title: string;

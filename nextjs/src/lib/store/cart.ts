@@ -1,16 +1,5 @@
+import type { Product } from '@/lib/types';
 import { create } from 'zustand';
-
-type Product = {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  discount: number;
-  images: string[];
-  imageAlt: string;
-  category: string;
-  slug: string;
-};
 
 type Store = {
   cart: Product[] | null;

@@ -1,14 +1,15 @@
+import type { Product } from '@/lib/types';
 import Image from 'next/image';
 import { clsx } from 'clsx';
 import { PlusIcon, MinusIcon } from '@heroicons/react/24/solid';
 import { IconButton } from '@/components/ui';
 
-type CartItemProps = {
-  title: string;
-  price: string;
+type CartItemProps = Omit<
+  Product,
+  'id' | 'description' | 'discount' | 'images' | 'category' | 'slug'
+> & {
   amount: number;
-  image: string;
-  imageAlt: string;
+  image: Product['images'][0];
   className?: string;
 };
 
