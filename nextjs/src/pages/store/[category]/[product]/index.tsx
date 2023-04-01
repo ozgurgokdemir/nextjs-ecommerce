@@ -24,9 +24,7 @@ export default function Product({ product, otherProducts }: Props) {
 
   const [displayedImage, setDisplayedImage] = useState(images[0]);
 
-  const { cart, syncStoredCart, addToCart, removeFromCart } = useCartStore();
-
-  useEffect(syncStoredCart, [syncStoredCart]);
+  const { cart, addToCart, removeFromCart } = useCartStore();
 
   if (!cart) return;
 

@@ -2,8 +2,10 @@ import '@/styles/globals.css';
 import type { ReactElement, ReactNode } from 'react';
 import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
+import { useEffect } from 'react';
 import { Inter, Poppins } from '@next/font/google';
 import { AnimatePresence } from 'framer-motion';
+import { useCartStore } from '@/lib/store';
 
 type PageLayout = ({ children }: { children: ReactNode }) => JSX.Element;
 
@@ -30,6 +32,10 @@ export default function App({
   pageProps,
   router,
 }: AppPropsWithLayout) {
+  const { syncStoredCart } = useCartStore();
+
+  useEffect(syncStoredCart, [syncStoredCart]);
+
   return (
     <AnimatePresence initial={false} mode="wait">
       <div
