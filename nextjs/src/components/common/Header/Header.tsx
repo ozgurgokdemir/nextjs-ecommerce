@@ -1,4 +1,5 @@
 import type { ReactNode, ComponentType, SVGProps } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import {
@@ -8,6 +9,7 @@ import {
   UserIcon,
 } from '@heroicons/react/24/solid';
 import { IconButton } from '@/components/ui';
+import { WishlistDrawer } from '@/components/wishlist';
 
 type Navigation = {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
@@ -48,6 +50,8 @@ export default function Header(props: HeaderProps) {
   const { nav, cta, label, children } = props;
   const { icon: NavIcon, url, navigateBack } = nav;
 
+  const [isWishlistDrawerOpen, setIsWishlistDrawerOpen] = useState(false);
+
   const router = useRouter();
 
   const handleNavigation = () => {
@@ -79,7 +83,15 @@ export default function Header(props: HeaderProps) {
             <MagnifyingGlassIcon className="h-6" />
           </button>
           <IconButton icon={ShoppingCartIcon} size="large" />
-          <IconButton icon={UserIcon} size="large" />
+          <IconButton
+            icon={UserIcon}
+            size="large"
+            onClick={setIsWishlistDrawerOpen.bind(null, true)}
+          />
+          <WishlistDrawer
+            isOpen={isWishlistDrawerOpen}
+            onClose={setIsWishlistDrawerOpen.bind(null, false)}
+          />
         </nav>
       </div>
     </header>
