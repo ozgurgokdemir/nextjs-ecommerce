@@ -2,8 +2,8 @@ import '@/styles/globals.css';
 import type { ReactElement, ReactNode } from 'react';
 import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
-import { useEffect } from 'react';
-import { Inter, Poppins } from '@next/font/google';
+import { Fragment, useEffect } from 'react';
+import { Inter, Poppins } from 'next/font/google';
 import { AnimatePresence } from 'framer-motion';
 import { useCartStore } from '@/lib/store';
 
@@ -23,6 +23,16 @@ const poppins = Poppins({
   variable: '--font-poppins',
 });
 
+const Fonts = () => (
+  <style jsx global>{`
+    :root {
+      --font-inter: ${inter.style.fontFamily};
+      --font-poppins: ${poppins.style.fontFamily};
+      font-family: var(--font-inter), ui-sans-serif;
+    }
+  `}</style>
+);
+
 function getLayout(page: ReactElement, Layout?: PageLayout) {
   return Layout ? <Layout>{page}</Layout> : page;
 }
@@ -37,13 +47,16 @@ export default function App({
   useEffect(syncStoredCart, [syncStoredCart]);
 
   return (
-    <AnimatePresence initial={false} mode="wait">
-      <div
-        className={`${inter.variable} ${poppins.variable} font-primary text-body-base-400 text-slate-800`}
-        key={router.asPath}
-      >
-        {getLayout(<Component {...pageProps} />, Component.PageLayout)}
-      </div>
-    </AnimatePresence>
+    <Fragment>
+      <Fonts />
+      <AnimatePresence initial={false} mode="wait">
+        <div
+          className={`${inter.variable} ${poppins.variable} font-primary`}
+          key={router.asPath}
+        >
+          {getLayout(<Component {...pageProps} />, Component.PageLayout)}
+        </div>
+      </AnimatePresence>
+    </Fragment>
   );
 }
