@@ -5,3 +5,4 @@ export { default as ListItem } from './ListItem';
 export { default as InfoCard } from './InfoCard';
 export { default as InputField } from './InputField';
 export { default as Drawer } from './Drawer';
+export { default as Modal } from './Modal';
