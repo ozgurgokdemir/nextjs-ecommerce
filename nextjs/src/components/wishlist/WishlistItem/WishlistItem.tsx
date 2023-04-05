@@ -10,7 +10,7 @@ import { IconButton } from '@/components/ui';
 type WishlistItemProps = {
   product: Product;
   onDelete: (id: number) => void;
-  onAddToCart: (product: Product) => void;
+  onAddToCart: (product: Product, quantity: number) => void;
   className?: string;
 };
 
@@ -64,7 +64,9 @@ export default function WishlistItem(props: WishlistItemProps) {
           />
           <IconButton
             icon={ShoppingCartIcon}
-            onClick={(e) => preventRouting(e, onAddToCart.bind(null, product))}
+            onClick={(e) =>
+              preventRouting(e, onAddToCart.bind(null, product, 1))
+            }
           />
         </div>
       </Link>

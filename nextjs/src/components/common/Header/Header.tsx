@@ -11,6 +11,7 @@ import {
 import { IconButton } from '@/components/ui';
 import { CartModal } from '@/components/cart';
 import { WishlistDrawer } from '@/components/wishlist';
+import { useCartStore } from '@/lib/store';
 
 type Navigation = {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
@@ -51,7 +52,7 @@ export default function Header(props: HeaderProps) {
   const { nav, cta, label, children } = props;
   const { icon: NavIcon, url, navigateBack } = nav;
 
-  const [isShoppingCartOpen, setIsShoppingCartOpen] = useState(false);
+  const { openCart } = useCartStore();
   const [isWishlistDrawerOpen, setIsWishlistDrawerOpen] = useState(false);
 
   const router = useRouter();
@@ -84,15 +85,8 @@ export default function Header(props: HeaderProps) {
             <p className="text-label-base-600">Search</p>
             <MagnifyingGlassIcon className="h-6" />
           </button>
-          <IconButton
-            icon={ShoppingCartIcon}
-            size="large"
-            onClick={setIsShoppingCartOpen.bind(null, true)}
-          />
-          <CartModal
-            isOpen={isShoppingCartOpen}
-            onClose={setIsShoppingCartOpen.bind(null, false)}
-          />
+          <IconButton icon={ShoppingCartIcon} size="large" onClick={openCart} />
+          <CartModal />
           <IconButton
             icon={UserIcon}
             size="large"

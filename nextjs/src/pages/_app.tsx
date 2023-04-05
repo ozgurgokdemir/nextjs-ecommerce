@@ -2,7 +2,7 @@ import '@/styles/globals.css';
 import type { ReactElement, ReactNode } from 'react';
 import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
-import { Fragment, useEffect } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { Inter, Poppins } from 'next/font/google';
 import { AnimatePresence } from 'framer-motion';
 import { useCartStore } from '@/lib/store';
@@ -42,9 +42,19 @@ export default function App({
   pageProps,
   router,
 }: AppPropsWithLayout) {
-  const { syncStoredCart } = useCartStore();
+  const [isInitialized, setIsInitialized] = useState(false);
 
-  useEffect(syncStoredCart, [syncStoredCart]);
+  const { fetchCart } = useCartStore();
+
+  useEffect(() => {
+    if (isInitialized) return;
+
+    fetchCart();
+
+    setIsInitialized(true);
+  }, [isInitialized, fetchCart]);
+
+  if (!isInitialized) return null;
 
   return (
     <Fragment>

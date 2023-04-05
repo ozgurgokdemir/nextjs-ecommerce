@@ -1,6 +1,6 @@
 import type { GetStaticProps, GetStaticPaths } from 'next';
 import type { Product } from '@/lib/types';
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment, useState } from 'react';
 import Image from 'next/image';
 import { clsx } from 'clsx';
 import {
@@ -24,11 +24,10 @@ export default function Product({ product, otherProducts }: Props) {
 
   const [displayedImage, setDisplayedImage] = useState(images[0]);
 
-  const { cart, addToCart, removeFromCart } = useCartStore();
+  const { cartItems, addToCart, removeFromCart } = useCartStore();
 
-  if (!cart) return;
-
-  const isProductAdded = cart.findIndex(({ id }) => product.id === id) !== -1;
+  const productIndex = cartItems.findIndex((item) => item.id === product.id);
+  const isProductAdded = productIndex !== -1;
 
   const discountAmount = price * (discount / 100);
   const newPrice = Math.trunc(price - discountAmount);
@@ -96,7 +95,7 @@ export default function Product({ product, otherProducts }: Props) {
                 onClick={
                   isProductAdded
                     ? removeFromCart.bind(null, product.id)
-                    : addToCart.bind(null, product)
+                    : addToCart.bind(null, product, 1)
                 }
               />
             </div>
