@@ -23,6 +23,8 @@ module.exports = {
         'label-sm-600': ['0.875rem', { lineHeight: '1.25', fontWeight: '600' }],
         'label-base-500': ['1rem', { lineHeight: '1.25', fontWeight: '500' }],
         'label-base-600': ['1rem', { lineHeight: '1.25', fontWeight: '600' }],
+        'label-lg-500': ['1.125rem', { lineHeight: '1.25', fontWeight: '500' }],
+        'label-lg-600': ['1.125rem', { lineHeight: '1.25', fontWeight: '600' }],
         'label-xl-500': ['1.25rem', { lineHeight: '1.25', fontWeight: '500' }],
         'label-xl-600': ['1.25rem', { lineHeight: '1.25', fontWeight: '600' }],
         'heading-2xl': ['1.5rem', { lineHeight: '1.25', fontWeight: '600' }],

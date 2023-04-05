@@ -16,20 +16,13 @@ export default function CartModal() {
     >
       {cartItems.length > 0 ? (
         <Fragment>
-          <div className="pt-6 flex flex-col max-h-[28.5rem] overflow-y-auto">
-            {cartItems.map((product) => (
-              <CartItem
-                className="px-12 last:border-b-0"
-                key={product.id}
-                id={product.id}
-                quantity={product.quantity}
-                image={product.images[0]}
-                imageAlt={product.imageAlt}
-                price={product.price}
-                title={product.title}
-              />
+          <ul className="pt-6 flex flex-col max-h-[28.5rem] overflow-y-auto">
+            {cartItems.map((item) => (
+              <li className="shadow-stroke-b last:shadow-none" key={item.id}>
+                <CartItem item={item} />
+              </li>
             ))}
-          </div>
+          </ul>
           <div className="p-12 pt-6 flex flex-col gap-6">
             <div className="flex items-center justify-between">
               <span className="text-label-base-600 text-slate-400">TOTAL</span>
