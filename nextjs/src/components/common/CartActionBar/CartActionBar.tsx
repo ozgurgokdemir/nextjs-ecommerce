@@ -9,6 +9,7 @@ type Props = {
   title: string;
   amount: number;
   action: 'add' | 'remove' | 'checkout';
+  onAction: () => void;
 };
 
 const buttonProps = {
@@ -27,7 +28,7 @@ const buttonProps = {
 };
 
 export default function CartActionBar(props: Props) {
-  const { title, amount, action } = props;
+  const { title, amount, action, onAction } = props;
 
   return (
     <div className="p-6 fixed z-40 bottom-0 inset-x-0 flex items-center justify-between gap-4 shadow-stroke-t bg-white sm:hidden">
@@ -42,6 +43,7 @@ export default function CartActionBar(props: Props) {
         variant={action === 'remove' ? 'secondary' : 'primary'}
         text={buttonProps[action].text}
         icon={buttonProps[action].icon}
+        onClick={onAction}
       />
     </div>
   );

@@ -106,18 +106,13 @@ export default function Product({ product, otherProducts }: Props) {
         <h2 className="px-6 font-secondary text-heading-2xl sm:px-0 sm:text-heading-3xl">
           Other Products
         </h2>
-        <ul className="group grid grid-cols-1 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
           {otherProducts.map((product) => (
-            <li className="group/item" key={product.id}>
-              <ProductCard
-                className="group-last/item:border-b-0 group-last/item:sm:border-b"
-                title={product.title}
-                price={product.price}
-                discount={product.discount}
-                image={product.images[0]}
-                imageAlt={product.imageAlt}
-                slug={`${product.category}/${product.slug}`}
-              />
+            <li
+              className="shadow-stroke-b last:shadow-none sm:shadow-none"
+              key={product.id}
+            >
+              <ProductCard product={product} />
             </li>
           ))}
         </ul>

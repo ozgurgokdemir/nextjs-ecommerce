@@ -81,20 +81,16 @@ export default function Home(props: Props) {
         <h2 className="px-6 font-secondary text-heading-2xl sm:px-0 sm:text-heading-3xl">
           Hot Sales
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
           {products.map((product) => (
-            <ProductCard
-              className="last:border-b-0 last:sm:border-b"
+            <li
+              className="shadow-stroke-b last:shadow-none sm:shadow-none"
               key={product.id}
-              title={product.title}
-              price={product.price}
-              discount={product.discount}
-              image={product.images[0]}
-              imageAlt={product.imageAlt}
-              slug={`${product.category}/${product.slug}`}
-            />
+            >
+              <ProductCard product={product} />
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
       <section className="px-6 py-8 bg-white transition-colors sm:py-16 sm:bg-slate-50">
         <ContactForm />

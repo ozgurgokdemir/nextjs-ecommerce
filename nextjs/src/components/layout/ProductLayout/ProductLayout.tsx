@@ -1,12 +1,26 @@
-import type { ReactNode } from 'react';
+import type { ReactElement } from 'react';
+import type { Product } from '@/lib/types';
 import { Fragment } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronLeftIcon, HeartIcon } from '@heroicons/react/24/outline';
 import { Footer, Header, CartActionBar, StoreNav } from '@/components/common';
+import { useCartStore } from '@/lib/store';
 
-type ProductLayoutProps = { children: ReactNode };
+type ProductLayoutProps = {
+  children: ReactElement<{ product: Product }>;
+};
 
 export default function ProductLayout({ children }: ProductLayoutProps) {
+  const { product } = children.props;
+
+  const { cartItems, addToCart, removeFromCart } = useCartStore();
+
+  const productIndex = cartItems.findIndex((item) => item.id === product.id);
+  const isProductAdded = productIndex !== -1;
+
+  const discountAmount = product.price * (product.discount / 100);
+  const price = Math.trunc(product.price - discountAmount);
+
   return (
     <Fragment>
       <Header
@@ -25,7 +39,16 @@ export default function ProductLayout({ children }: ProductLayoutProps) {
         {children}
       </motion.main>
       <Footer />
-      <CartActionBar title="price" amount={1200} action="add" />
+      <CartActionBar
+        title="price"
+        amount={price}
+        action={isProductAdded ? 'remove' : 'add'}
+        onAction={
+          isProductAdded
+            ? removeFromCart.bind(null, product.id)
+            : addToCart.bind(null, product, 1)
+        }
+      />
     </Fragment>
   );
 }

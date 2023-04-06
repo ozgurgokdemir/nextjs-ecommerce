@@ -17,15 +17,8 @@ export default function Category({ title, products }: Props) {
       </h1>
       <ul className="grid grid-cols-1 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
         {products.map((product) => (
-          <li key={product.id}>
-            <ProductCard
-              title={product.title}
-              price={product.price}
-              discount={product.discount}
-              image={product.images[0]}
-              imageAlt={product.imageAlt}
-              slug={`${product.category}/${product.slug}`}
-            />
+          <li className="shadow-stroke-b sm:shadow-none" key={product.id}>
+            <ProductCard product={product} />
           </li>
         ))}
       </ul>
