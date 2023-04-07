@@ -1,5 +1,5 @@
 import type { GetStaticProps } from 'next';
-import { IndexLayout } from '@/components/layout';
+import { StoreLayout } from '@/components/layout';
 import { ListItem } from '@/components/ui';
 import { strapi } from '@/lib/api';
 
@@ -34,7 +34,7 @@ export default function Store({ categories }: Props) {
   );
 }
 
-Store.PageLayout = IndexLayout;
+Store.PageLayout = StoreLayout;
 
 export const getStaticProps: GetStaticProps = async () => {
   const categories = await strapi.getCategories();

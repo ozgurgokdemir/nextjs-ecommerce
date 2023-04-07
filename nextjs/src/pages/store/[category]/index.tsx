@@ -1,6 +1,6 @@
 import type { GetStaticProps, GetStaticPaths } from 'next';
 import type { Product } from '@/lib/types';
-import { IndexLayout } from '@/components/layout';
+import { StoreLayout } from '@/components/layout';
 import { ProductCard } from '@/components/product';
 import { strapi } from '@/lib/api';
 
@@ -26,7 +26,7 @@ export default function Category({ title, products }: Props) {
   );
 }
 
-Category.PageLayout = IndexLayout;
+Category.PageLayout = StoreLayout;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const categories = await strapi.getCategories();
