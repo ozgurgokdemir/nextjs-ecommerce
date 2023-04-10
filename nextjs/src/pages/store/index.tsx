@@ -1,17 +1,8 @@
 import type { GetStaticProps } from 'next';
+import type { Category } from '@/lib/types';
 import { StoreLayout } from '@/components/layout';
-import { ListItem } from '@/components/ui';
 import { strapi } from '@/lib/api';
-
-type Category = {
-  id: number;
-  title: string;
-  image: {
-    url: string;
-    alternativeText: string;
-  };
-  slug: string;
-};
+import { CategoryItem } from '@/components/store';
 
 type Props = {
   categories: Category[];
@@ -20,15 +11,10 @@ type Props = {
 export default function Store({ categories }: Props) {
   return (
     <ul className="sm:hidden">
-      {categories.map(({ id, title, image, slug }) => (
-        <ListItem
-          key={id}
-          href={`store/${slug}`}
-          text={title}
-          image={image.url}
-          imageAlt={image.alternativeText}
-          size="large"
-        />
+      {categories.map((category) => (
+        <li className="shadow-stroke-b" key={category.id}>
+          <CategoryItem category={category} />
+        </li>
       ))}
     </ul>
   );
