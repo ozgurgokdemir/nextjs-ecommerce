@@ -1,16 +1,13 @@
 import type { ReactNode, ComponentType, SVGProps } from 'react';
-import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import {
   ShoppingBagIcon,
   MagnifyingGlassIcon,
   ShoppingCartIcon,
-  UserIcon,
 } from '@heroicons/react/24/solid';
-import { IconButton } from '@/components/ui';
+import { IconButton, UserMenu } from '@/components/ui';
 import { CartModal } from '@/components/cart';
-import { WishlistDrawer } from '@/components/wishlist';
 import { useCartStore } from '@/lib/store';
 
 type Navigation = {
@@ -53,7 +50,6 @@ export default function Header(props: HeaderProps) {
   const { icon: NavIcon, url, navigateBack } = nav;
 
   const { openCart } = useCartStore();
-  const [isWishlistDrawerOpen, setIsWishlistDrawerOpen] = useState(false);
 
   const router = useRouter();
 
@@ -87,15 +83,7 @@ export default function Header(props: HeaderProps) {
           </button>
           <IconButton icon={ShoppingCartIcon} size="large" onClick={openCart} />
           <CartModal />
-          <IconButton
-            icon={UserIcon}
-            size="large"
-            onClick={setIsWishlistDrawerOpen.bind(null, true)}
-          />
-          <WishlistDrawer
-            isOpen={isWishlistDrawerOpen}
-            onClose={setIsWishlistDrawerOpen.bind(null, false)}
-          />
+          <UserMenu />
         </nav>
       </div>
     </header>
