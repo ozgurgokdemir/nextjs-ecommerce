@@ -1,6 +1,6 @@
 import { ArrowLeftOnRectangleIcon } from '@heroicons/react/24/outline';
 import { AccountLayout } from '@/components/layout';
-import { Button, ListItem } from '@/components/ui';
+import { LinkButton, ListItem } from '@/components/ui';
 
 export default function Account() {
   return (
@@ -8,8 +8,9 @@ export default function Account() {
       <ul>
         <ListItem href="" text="Preferences" size="large" />
       </ul>
-      <Button
+      <LinkButton
         className="mx-6 my-8"
+        href="/login"
         text="Log in"
         icon={ArrowLeftOnRectangleIcon}
       />
