@@ -3,6 +3,7 @@ import { Menu } from '@headlessui/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { UserIcon, ArrowLeftOnRectangleIcon } from '@heroicons/react/24/solid';
 import { Button, IconButton, ListItem } from '@/components/ui';
+import { useUIStore } from '@/lib/store';
 
 const variants = {
   hidden: {
@@ -18,6 +19,8 @@ const variants = {
 };
 
 export default function UserMenu() {
+  const { openAuthModal } = useUIStore();
+
   return (
     <Menu as="div" className="relative">
       {({ open }) => (
@@ -52,6 +55,7 @@ export default function UserMenu() {
                         className={active ? 'bg-slate-700' : ''}
                         text="Log in"
                         icon={ArrowLeftOnRectangleIcon}
+                        onClick={openAuthModal.bind(null, 'login')}
                       />
                     </li>
                   )}

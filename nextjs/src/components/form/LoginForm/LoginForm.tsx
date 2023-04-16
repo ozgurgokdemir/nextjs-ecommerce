@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { GoogleAuthButton, InputField, Button } from '@/components/ui';
+import { InputField, Button } from '@/components/ui';
 
 const schema = z.object({
   email: z
@@ -20,7 +20,11 @@ const schema = z.object({
 
 type Schema = z.infer<typeof schema>;
 
-export default function LoginForm() {
+type LoginFormProps = {
+  onSignUp?: () => void;
+};
+
+export default function LoginForm({ onSignUp }: LoginFormProps) {
   const {
     register,
     handleSubmit,
@@ -33,19 +37,9 @@ export default function LoginForm() {
 
   return (
     <form
-      className="px-8 py-12 flex flex-col gap-8"
+      className="flex flex-col gap-8"
       onSubmit={(...args) => void handleSubmit(onSubmit)(...args)}
     >
-      <div className="flex flex-col gap-4">
-        <h1 className="font-secondary text-heading-2xl">Welcome Back!</h1>
-        <p className="text-body-sm-400 text-slate-600">
-          Log in to your account to continue where you left off
-        </p>
-      </div>
-      <GoogleAuthButton />
-      <div className="flex items-center gap-2 text-body-xs-400 text-slate-400 before:h-px before:flex-1 before:bg-slate-200 after:h-px after:flex-1 after:bg-slate-200">
-        or continue with
-      </div>
       <div className="flex flex-col gap-4">
         <InputField
           id="email"
@@ -72,9 +66,19 @@ export default function LoginForm() {
         <Button type="submit" text="Log in" />
         <p className="text-body-xs-400 text-slate-600">
           Don’t have an account?{' '}
-          <Link className="text-body-xs-500 text-slate-800" href="/register">
-            Sign Up
-          </Link>
+          {onSignUp ? (
+            <button
+              className="text-body-xs-500 text-slate-800"
+              type="button"
+              onClick={onSignUp}
+            >
+              Sign Up
+            </button>
+          ) : (
+            <Link className="text-body-xs-500 text-slate-800" href="/register">
+              Sign Up
+            </Link>
+          )}
         </p>
       </div>
     </form>

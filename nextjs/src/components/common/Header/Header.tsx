@@ -9,6 +9,7 @@ import {
 import { IconButton, UserMenu } from '@/components/ui';
 import { CartModal } from '@/components/cart';
 import { useCartStore } from '@/lib/store';
+import { AuthModal } from '@/components/auth';
 
 type Navigation = {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
@@ -84,6 +85,7 @@ export default function Header(props: HeaderProps) {
           <IconButton icon={ShoppingCartIcon} size="large" onClick={openCart} />
           <CartModal />
           <UserMenu />
+          <AuthModal />
         </nav>
       </div>
     </header>
