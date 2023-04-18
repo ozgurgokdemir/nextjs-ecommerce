@@ -1,5 +1,4 @@
-import { Fragment } from 'react';
-import { LoginForm } from '@/components/form';
+import { LoginForm } from '@/components/auth';
 import { AuthLayout } from '@/components/layout';
 import { GoogleAuthButton } from '@/components/ui';
 

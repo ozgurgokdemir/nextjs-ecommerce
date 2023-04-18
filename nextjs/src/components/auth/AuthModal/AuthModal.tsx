@@ -1,7 +1,7 @@
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import { Dialog } from '@headlessui/react';
 import { GoogleAuthButton, Modal } from '@/components/ui';
-import { LoginForm } from '@/components/form';
+import { LoginForm } from '@/components/auth';
 import { useUIStore } from '@/lib/store';
 
 export default function LoginModal() {
