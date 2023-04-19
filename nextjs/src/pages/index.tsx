@@ -10,10 +10,11 @@ import {
   TagIcon,
 } from '@heroicons/react/24/solid';
 import { IndexLayout } from '@/components/layout';
-import { Button, InfoCard } from '@/components/ui';
+import { Button, InfoCard, LinkButton } from '@/components/ui';
 import { ProductCard } from '@/components/product';
 import { ContactForm } from '@/components/form';
 import { strapi } from '@/lib/api';
+import { useUIStore } from '@/lib/store';
 
 type Props = {
   title: string;
@@ -27,6 +28,8 @@ type Props = {
 
 export default function Home(props: Props) {
   const { title, subtitle, image, products } = props;
+
+  const { openAuthModal } = useUIStore();
 
   return (
     <Fragment>
@@ -49,10 +52,17 @@ export default function Home(props: Props) {
             priority={true}
           />
         </div>
-        <Button
-          className="sm:mt-12 md:w-[18.125rem] md:mt-16"
+        <LinkButton
+          className="flex sm:hidden"
           text="Get yours today"
           icon={ArrowLongRightIcon}
+          href="/register"
+        />
+        <Button
+          className="hidden sm:flex sm:mt-12 md:w-[18.125rem] md:mt-16"
+          text="Get yours today"
+          icon={ArrowLongRightIcon}
+          onClick={openAuthModal.bind(null, 'register')}
         />
       </section>
       <section className="grid grid-cols-1 gap-4 px-6 pt-3 pb-8 sm:container sm:grid-cols-2 sm:gap-6 sm:py-12 xl:grid-cols-4">
