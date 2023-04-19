@@ -80,7 +80,7 @@ export default function RegisterForm({ onLogIn }: RegisterFormProps) {
               Log In
             </button>
           ) : (
-            <Link className="text-body-xs-500 text-slate-800" href="/register">
+            <Link className="text-body-xs-500 text-slate-800" href="/login">
               Log In
             </Link>
           )}

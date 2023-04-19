@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { Fragment } from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
@@ -9,9 +10,9 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
   return (
     <Fragment>
       <header className="sticky z-40 top-0 inset-x-0 flex items-center justify-between">
-        <button className="p-6" type="button">
+        <Link className="p-6" href="/">
           <XMarkIcon className="h-6" />
-        </button>
+        </Link>
       </header>
       <motion.main
         className="min-h-[calc(100vh-4.5rem)] flex flex-col"

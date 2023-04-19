@@ -50,12 +50,14 @@ export default function UserMenu() {
                 </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
-                    <li className="m-6 flex flex-col">
+                    <li
+                      className="m-6 flex flex-col"
+                      onClick={openAuthModal.bind(null, 'login')}
+                    >
                       <Button
                         className={active ? 'bg-slate-700' : ''}
                         text="Log in"
                         icon={ArrowLeftOnRectangleIcon}
-                        onClick={openAuthModal.bind(null, 'login')}
                       />
                     </li>
                   )}
