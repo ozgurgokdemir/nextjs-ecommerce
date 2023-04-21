@@ -3,10 +3,23 @@ import { Fragment } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { useAuth } from '@/lib/hooks';
+import { useRouter } from 'next/router';
 
 type AuthLayoutProps = { children: ReactNode };
 
 export default function AuthLayout({ children }: AuthLayoutProps) {
+  const { status } = useAuth();
+
+  const router = useRouter();
+
+  if (status === 'loading') return null;
+
+  if (status === 'authenticated') {
+    void router.replace('/');
+    return null;
+  }
+
   return (
     <Fragment>
       <header className="sticky z-40 top-0 inset-x-0 flex items-center justify-between">

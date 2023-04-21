@@ -2,8 +2,10 @@ import '@/styles/globals.css';
 import type { ReactElement, ReactNode } from 'react';
 import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
-import { Fragment, useState, useEffect } from 'react';
+import type { Session } from 'next-auth';
+import { useState, useEffect } from 'react';
 import { Inter, Poppins } from 'next/font/google';
+import { SessionProvider } from 'next-auth/react';
 import { AnimatePresence } from 'framer-motion';
 import { useCartStore } from '@/lib/store';
 
@@ -11,7 +13,9 @@ type PageLayout = ({ children }: { children: ReactNode }) => JSX.Element;
 
 type NextPageWithLayout = NextPage & { PageLayout?: PageLayout };
 
-type AppPropsWithLayout = AppProps & { Component: NextPageWithLayout };
+type AppPropsWithLayout = AppProps<{ session: Session }> & {
+  Component: NextPageWithLayout;
+};
 
 const inter = Inter({
   subsets: ['latin'],
@@ -39,7 +43,7 @@ function getLayout(page: ReactElement, Layout?: PageLayout) {
 
 export default function App({
   Component,
-  pageProps,
+  pageProps: { session, ...pageProps },
   router,
 }: AppPropsWithLayout) {
   const [isInitialized, setIsInitialized] = useState(false);
@@ -57,7 +61,7 @@ export default function App({
   if (!isInitialized) return null;
 
   return (
-    <Fragment>
+    <SessionProvider session={session}>
       <Fonts />
       <AnimatePresence initial={false} mode="wait">
         <div
@@ -67,6 +71,6 @@ export default function App({
           {getLayout(<Component {...pageProps} />, Component.PageLayout)}
         </div>
       </AnimatePresence>
-    </Fragment>
+    </SessionProvider>
   );
 }

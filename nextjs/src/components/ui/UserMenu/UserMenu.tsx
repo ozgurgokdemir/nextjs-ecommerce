@@ -1,9 +1,14 @@
 import { Fragment } from 'react';
 import { Menu } from '@headlessui/react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { UserIcon, ArrowLeftOnRectangleIcon } from '@heroicons/react/24/solid';
+import {
+  UserIcon,
+  ArrowLeftOnRectangleIcon,
+  ArrowRightOnRectangleIcon,
+} from '@heroicons/react/24/solid';
 import { Button, IconButton, ListItem } from '@/components/ui';
 import { useUIStore } from '@/lib/store';
+import { useAuth } from '@/lib/hooks';
 
 const variants = {
   hidden: {
@@ -20,6 +25,10 @@ const variants = {
 
 export default function UserMenu() {
   const { openAuthModal } = useUIStore();
+
+  const { status, logOut } = useAuth();
+
+  const isAuthenticated = status === 'authenticated';
 
   return (
     <Menu as="div" className="relative">
@@ -52,12 +61,20 @@ export default function UserMenu() {
                   {({ active }) => (
                     <li
                       className="m-6 flex flex-col"
-                      onClick={openAuthModal.bind(null, 'login')}
+                      onClick={
+                        isAuthenticated
+                          ? logOut
+                          : openAuthModal.bind(null, 'login')
+                      }
                     >
                       <Button
                         className={active ? 'bg-slate-700' : ''}
-                        text="Log in"
-                        icon={ArrowLeftOnRectangleIcon}
+                        text={isAuthenticated ? 'Log out' : 'Log in'}
+                        icon={
+                          isAuthenticated
+                            ? ArrowRightOnRectangleIcon
+                            : ArrowLeftOnRectangleIcon
+                        }
                       />
                     </li>
                   )}

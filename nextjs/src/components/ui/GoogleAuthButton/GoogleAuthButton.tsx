@@ -1,12 +1,15 @@
 import type { ButtonHTMLAttributes } from 'react';
 import { clsx } from 'clsx';
+import { useAuth } from '@/lib/hooks';
 
 type GoogleAuthButtonProps = {
   className?: string;
-} & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'>;
+} & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onClick' | 'children'>;
 
 export default function GoogleAuthButton(props: GoogleAuthButtonProps) {
   const { className, ...restProps } = props;
+
+  const { logInWithGoogle } = useAuth();
 
   return (
     <button
@@ -15,6 +18,7 @@ export default function GoogleAuthButton(props: GoogleAuthButtonProps) {
         className
       )}
       type="button"
+      onClick={logInWithGoogle}
       {...restProps}
     >
       <svg
