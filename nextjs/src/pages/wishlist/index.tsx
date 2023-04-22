@@ -3,9 +3,9 @@ import { WishlistItem } from '@/components/wishlist';
 import { useCartStore } from '@/lib/store';
 
 export default function Wishlist() {
-  const { cart, removeFromCart, addToCart } = useCartStore();
+  const { cartItems, removeFromCart, addToCart } = useCartStore();
 
-  if (!cart || cart.length === 0) {
+  if (cartItems.length === 0) {
     return (
       <section className="px-6 flex-1 flex flex-col items-center justify-center gap-4 text-center">
         <div className="w-36 h-36 mb-4 bg-slate-100 rounded-lg"></div>
@@ -22,7 +22,7 @@ export default function Wishlist() {
   return (
     <section className="flex flex-col">
       <ul className="grid grid-cols-1">
-        {cart.map((product) => (
+        {cartItems.map((product) => (
           <WishlistItem
             key={product.id}
             product={product}

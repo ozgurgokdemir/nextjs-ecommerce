@@ -20,6 +20,10 @@ type CartLayoutProps = { children: ReactNode };
 export default function ProductLayout({ children }: CartLayoutProps) {
   const { totalPrice } = useCartStore();
 
+  function handleCheckout() {
+    // Checkout Action
+  }
+
   return (
     <Fragment>
       <Header
@@ -45,7 +49,12 @@ export default function ProductLayout({ children }: CartLayoutProps) {
       {totalPrice === 0 ? (
         <NavBar />
       ) : (
-        <CartActionBar title="total" amount={totalPrice} action="checkout" />
+        <CartActionBar
+          title="total"
+          amount={totalPrice}
+          action="checkout"
+          onAction={handleCheckout}
+        />
       )}
     </Fragment>
   );

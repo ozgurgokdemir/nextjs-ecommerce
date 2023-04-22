@@ -16,7 +16,8 @@ type StrapiProduct = StrapiData<
   }
 >;
 
-const STRAPI_URL = process.env.STRAPI_URL ?? 'http://127.0.0.1:1337';
+const isProduction = process.env.NODE_ENV === 'production';
+const STRAPI_URL = process.env.STRAPI_URL;
 const STRAPI_API = STRAPI_URL + '/api';
 
 export async function getProduct(slug: string) {
@@ -80,7 +81,7 @@ export async function getOtherProducts(id: number, limit?: number) {
     price: attributes.price,
     discount: attributes.discount,
     images: attributes.images.data.map(
-      (image) => STRAPI_URL + image.attributes.url
+      (image) => (isProduction ? '' : STRAPI_URL) + image.attributes.url
     ),
     imageAlt: attributes.images.data[0].attributes.alternativeText,
     category: attributes.category.data.attributes.slug,

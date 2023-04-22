@@ -8,7 +8,8 @@ type StrapiCategory = StrapiResponse<
   StrapiData<{ title: string; slug: string; image: StrapiImage }>[]
 >;
 
-const STRAPI_URL = process.env.STRAPI_URL ?? 'http://127.0.0.1:1337';
+const isProduction = process.env.NODE_ENV === 'production';
+const STRAPI_URL = process.env.STRAPI_URL;
 const STRAPI_API = STRAPI_URL + '/api';
 
 export async function getCategories() {
@@ -19,7 +20,8 @@ export async function getCategories() {
     id: id,
     title: attributes.title,
     image: {
-      url: STRAPI_URL + attributes.image.data.attributes.url,
+      url:
+        (isProduction ? '' : STRAPI_URL) + attributes.image.data.attributes.url,
       alternativeText: attributes.image.data.attributes.alternativeText,
     },
     slug: attributes.slug,

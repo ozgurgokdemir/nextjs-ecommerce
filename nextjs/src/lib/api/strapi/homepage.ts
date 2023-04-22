@@ -6,7 +6,8 @@ type StrapiImage = StrapiResponse<
   StrapiData<{ url: string; alternativeText: string }>
 >;
 
-const STRAPI_URL = process.env.STRAPI_URL ?? 'http://127.0.0.1:1337';
+const isProduction = process.env.NODE_ENV === 'production';
+const STRAPI_URL = process.env.STRAPI_URL;
 const STRAPI_API = STRAPI_URL + '/api';
 
 export async function getHomePageData() {
@@ -16,5 +17,9 @@ export async function getHomePageData() {
   >;
   const { title, subtitle, image } = data.attributes;
   const { url, alternativeText } = image.data.attributes;
-  return { title, subtitle, image: { url: STRAPI_URL + url, alternativeText } };
+  return {
+    title,
+    subtitle,
+    image: { url: (isProduction ? '' : STRAPI_URL) + url, alternativeText },
+  };
 }
