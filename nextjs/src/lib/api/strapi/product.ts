@@ -51,6 +51,8 @@ export async function getProducts(category?: string, discount?: boolean) {
   const response = await fetch(`${STRAPI_API}/products?${params.join('&')}`);
   const { data } = (await response.json()) as StrapiResponse<StrapiProduct[]>;
 
+  if (!data) return [];
+
   const products = data.map(({ id, attributes }) => ({
     id: id,
     title: attributes.title,
@@ -73,6 +75,8 @@ export async function getOtherProducts(id: number, limit?: number) {
 
   const response = await fetch(`${STRAPI_API}/products?${params.join('&')}`);
   const { data } = (await response.json()) as StrapiResponse<StrapiProduct[]>;
+
+  if (!data) return [];
 
   const products = data.map(({ id, attributes }) => ({
     id: id,

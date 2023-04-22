@@ -16,6 +16,8 @@ export async function getCategories() {
   const response = await fetch(`${STRAPI_API}/categories?populate=*`);
   const { data } = (await response.json()) as StrapiCategory;
 
+  if (!data) return [];
+
   const categories = data.map(({ id, attributes }) => ({
     id: id,
     title: attributes.title,

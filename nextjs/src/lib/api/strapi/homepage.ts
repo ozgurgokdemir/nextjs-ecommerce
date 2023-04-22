@@ -15,6 +15,10 @@ export async function getHomePageData() {
   const { data } = (await response.json()) as StrapiResponse<
     StrapiData<ApiHomePageHomePage['attributes'] & { image: StrapiImage }>
   >;
+
+  if (!data)
+    return { title: '', subtitle: '', image: { url: '', alternativeText: '' } };
+
   const { title, subtitle, image } = data.attributes;
   const { url, alternativeText } = image.data.attributes;
   return {
