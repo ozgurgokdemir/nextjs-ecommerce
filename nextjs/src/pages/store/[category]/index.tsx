@@ -10,6 +10,8 @@ type Props = {
 };
 
 export default function Category({ title, products }: Props) {
+  if (!products) return null;
+
   return (
     <section className="flex flex-col sm:container sm:gap-6 sm:py-16">
       <h1 className="hidden sm:block px-0 font-secondary text-heading-3xl">
@@ -38,6 +40,5 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const { category } = context.params as { category: string };
   const products = await strapi.getProducts({ category });
-  if (!products) return { notFound: true };
   return { props: { title: category, products }, revalidate: 3600 };
 };

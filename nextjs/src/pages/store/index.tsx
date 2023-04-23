@@ -9,6 +9,8 @@ type Props = {
 };
 
 export default function Store({ categories }: Props) {
+  if (!categories) return null;
+
   return (
     <ul className="sm:hidden">
       {categories.map((category) => (
@@ -24,6 +26,5 @@ Store.PageLayout = StoreLayout;
 
 export const getStaticProps: GetStaticProps = async () => {
   const categories = await strapi.getCategories();
-  if (!categories) return { notFound: true };
   return { props: { categories }, revalidate: 3600 };
 };

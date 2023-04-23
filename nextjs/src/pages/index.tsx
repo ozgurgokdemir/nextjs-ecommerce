@@ -17,10 +17,10 @@ import { strapi } from '@/lib/api';
 import { useUIStore } from '@/lib/store';
 
 type Props = {
-  title: string;
-  subtitle: string;
-  image: ImageType;
-  products: Product[];
+  title: string | null;
+  subtitle: string | null;
+  image: ImageType | null;
+  products: Product[] | null;
 };
 
 export default function Home(props: Props) {
@@ -40,14 +40,16 @@ export default function Home(props: Props) {
           </p>
         </div>
         <div className="w-full aspect-square py-4 sm:py-0 sm:row-span-2 xl:w-[37.75rem] xl:aspect-4/3">
-          <Image
-            className="w-full h-full object-cover sm:-scale-x-100 sm:rotate-[45deg]"
-            src={image.url}
-            alt={image.alternativeText}
-            width={604}
-            height={453}
-            priority={true}
-          />
+          {image && (
+            <Image
+              className="w-full h-full object-cover sm:-scale-x-100 sm:rotate-[45deg]"
+              src={image.url}
+              alt={image.alternativeText}
+              width={604}
+              height={453}
+              priority={true}
+            />
+          )}
         </div>
         <LinkButton
           className="flex sm:hidden"
@@ -84,7 +86,7 @@ export default function Home(props: Props) {
           subtitle="On every second order"
         />
       </section>
-      {products.length > 0 && (
+      {products && products.length > 0 && (
         <section className="flex flex-col gap-4 py-8 sm:container sm:gap-6 sm:py-16">
           <h2 className="px-6 font-secondary text-heading-2xl sm:px-0 sm:text-heading-3xl">
             Hot Sales
@@ -111,8 +113,7 @@ export default function Home(props: Props) {
 Home.PageLayout = IndexLayout;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const homePageData = await strapi.getHomePageData();
+  const { title, subtitle, image } = await strapi.getHomePageData();
   const products = await strapi.getProducts({ discount: true, limit: 4 });
-  if (!homePageData || !products) return { notFound: true };
-  return { props: { ...homePageData, products }, revalidate: 3600 };
+  return { props: { title, subtitle, image, products }, revalidate: 3600 };
 };

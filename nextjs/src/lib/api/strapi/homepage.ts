@@ -14,7 +14,7 @@ export async function getHomePageData() {
   const response = await fetch(url);
   const { data } = (await response.json()) as StrapiResponse<StrapiHomePage>;
 
-  if (!data) return null;
+  if (!data) return { title: null, subtitle: null, image: null };
 
   const { title, subtitle, image } = data.attributes;
   return { title, subtitle, image: formatImage(image.data.attributes) };
