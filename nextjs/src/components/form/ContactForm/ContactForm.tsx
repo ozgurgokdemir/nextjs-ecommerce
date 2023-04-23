@@ -40,14 +40,14 @@ export default function ContactForm() {
       </div>
       <div className="col-span-full grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
         <InputField
-          id="name"
+          id="contact-name"
           label="Name"
           type="text"
           register={register('name')}
           error={errors.name?.message}
         />
         <InputField
-          id="email"
+          id="contact-email"
           label="Email"
           type="email"
           register={register('email')}
@@ -55,7 +55,7 @@ export default function ContactForm() {
         />
         <InputField
           className="col-span-full"
-          id="message"
+          id="contact-message"
           label="Message"
           type="textarea"
           register={register('message')}

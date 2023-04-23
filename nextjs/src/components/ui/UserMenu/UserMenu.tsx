@@ -50,11 +50,13 @@ export default function UserMenu() {
               >
                 <Menu.Item>
                   {({ active }) => (
-                    <ListItem
-                      className={active ? 'bg-slate-50' : ''}
-                      href=""
-                      text="Preferences"
-                    />
+                    <li className="shadow-stroke-b bg-white hover:bg-slate-50 transition-colors">
+                      <ListItem.Content
+                        className={active ? 'bg-slate-50' : ''}
+                        href=""
+                        text="Preferences"
+                      />
+                    </li>
                   )}
                 </Menu.Item>
                 <Menu.Item>
