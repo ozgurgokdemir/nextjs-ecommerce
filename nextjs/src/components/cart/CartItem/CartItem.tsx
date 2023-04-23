@@ -10,7 +10,7 @@ type CartItem = Product & { quantity: number };
 type CartItemProps = { item: CartItem };
 
 export default function CartItem({ item }: CartItemProps) {
-  const { id, title, quantity, images, imageAlt, category, slug } = item;
+  const { id, title, quantity, images, category, slug } = item;
 
   const { incrementQuantity, decrementQuantity, removeFromCart } =
     useCartStore();
@@ -30,8 +30,8 @@ export default function CartItem({ item }: CartItemProps) {
       <Link href={url}>
         <Image
           className="w-24 h-24 rounded-lg object-cover"
-          src={images[0]}
-          alt={imageAlt}
+          src={images[0].url}
+          alt={images[0].alternativeText}
           width={96}
           height={96}
         />

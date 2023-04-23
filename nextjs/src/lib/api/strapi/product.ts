@@ -1,14 +1,12 @@
-import type { Product } from '@/lib/types';
+import type { StrapiResponse, StrapiData, Product, Image } from '@/lib/types';
+import { formatImage } from '@/lib/utils';
 
-type StrapiResponse<T> = { data: T };
-type StrapiData<T> = { id: number; attributes: T };
+type StrapiImages = StrapiResponse<StrapiData<Image>[]>;
 
-type StrapiImages = StrapiResponse<
-  StrapiData<{ url: string; alternativeText: string }>[]
->;
 type StrapiCategory = StrapiResponse<
   StrapiData<{ title: string; slug: string }>
 >;
+
 type StrapiProduct = StrapiData<
   Product & {
     images: StrapiImages;
@@ -16,80 +14,56 @@ type StrapiProduct = StrapiData<
   }
 >;
 
-const isProduction = process.env.NODE_ENV === 'production';
-const STRAPI_URL = process.env.STRAPI_URL;
-const STRAPI_API = STRAPI_URL + '/api';
+const formatProduct = ({ id, attributes }: StrapiProduct) => ({
+  id: id,
+  title: attributes.title,
+  description: attributes.description,
+  price: attributes.price,
+  discount: attributes.discount,
+  images: attributes.images.data.map((image) => formatImage(image.attributes)),
+  category: attributes.category.data.attributes.slug,
+  slug: attributes.slug,
+});
+
+async function fetchProducts(filters: string[]) {
+  const params = ['populate=*'];
+  filters.forEach((filter) => params.push(filter));
+
+  const url = `${process.env.STRAPI_URL}/api/products?${params.join('&')}`;
+  const response = await fetch(url);
+  const { data } = (await response.json()) as StrapiResponse<StrapiProduct[]>;
+
+  if (!data) return null;
+
+  return data.map(formatProduct);
+}
 
 export async function getProduct(slug: string) {
   const filter = `filters[slug][$eq]=${slug}`;
 
-  const response = await fetch(`${STRAPI_API}/products?${filter}&populate=*`);
-  const { data } = (await response.json()) as StrapiResponse<StrapiProduct[]>;
-  const { id, attributes } = data[0];
+  const products = await fetchProducts([filter]);
 
-  const product = {
-    id: id,
-    title: attributes.title,
-    description: attributes.description,
-    price: attributes.price,
-    discount: attributes.discount,
-    images: attributes.images.data.map(
-      (image) => STRAPI_URL + image.attributes.url
-    ),
-    imageAlt: attributes.images.data[0].attributes.alternativeText,
-    category: attributes.category.data.attributes.slug,
-    slug: attributes.slug,
-  };
-  return product;
+  return products ? products[0] : null;
 }
 
-export async function getProducts(category?: string, discount?: boolean) {
-  const params = ['populate=*'];
-  if (category) params.push(`filters[category][slug][$eq]=${category}`);
-  if (discount) params.push('filters[discount][$gt]=0');
+type Queries = {
+  category?: string;
+  discount?: boolean;
+  limit?: number;
+  exclude?: number;
+};
 
-  const response = await fetch(`${STRAPI_API}/products?${params.join('&')}`);
-  const { data } = (await response.json()) as StrapiResponse<StrapiProduct[]>;
+export async function getProducts(queries?: Queries) {
+  const filters: string[] = [];
 
-  if (!data) return [];
+  if (!queries) return await fetchProducts(filters);
 
-  const products = data.map(({ id, attributes }) => ({
-    id: id,
-    title: attributes.title,
-    description: attributes.description,
-    price: attributes.price,
-    discount: attributes.discount,
-    images: attributes.images.data.map(
-      (image) => STRAPI_URL + image.attributes.url
-    ),
-    imageAlt: attributes.images.data[0].attributes.alternativeText,
-    category: attributes.category.data.attributes.slug,
-    slug: attributes.slug,
-  }));
-  return products;
-}
+  const { category, discount, limit, exclude } = queries;
 
-export async function getOtherProducts(id: number, limit?: number) {
-  const params = ['populate=*', `filters[id][$ne]=${id}`];
-  if (limit) params.push(`pagination[limit]=${limit}`);
+  if (category) filters.push(`filters[category][slug][$eq]=${category}`);
+  if (discount) filters.push('filters[discount][$gt]=0');
+  if (limit) filters.push(`pagination[limit]=${limit}`);
+  if (exclude) filters.push(`filters[id][$ne]=${exclude}`);
 
-  const response = await fetch(`${STRAPI_API}/products?${params.join('&')}`);
-  const { data } = (await response.json()) as StrapiResponse<StrapiProduct[]>;
-
-  if (!data) return [];
-
-  const products = data.map(({ id, attributes }) => ({
-    id: id,
-    title: attributes.title,
-    description: attributes.description,
-    price: attributes.price,
-    discount: attributes.discount,
-    images: attributes.images.data.map(
-      (image) => (isProduction ? '' : STRAPI_URL) + image.attributes.url
-    ),
-    imageAlt: attributes.images.data[0].attributes.alternativeText,
-    category: attributes.category.data.attributes.slug,
-    slug: attributes.slug,
-  }));
-  return products;
+  return await fetchProducts(filters);
 }

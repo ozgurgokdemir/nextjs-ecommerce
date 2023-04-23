@@ -1,5 +1,5 @@
 import type { GetStaticProps } from 'next';
-import type { Product } from '@/lib/types';
+import type { Product, Image as ImageType } from '@/lib/types';
 import { Fragment } from 'react';
 import Image from 'next/image';
 import { ArrowLongRightIcon } from '@heroicons/react/24/outline';
@@ -19,10 +19,7 @@ import { useUIStore } from '@/lib/store';
 type Props = {
   title: string;
   subtitle: string;
-  image: {
-    url: string;
-    alternativeText: string;
-  };
+  image: ImageType;
   products: Product[];
 };
 
@@ -87,21 +84,23 @@ export default function Home(props: Props) {
           subtitle="On every second order"
         />
       </section>
-      <section className="flex flex-col gap-4 py-8 sm:container sm:gap-6 sm:py-16">
-        <h2 className="px-6 font-secondary text-heading-2xl sm:px-0 sm:text-heading-3xl">
-          Hot Sales
-        </h2>
-        <ul className="grid grid-cols-1 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
-          {products.map((product) => (
-            <li
-              className="shadow-stroke-b last:shadow-none sm:shadow-none"
-              key={product.id}
-            >
-              <ProductCard product={product} />
-            </li>
-          ))}
-        </ul>
-      </section>
+      {products.length > 0 && (
+        <section className="flex flex-col gap-4 py-8 sm:container sm:gap-6 sm:py-16">
+          <h2 className="px-6 font-secondary text-heading-2xl sm:px-0 sm:text-heading-3xl">
+            Hot Sales
+          </h2>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
+            {products.map((product) => (
+              <li
+                className="shadow-stroke-b last:shadow-none sm:shadow-none"
+                key={product.id}
+              >
+                <ProductCard product={product} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
       <section className="px-6 py-8 bg-white transition-colors sm:py-16 sm:bg-slate-50">
         <ContactForm />
       </section>
@@ -113,6 +112,7 @@ Home.PageLayout = IndexLayout;
 
 export const getStaticProps: GetStaticProps = async () => {
   const homePageData = await strapi.getHomePageData();
-  const products = await strapi.getProducts(undefined, true);
+  const products = await strapi.getProducts({ discount: true, limit: 4 });
+  if (!homePageData || !products) return { notFound: true };
   return { props: { ...homePageData, products }, revalidate: 3600 };
 };

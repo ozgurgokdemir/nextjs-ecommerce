@@ -16,8 +16,7 @@ type WishlistItemProps = {
 
 export default function WishlistItem(props: WishlistItemProps) {
   const { product, onDelete, onAddToCart, className } = props;
-  const { id, title, price, discount, images, imageAlt, category, slug } =
-    product;
+  const { id, title, price, discount, images, category, slug } = product;
 
   const preventRouting = (event: MouseEvent, callback: () => void) => {
     event.preventDefault();
@@ -40,8 +39,8 @@ export default function WishlistItem(props: WishlistItemProps) {
       >
         <Image
           className="w-24 h-24 rounded-lg object-cover"
-          src={images[0]}
-          alt={imageAlt}
+          src={images[0].url}
+          alt={images[0].alternativeText}
           width={96}
           height={96}
         />

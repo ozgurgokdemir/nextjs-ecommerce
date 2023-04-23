@@ -14,7 +14,7 @@ type ProductCardProps = {
 };
 
 export default function ProductCard({ product, className }: ProductCardProps) {
-  const { title, price, discount, images, imageAlt, category, slug } = product;
+  const { title, price, discount, images, category, slug } = product;
 
   const { addToCart } = useCartStore();
 
@@ -40,8 +40,8 @@ export default function ProductCard({ product, className }: ProductCardProps) {
     >
       <Image
         className="w-24 h-24 rounded-lg object-cover sm:w-full sm:h-auto sm:rounded-none sm:aspect-4/3"
-        src={images[0]}
-        alt={imageAlt}
+        src={images[0].url}
+        alt={images[0].alternativeText}
         width={290}
         height={290}
       />

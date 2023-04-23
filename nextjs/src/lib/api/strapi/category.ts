@@ -1,32 +1,23 @@
-type StrapiResponse<T> = { data: T };
-type StrapiData<T> = { id: number; attributes: T };
+import type { StrapiResponse, StrapiData, Image } from '@/lib/types';
+import { formatImage } from '@/lib/utils';
 
-type StrapiImage = StrapiResponse<
-  StrapiData<{ url: string; alternativeText: string }>
->;
+type StrapiImage = StrapiResponse<StrapiData<Image>>;
+
 type StrapiCategory = StrapiResponse<
   StrapiData<{ title: string; slug: string; image: StrapiImage }>[]
 >;
 
-const isProduction = process.env.NODE_ENV === 'production';
-const STRAPI_URL = process.env.STRAPI_URL;
-const STRAPI_API = STRAPI_URL + '/api';
-
 export async function getCategories() {
-  const response = await fetch(`${STRAPI_API}/categories?populate=*`);
+  const url = `${process.env.STRAPI_URL}/api/categories?populate=*`;
+  const response = await fetch(url);
   const { data } = (await response.json()) as StrapiCategory;
 
-  if (!data) return [];
+  if (!data) return null;
 
-  const categories = data.map(({ id, attributes }) => ({
+  return data.map(({ id, attributes }) => ({
     id: id,
     title: attributes.title,
-    image: {
-      url:
-        (isProduction ? '' : STRAPI_URL) + attributes.image.data.attributes.url,
-      alternativeText: attributes.image.data.attributes.alternativeText,
-    },
+    image: formatImage(attributes.image.data.attributes),
     slug: attributes.slug,
   }));
-  return categories;
 }

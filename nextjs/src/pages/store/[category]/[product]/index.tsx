@@ -20,7 +20,7 @@ type Props = {
 };
 
 export default function Product({ product, otherProducts }: Props) {
-  const { title, description, price, discount, images, imageAlt } = product;
+  const { title, description, price, discount, images } = product;
 
   const [displayedImage, setDisplayedImage] = useState(images[0]);
 
@@ -40,8 +40,8 @@ export default function Product({ product, otherProducts }: Props) {
           <div>
             <Image
               className="w-full aspect-4/3 rounded-lg object-cover"
-              src={displayedImage}
-              alt={imageAlt}
+              src={displayedImage.url}
+              alt={displayedImage.alternativeText}
               width={604}
               height={453}
               priority={true}
@@ -52,11 +52,11 @@ export default function Product({ product, otherProducts }: Props) {
               <Image
                 className={clsx(
                   'w-full aspect-4/3 rounded-lg object-cover cursor-pointer',
-                  displayedImage !== image && 'opacity-50'
+                  displayedImage.url !== image.url && 'opacity-50'
                 )}
                 key={i}
-                src={image}
-                alt={imageAlt}
+                src={image.url}
+                alt={image.alternativeText}
                 width={604}
                 height={453}
                 priority={true}
@@ -102,21 +102,23 @@ export default function Product({ product, otherProducts }: Props) {
           </div>
         </div>
       </section>
-      <section className="pt-12 flex flex-col sm:container sm:gap-6 sm:py-16">
-        <h2 className="px-6 font-secondary text-heading-2xl sm:px-0 sm:text-heading-3xl">
-          Other Products
-        </h2>
-        <ul className="grid grid-cols-1 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
-          {otherProducts.map((product) => (
-            <li
-              className="shadow-stroke-b last:shadow-none sm:shadow-none"
-              key={product.id}
-            >
-              <ProductCard product={product} />
-            </li>
-          ))}
-        </ul>
-      </section>
+      {otherProducts.length > 0 && (
+        <section className="pt-12 flex flex-col sm:container sm:gap-6 sm:py-16">
+          <h2 className="px-6 font-secondary text-heading-2xl sm:px-0 sm:text-heading-3xl">
+            Other Products
+          </h2>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
+            {otherProducts.map((product) => (
+              <li
+                className="shadow-stroke-b last:shadow-none sm:shadow-none"
+                key={product.id}
+              >
+                <ProductCard product={product} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </Fragment>
   );
 }
@@ -125,15 +127,22 @@ Product.PageLayout = ProductLayout;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const products = await strapi.getProducts();
+  if (!products) return { paths: [], fallback: 'blocking' };
+
   const paths = products.map(({ category, slug }) => ({
     params: { category, product: slug },
   }));
-  return { paths, fallback: false };
+
+  return { paths, fallback: 'blocking' };
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { product: slug } = context.params as { product: string };
   const product = await strapi.getProduct(slug);
-  const otherProducts = await strapi.getOtherProducts(product.id, 4);
+  if (!product) return { notFound: true };
+
+  const otherProductsQuery = { exclude: product.id, limit: 4 };
+  const otherProducts = await strapi.getProducts(otherProductsQuery);
+
   return { props: { product, otherProducts }, revalidate: 3600 };
 };

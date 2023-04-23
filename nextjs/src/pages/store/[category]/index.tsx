@@ -30,12 +30,14 @@ Category.PageLayout = StoreLayout;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const categories = await strapi.getCategories();
+  if (!categories) return { paths: [], fallback: 'blocking' };
   const paths = categories.map(({ slug }) => ({ params: { category: slug } }));
-  return { paths, fallback: false };
+  return { paths, fallback: 'blocking' };
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { category } = context.params as { category: string };
-  const products = await strapi.getProducts(category);
+  const products = await strapi.getProducts({ category });
+  if (!products) return { notFound: true };
   return { props: { title: category, products }, revalidate: 3600 };
 };
