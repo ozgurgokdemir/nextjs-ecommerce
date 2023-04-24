@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 import type { Product } from '@/lib/types';
-import { Fragment } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronLeftIcon, HeartIcon } from '@heroicons/react/24/outline';
 import { Footer, Header, CartActionBar, StoreNav } from '@/components/common';
@@ -14,6 +14,10 @@ export default function ProductLayout({ children }: ProductLayoutProps) {
   const { product } = children.props;
 
   const { cartItems, addToCart, removeFromCart } = useCartStore();
+
+  const [isHydrated, setIsHydrated] = useState(false);
+  useEffect(() => setIsHydrated(true), []);
+  if (!isHydrated) return null;
 
   const productIndex = cartItems.findIndex((item) => item.id === product.id);
   const isProductAdded = productIndex !== -1;
