@@ -10,12 +10,24 @@ type StrapiHomePage = StrapiData<{
 }>;
 
 export async function getHomePageData() {
-  const url = `${process.env.STRAPI_URL}/api/home-page?populate=*`;
-  const response = await fetch(url);
-  const { data } = (await response.json()) as StrapiResponse<StrapiHomePage>;
+  try {
+    const url = `${process.env.STRAPI_URL}/api/home-page?populate=*`;
+    const response = await fetch(url);
 
-  if (!data) return { title: null, subtitle: null, image: null };
+    if (!response.ok) {
+      throw new Error(`${response.status} ${response.statusText}`);
+    }
 
-  const { title, subtitle, image } = data.attributes;
-  return { title, subtitle, image: formatImage(image.data.attributes) };
+    const data = (await response.json()) as StrapiResponse<StrapiHomePage>;
+
+    if (!data?.data?.attributes) {
+      throw new Error('Expected data was not found');
+    }
+
+    const { title, subtitle, image } = data.data.attributes;
+    return { title, subtitle, image: formatImage(image.data.attributes) };
+  } catch (error) {
+    console.error('Error fetching homepage data:', error);
+    return { title: null, subtitle: null, image: null };
+  }
 }
