@@ -6,7 +6,8 @@ import {
   ArrowLeftOnRectangleIcon,
   ArrowRightOnRectangleIcon,
 } from '@heroicons/react/24/solid';
-import { Button, IconButton, ListItem } from '@/components/ui';
+import { clsx } from 'clsx';
+import { Button, IconButton, MenuItem } from '@/components/ui';
 import { useUIStore } from '@/lib/store';
 import { useAuth } from '@/lib/hooks';
 
@@ -48,14 +49,39 @@ export default function UserMenu() {
                 exit="hidden"
                 variants={variants}
               >
+                <Menu.Item disabled={!isAuthenticated}>
+                  {({ active, disabled }) => (
+                    <li
+                      className={clsx(
+                        'shadow-stroke-b bg-white transition-colors',
+                        active && 'bg-slate-50'
+                      )}
+                    >
+                      <MenuItem text="Account" disabled={disabled} />
+                    </li>
+                  )}
+                </Menu.Item>
+                <Menu.Item disabled={!isAuthenticated}>
+                  {({ active, disabled }) => (
+                    <li
+                      className={clsx(
+                        'shadow-stroke-b bg-white transition-colors',
+                        active && 'bg-slate-50'
+                      )}
+                    >
+                      <MenuItem text="Favourites" disabled={disabled} />
+                    </li>
+                  )}
+                </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
-                    <li className="shadow-stroke-b bg-white hover:bg-slate-50 transition-colors">
-                      <ListItem.Content
-                        className={active ? 'bg-slate-50' : ''}
-                        href=""
-                        text="Preferences"
-                      />
+                    <li
+                      className={clsx(
+                        'shadow-stroke-b bg-white transition-colors',
+                        active && 'bg-slate-50'
+                      )}
+                    >
+                      <MenuItem text="Preferences" />
                     </li>
                   )}
                 </Menu.Item>
