@@ -42,8 +42,10 @@ export default function ProductCard({ product, className }: ProductCardProps) {
         className="w-24 h-24 rounded-lg object-cover sm:w-full sm:h-auto sm:rounded-none sm:aspect-4/3"
         src={images[0].url}
         alt={images[0].alternativeText}
-        width={290}
-        height={290}
+        width={images[0].width}
+        height={images[0].height}
+        blurDataURL={images[0].blurDataURL}
+        placeholder="blur"
       />
       <div className="flex-1 flex flex-col justify-between sm:flex-none sm:gap-3 sm:p-6 sm:justify-start">
         <h5 className="text-label-lg-500 sm:text-label-xl-500">{title}</h5>

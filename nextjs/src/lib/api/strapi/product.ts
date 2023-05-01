@@ -14,13 +14,15 @@ type StrapiProduct = StrapiData<
   }
 >;
 
-const formatProduct = ({ id, attributes }: StrapiProduct) => ({
+const formatProduct = async ({ id, attributes }: StrapiProduct) => ({
   id: id,
   title: attributes.title,
   description: attributes.description,
   price: attributes.price,
   discount: attributes.discount,
-  images: attributes.images.data.map((image) => formatImage(image.attributes)),
+  images: await Promise.all(
+    attributes.images.data.map((image) => formatImage(image.attributes))
+  ),
   category: attributes.category.data.attributes.slug,
   slug: attributes.slug,
 });
@@ -35,7 +37,7 @@ async function fetchProducts(filters: string[]) {
 
   if (!data) return null;
 
-  return data.map(formatProduct);
+  return Promise.all(data.map(formatProduct));
 }
 
 export async function getProduct(slug: string) {

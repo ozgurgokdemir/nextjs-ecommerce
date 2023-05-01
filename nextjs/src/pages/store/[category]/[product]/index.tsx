@@ -36,32 +36,40 @@ export default function Product({ product, otherProducts }: Props) {
   return (
     <Fragment>
       <section className="py-6 container flex flex-col gap-6 sm:gap-12 md:py-16 md:flex-row md:justify-between">
-        <div className="flex-1 max-w-[37.75rem] flex flex-col gap-4">
-          <div>
+        <div className="flex-1 max-w-[37rem] flex flex-col gap-4">
+          <div className="aspect-4/3 relative rounded-lg overflow-hidden">
             <Image
-              className="w-full aspect-4/3 rounded-lg object-cover"
+              className="w-full h-full object-cover"
               src={displayedImage.url}
               alt={displayedImage.alternativeText}
-              width={604}
-              height={453}
+              width={displayedImage.width}
+              height={displayedImage.height}
+              blurDataURL={displayedImage.blurDataURL}
+              placeholder="blur"
               priority={true}
             />
           </div>
           <div className="grid grid-cols-4 gap-4">
             {images.map((image, i) => (
-              <Image
+              <div
+                key={i}
                 className={clsx(
-                  'w-full aspect-4/3 rounded-lg object-cover cursor-pointer',
+                  'aspect-4/3 relative rounded-lg overflow-hidden cursor-pointer',
                   displayedImage.url !== image.url && 'opacity-50'
                 )}
-                key={i}
-                src={image.url}
-                alt={image.alternativeText}
-                width={604}
-                height={453}
-                priority={true}
                 onClick={setDisplayedImage.bind(null, image)}
-              />
+              >
+                <Image
+                  className="w-full h-full object-cover"
+                  src={image.url}
+                  alt={image.alternativeText}
+                  width={image.width}
+                  height={image.height}
+                  blurDataURL={image.blurDataURL}
+                  placeholder="blur"
+                  priority={true}
+                />
+              </div>
             ))}
           </div>
         </div>

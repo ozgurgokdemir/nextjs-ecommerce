@@ -14,10 +14,12 @@ export async function getCategories() {
 
   if (!data) return null;
 
-  return data.map(({ id, attributes }) => ({
-    id: id,
-    title: attributes.title,
-    image: formatImage(attributes.image.data.attributes),
-    slug: attributes.slug,
-  }));
+  return await Promise.all(
+    data.map(async ({ id, attributes }) => ({
+      id: id,
+      title: attributes.title,
+      image: await formatImage(attributes.image.data.attributes),
+      slug: attributes.slug,
+    }))
+  );
 }

@@ -25,9 +25,10 @@ export async function getHomePageData() {
     }
 
     const { title, subtitle, image } = data.data.attributes;
-    return { title, subtitle, image: formatImage(image.data.attributes) };
-  } catch (error) {
-    console.error('Error fetching homepage data:', error);
+
+    return { title, subtitle, image: await formatImage(image.data.attributes) };
+  } catch (error: unknown) {
+    console.error('Error fetching homepage data:', (error as Error).message);
     return { title: null, subtitle: null, image: null };
   }
 }

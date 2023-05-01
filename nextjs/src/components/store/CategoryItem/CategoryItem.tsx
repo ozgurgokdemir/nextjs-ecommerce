@@ -16,13 +16,17 @@ export default function CategoryItem({ category }: CategoryItemProps) {
       href={`/store/${slug}`}
     >
       <div className="flex items-center gap-6">
-        <Image
-          className="w-12 h-12 rounded-lg object-cover"
-          src={image.url}
-          alt={image.alternativeText}
-          width={48}
-          height={48}
-        />
+        <div className="w-12 h-12 relative rounded-lg overflow-hidden">
+          <Image
+            className="w-full h-full object-cover"
+            src={image.url}
+            alt={image.alternativeText}
+            width={image.width}
+            height={image.height}
+            blurDataURL={image.blurDataURL}
+            placeholder="blur"
+          />
+        </div>
         <span className="text-label-base-600">{title}</span>
       </div>
       <ChevronRightIcon className="h-5 text-slate-400" />

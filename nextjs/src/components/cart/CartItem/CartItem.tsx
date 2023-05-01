@@ -32,8 +32,10 @@ export default function CartItem({ item }: CartItemProps) {
           className="w-24 h-24 rounded-lg object-cover"
           src={images[0].url}
           alt={images[0].alternativeText}
-          width={96}
-          height={96}
+          width={images[0].width}
+          height={images[0].height}
+          blurDataURL={images[0].blurDataURL}
+          placeholder="blur"
         />
       </Link>
       <div className="flex-1 flex flex-col justify-center gap-6 text-label-base-600">
