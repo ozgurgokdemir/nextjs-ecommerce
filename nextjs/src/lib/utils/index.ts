@@ -1,1 +1,1 @@
-export * from './format-image';
+export * from './limit-image-size';

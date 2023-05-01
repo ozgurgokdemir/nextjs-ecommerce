@@ -1,7 +1,7 @@
 import type { Image } from '@/lib/types';
 import { getPlaiceholder } from 'plaiceholder';
 
-export async function formatImage(image: Image): Promise<Image> {
+async function formatImage(image: Image): Promise<Image> {
   const { url, alternativeText } = image;
 
   const isProduction = process.env.NODE_ENV === 'production';
@@ -21,3 +21,5 @@ export async function formatImage(image: Image): Promise<Image> {
     height: img.height,
   };
 }
+
+export default formatImage;

@@ -1,5 +1,5 @@
 import type { StrapiResponse, StrapiData, Product, Image } from '@/lib/types';
-import { formatImage } from '@/lib/utils';
+import formatImage from '@/lib/utils/format-image';
 
 type StrapiImages = StrapiResponse<StrapiData<Image>[]>;
 

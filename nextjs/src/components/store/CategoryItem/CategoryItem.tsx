@@ -2,6 +2,7 @@ import type { Category } from '@/lib/types';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
+import { limitImageSize } from '@/lib/utils';
 
 type CategoryItemProps = {
   category: Category;
@@ -21,8 +22,7 @@ export default function CategoryItem({ category }: CategoryItemProps) {
             className="w-full h-full object-cover"
             src={image.url}
             alt={image.alternativeText}
-            width={image.width}
-            height={image.height}
+            {...limitImageSize(image, 96)}
             blurDataURL={image.blurDataURL}
             placeholder="blur"
           />

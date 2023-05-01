@@ -13,6 +13,7 @@ import { ProductCard } from '@/components/product';
 import { Button, IconButton } from '@/components/ui';
 import { useCartStore } from '@/lib/store';
 import { strapi } from '@/lib/api';
+import { limitImageSize } from '@/lib/utils';
 
 type Props = {
   product: Product;
@@ -42,8 +43,7 @@ export default function Product({ product, otherProducts }: Props) {
               className="w-full h-full object-cover"
               src={displayedImage.url}
               alt={displayedImage.alternativeText}
-              width={displayedImage.width}
-              height={displayedImage.height}
+              {...limitImageSize(displayedImage, 592)}
               blurDataURL={displayedImage.blurDataURL}
               placeholder="blur"
               priority={true}
@@ -63,8 +63,7 @@ export default function Product({ product, otherProducts }: Props) {
                   className="w-full h-full object-cover"
                   src={image.url}
                   alt={image.alternativeText}
-                  width={image.width}
-                  height={image.height}
+                  {...limitImageSize(image, 592)}
                   blurDataURL={image.blurDataURL}
                   placeholder="blur"
                   priority={true}

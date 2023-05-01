@@ -7,6 +7,7 @@ import { clsx } from 'clsx';
 import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/24/solid';
 import { IconButton } from '@/components/ui';
 import { useCartStore } from '@/lib/store';
+import { limitImageSize } from '@/lib/utils';
 
 type ProductCardProps = {
   product: Product;
@@ -42,8 +43,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
         className="w-24 h-24 rounded-lg object-cover sm:w-full sm:h-auto sm:rounded-none sm:aspect-4/3"
         src={images[0].url}
         alt={images[0].alternativeText}
-        width={images[0].width}
-        height={images[0].height}
+        {...limitImageSize(images[0], 290)}
         blurDataURL={images[0].blurDataURL}
         placeholder="blur"
       />

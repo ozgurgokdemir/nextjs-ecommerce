@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { PlusIcon, MinusIcon } from '@heroicons/react/24/solid';
 import { IconButton } from '@/components/ui';
 import { useCartStore } from '@/lib/store';
+import { limitImageSize } from '@/lib/utils';
 
 type CartItem = Product & { quantity: number };
 
@@ -32,8 +33,7 @@ export default function CartItem({ item }: CartItemProps) {
           className="w-24 h-24 rounded-lg object-cover"
           src={images[0].url}
           alt={images[0].alternativeText}
-          width={images[0].width}
-          height={images[0].height}
+          {...limitImageSize(images[0], 96)}
           blurDataURL={images[0].blurDataURL}
           placeholder="blur"
         />
