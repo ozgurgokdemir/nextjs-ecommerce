@@ -1,6 +1,6 @@
 import type { GetStaticProps, GetStaticPaths } from 'next';
 import type { Product } from '@/lib/types';
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { clsx } from 'clsx';
 import {
@@ -8,6 +8,7 @@ import {
   ShoppingCartIcon,
   TrashIcon,
 } from '@heroicons/react/24/solid';
+import { motion } from 'framer-motion';
 import { ProductLayout } from '@/components/layout';
 import { ProductCard } from '@/components/product';
 import { Button, IconButton } from '@/components/ui';
@@ -23,7 +24,10 @@ type Props = {
 export default function Product({ product, otherProducts }: Props) {
   const { title, description, price, discount, images } = product;
 
-  const [displayedImage, setDisplayedImage] = useState(images[0]);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [carouselWidth, setCarouselWidth] = useState<number>(0);
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const { cartItems, addToCart, removeFromCart } = useCartStore();
 
@@ -34,41 +38,82 @@ export default function Product({ product, otherProducts }: Props) {
   const newPrice = Math.trunc(price - discountAmount);
   const oldPrice = Math.trunc(price);
 
+  useEffect(() => {
+    const { offsetWidth } = carouselRef.current ?? {};
+    if (offsetWidth) setCarouselWidth(offsetWidth);
+  }, []);
+
+  function handleSwipe(swipeDistance: number) {
+    const swipeThreshold = carouselWidth / 4;
+    if (Math.abs(swipeDistance) < swipeThreshold) return;
+
+    const direction = swipeDistance > 0 ? -1 : 1;
+    const nextIndex = currentImageIndex + direction;
+
+    if (nextIndex < 0 || nextIndex > images.length - 1) return;
+    setCurrentImageIndex(nextIndex);
+  }
+
   return (
     <Fragment>
       <section className="py-6 container flex flex-col gap-6 sm:gap-12 md:py-16 md:flex-row md:justify-between">
         <div className="flex-1 max-w-[37rem] flex flex-col gap-4">
-          <div className="aspect-4/3 relative rounded-lg overflow-hidden">
-            <Image
-              className="w-full h-full object-cover"
-              src={displayedImage.url}
-              alt={displayedImage.alternativeText}
-              {...limitImageSize(displayedImage, 592)}
-              blurDataURL={displayedImage.blurDataURL}
-              placeholder="blur"
-              priority={true}
-            />
-          </div>
+          <motion.div className="aspect-4/3 rounded-lg overflow-hidden">
+            <motion.div
+              ref={carouselRef}
+              className="w-full h-full flex cursor-grab"
+              animate={{ x: `-${currentImageIndex * 100}%` }}
+              transition={{ ease: 'easeOut', duration: 0.3 }}
+              drag="x"
+              dragConstraints={{
+                left: -currentImageIndex * carouselWidth,
+                right: -currentImageIndex * carouselWidth,
+              }}
+              dragMomentum={false}
+              whileTap={{ cursor: 'grabbing' }}
+              onDragEnd={(_, { offset }) => handleSwipe(offset.x)}
+            >
+              {images.map((image, index) => (
+                <motion.div
+                  key={index}
+                  className="min-w-full min-h-full first:rounded-l-lg last:rounded-r-lg overflow-hidden"
+                >
+                  <Image
+                    className="w-full h-full object-cover"
+                    src={image.url}
+                    alt={image.alternativeText}
+                    {...limitImageSize(image, 592)}
+                    blurDataURL={image.blurDataURL}
+                    placeholder="blur"
+                    priority={true}
+                    draggable={false}
+                  />
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
           <div className="grid grid-cols-4 gap-4">
-            {images.map((image, i) => (
-              <div
-                key={i}
+            {images.map((image, index) => (
+              <button
+                key={index}
                 className={clsx(
-                  'aspect-4/3 relative rounded-lg overflow-hidden cursor-pointer',
-                  displayedImage.url !== image.url && 'opacity-50'
+                  'aspect-4/3 rounded-lg overflow-hidden transition-opacity duration-300',
+                  index !== currentImageIndex && 'opacity-50'
                 )}
-                onClick={setDisplayedImage.bind(null, image)}
+                type="button"
+                onClick={setCurrentImageIndex.bind(null, index)}
               >
                 <Image
                   className="w-full h-full object-cover"
                   src={image.url}
-                  alt={image.alternativeText}
+                  alt={`Image ${index + 1}`}
                   {...limitImageSize(image, 592)}
                   blurDataURL={image.blurDataURL}
                   placeholder="blur"
                   priority={true}
+                  draggable={false}
                 />
-              </div>
+              </button>
             ))}
           </div>
         </div>
