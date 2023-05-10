@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Fragment } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ShoppingBagIcon } from '@heroicons/react/24/solid';
 import {
@@ -19,6 +19,10 @@ type CartLayoutProps = { children: ReactNode };
 
 export default function ProductLayout({ children }: CartLayoutProps) {
   const { totalPrice } = useCartStore();
+
+  const [isHydrated, setIsHydrated] = useState(false);
+  useEffect(() => setIsHydrated(true), []);
+  if (!isHydrated) return null;
 
   function handleCheckout() {
     // Checkout Action
