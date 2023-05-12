@@ -1,8 +1,9 @@
 import '@/styles/globals.css';
-import { ReactElement, ReactNode } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import type { Session } from 'next-auth';
+import { useState, useEffect } from 'react';
 import { Inter, Poppins } from 'next/font/google';
 import { SessionProvider } from 'next-auth/react';
 import { AnimatePresence } from 'framer-motion';
@@ -45,6 +46,10 @@ export default function App(props: AppPropsWithLayout) {
     pageProps: { session, ...pageProps },
     router,
   } = props;
+
+  const [isHydrated, setIsHydrated] = useState(false);
+  useEffect(() => setIsHydrated(true), []);
+  if (!isHydrated) return null;
 
   return (
     <SessionProvider session={session}>
