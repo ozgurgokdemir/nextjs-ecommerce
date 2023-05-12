@@ -8,7 +8,7 @@ import {
   ShoppingCartIcon,
   TrashIcon,
 } from '@heroicons/react/24/solid';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { ProductLayout } from '@/components/layout';
 import { ProductCard } from '@/components/product';
 import { Button, IconButton } from '@/components/ui';
@@ -19,6 +19,17 @@ import { limitImageSize } from '@/lib/utils';
 type Props = {
   product: Product;
   otherProducts: Product[];
+};
+
+const variants = {
+  hidden: {
+    opacity: 0,
+    transition: { ease: 'easeIn', duration: 0.2 },
+  },
+  show: {
+    opacity: 1,
+    transition: { ease: 'easeOut', duration: 0.3 },
+  },
 };
 
 export default function Product({ product, otherProducts }: Props) {
@@ -139,17 +150,28 @@ export default function Product({ product, otherProducts }: Props) {
             </div>
             <div className="hidden sm:flex gap-4">
               <IconButton icon={HeartIcon} size="large" />
-              <Button
-                className="flex-1"
-                text={isProductAdded ? 'Remove' : 'Add to Cart'}
-                icon={isProductAdded ? TrashIcon : ShoppingCartIcon}
-                variant={isProductAdded ? 'secondary' : 'primary'}
-                onClick={
-                  isProductAdded
-                    ? removeFromCart.bind(null, product.id)
-                    : addToCart.bind(null, product, 1)
-                }
-              />
+              <AnimatePresence initial={false} mode="popLayout">
+                <motion.div
+                  key={isProductAdded ? 'remove' : 'add'}
+                  initial="hidden"
+                  animate="show"
+                  exit="hidden"
+                  variants={variants}
+                  className="flex-1"
+                >
+                  <Button
+                    className="w-full"
+                    text={isProductAdded ? 'Remove' : 'Add to Cart'}
+                    icon={isProductAdded ? TrashIcon : ShoppingCartIcon}
+                    variant={isProductAdded ? 'secondary' : 'primary'}
+                    onClick={
+                      isProductAdded
+                        ? removeFromCart.bind(null, product.id)
+                        : addToCart.bind(null, product, 1)
+                    }
+                  />
+                </motion.div>
+              </AnimatePresence>
             </div>
           </div>
         </div>

@@ -17,7 +17,10 @@ type ProductCardProps = {
 export default function ProductCard({ product, className }: ProductCardProps) {
   const { title, price, discount, images, category, slug } = product;
 
-  const { addToCart } = useCartStore();
+  const { cartItems, addToCart, removeFromCart } = useCartStore();
+
+  const productIndex = cartItems.findIndex((item) => item.id === product.id);
+  const isProductAdded = productIndex !== -1;
 
   const discountAmount = price * (discount / 100);
   const newPrice = Math.trunc(price - discountAmount);
@@ -61,9 +64,16 @@ export default function ProductCard({ product, className }: ProductCardProps) {
         <div className="flex gap-3 sm:hidden">
           <IconButton className="flex-1" icon={HeartIcon} />
           <IconButton
-            className="flex-1"
+            className={clsx('flex-1', isProductAdded && 'text-blue-400')}
             icon={ShoppingCartIcon}
-            onClick={(e) => preventRouting(e, addToCart.bind(null, product, 1))}
+            onClick={(e) =>
+              preventRouting(
+                e,
+                isProductAdded
+                  ? removeFromCart.bind(null, product.id)
+                  : addToCart.bind(null, product, 1)
+              )
+            }
           />
         </div>
       </div>
