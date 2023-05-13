@@ -14,6 +14,7 @@ import {
   HeartIcon as HeartIconSolid,
   UserIcon as UserIconSolid,
 } from '@heroicons/react/24/solid';
+import { CartCounter } from '@/components/cart';
 
 export default function NavBar() {
   const { pathname } = useRouter();
@@ -38,7 +39,7 @@ export default function NavBar() {
         )}
       </Link>
       <Link
-        className="h-full flex-1 flex items-center justify-center"
+        className="h-full relative flex-1 flex items-center justify-center"
         href="/cart"
       >
         {pathname.startsWith('/cart') ? (
@@ -46,6 +47,7 @@ export default function NavBar() {
         ) : (
           <ShoppingCartIconOutline className="h-6" />
         )}
+        <CartCounter className="top-3 right-[calc(50%_-_1.5rem)]" />
       </Link>
       <Link
         className="h-full flex-1 flex items-center justify-center"

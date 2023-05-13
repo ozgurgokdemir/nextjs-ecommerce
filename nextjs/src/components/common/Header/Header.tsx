@@ -4,11 +4,9 @@ import Link from 'next/link';
 import {
   ShoppingBagIcon,
   MagnifyingGlassIcon,
-  ShoppingCartIcon,
 } from '@heroicons/react/24/solid';
-import { IconButton, UserMenu } from '@/components/ui';
-import { CartModal } from '@/components/cart';
-import { useCartStore } from '@/lib/store';
+import { UserMenu } from '@/components/ui';
+import { CartButton, CartModal } from '@/components/cart';
 import { AuthModal } from '@/components/auth';
 
 type Navigation = {
@@ -50,8 +48,6 @@ export default function Header(props: HeaderProps) {
   const { nav, cta, label, children } = props;
   const { icon: NavIcon, url, navigateBack } = nav;
 
-  const { openCart } = useCartStore();
-
   const router = useRouter();
 
   const handleNavigation = () => {
@@ -82,7 +78,7 @@ export default function Header(props: HeaderProps) {
             <p className="text-label-base-600">Search</p>
             <MagnifyingGlassIcon className="h-6" />
           </button>
-          <IconButton icon={ShoppingCartIcon} size="large" onClick={openCart} />
+          <CartButton />
           <CartModal />
           <UserMenu />
           <AuthModal />

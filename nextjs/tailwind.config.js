@@ -52,6 +52,17 @@ module.exports = {
         padding: '1.5rem',
         screens: containerScreens,
       },
+      animation: {
+        'subtle-ping': 'subtle-ping 5s cubic-bezier(0, 0, 0.2, 1) infinite',
+      },
+      keyframes: {
+        'subtle-ping': {
+          '20%, 100%': {
+            transform: 'scale(1.5)',
+            opacity: '0',
+          },
+        },
+      },
     },
   },
   plugins: [],
