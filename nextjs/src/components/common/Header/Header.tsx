@@ -6,6 +6,7 @@ import {
   MagnifyingGlassIcon,
 } from '@heroicons/react/24/solid';
 import { UserMenu } from '@/components/ui';
+import { SearchModal } from '@/components/search';
 import { CartButton, CartModal } from '@/components/cart';
 import { AuthModal } from '@/components/auth';
 
@@ -64,6 +65,7 @@ export default function Header(props: HeaderProps) {
         {children}
         {!children && <span className="text-label-base-600">{label}</span>}
         {!children && <CTA cta={cta} />}
+        <SearchModal />
       </div>
       <div className="h-24 container hidden sm:flex items-center justify-between">
         <Link className="flex gap-3" href="/">
@@ -78,6 +80,7 @@ export default function Header(props: HeaderProps) {
             <p className="text-label-base-600">Search</p>
             <MagnifyingGlassIcon className="h-6" />
           </button>
+          {/* <SearchModal /> */}
           <CartButton />
           <CartModal />
           <UserMenu />

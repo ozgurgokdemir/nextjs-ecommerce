@@ -6,15 +6,18 @@ import {
   MagnifyingGlassIcon,
 } from '@heroicons/react/24/solid';
 import { Footer, Header, NavBar, StoreNav } from '@/components/common';
+import { useUIStore } from '@/lib/store';
 
 type IndexLayoutProps = { children: ReactNode };
 
 export default function IndexLayout({ children }: IndexLayoutProps) {
+  const { openSearchModal } = useUIStore();
+
   return (
     <Fragment>
       <Header
         nav={{ icon: ShoppingBagIcon, url: '/' }}
-        cta={{ icon: MagnifyingGlassIcon, onClick: () => undefined }}
+        cta={{ icon: MagnifyingGlassIcon, onClick: openSearchModal }}
       />
       <StoreNav />
       <motion.main
