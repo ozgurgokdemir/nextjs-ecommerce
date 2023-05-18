@@ -66,8 +66,18 @@ module.exports = {
     },
   },
   plugins: [
-    require('tailwindcss/plugin')(({ addVariant }) => {
+    require('tailwindcss/plugin')(({ addVariant, matchUtilities, theme }) => {
       addVariant('search-cancel', '&::-webkit-search-cancel-button');
+      matchUtilities(
+        {
+          'block-start': (value) => ({ insetBlockStart: value }),
+          'block-end': (value) => ({ insetBlockEnd: value }),
+        },
+        {
+          supportsNegativeValues: true,
+          values: theme('inset'),
+        }
+      );
     }),
   ],
 };

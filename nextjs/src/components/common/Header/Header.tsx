@@ -1,12 +1,9 @@
 import type { ReactNode, ComponentType, SVGProps } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import {
-  ShoppingBagIcon,
-  MagnifyingGlassIcon,
-} from '@heroicons/react/24/solid';
+import { ShoppingBagIcon } from '@heroicons/react/24/solid';
 import { UserMenu } from '@/components/ui';
-import { SearchModal } from '@/components/search';
+import { SearchButton, SearchModal } from '@/components/search';
 import { CartButton, CartModal } from '@/components/cart';
 import { AuthModal } from '@/components/auth';
 
@@ -65,7 +62,6 @@ export default function Header(props: HeaderProps) {
         {children}
         {!children && <span className="text-label-base-600">{label}</span>}
         {!children && <CTA cta={cta} />}
-        <SearchModal />
       </div>
       <div className="h-24 container hidden sm:flex items-center justify-between">
         <Link className="flex gap-3" href="/">
@@ -73,14 +69,8 @@ export default function Header(props: HeaderProps) {
           <span className="font-secondary text-heading-2xl">eCommerce</span>
         </Link>
         <nav className="flex gap-4" role="navigation" aria-label="Primary">
-          <button
-            type="button"
-            className="w-60 h-12 rounded-lg flex items-center justify-between px-3 text-slate-400 bg-slate-100 hover:bg-slate-50 transition-colors"
-          >
-            <p className="text-label-base-600">Search</p>
-            <MagnifyingGlassIcon className="h-6" />
-          </button>
-          {/* <SearchModal /> */}
+          <SearchButton />
+          <SearchModal />
           <CartButton />
           <CartModal />
           <UserMenu />
