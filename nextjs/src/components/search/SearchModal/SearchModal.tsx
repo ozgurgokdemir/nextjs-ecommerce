@@ -16,6 +16,8 @@ import { ListItem } from '@/components/ui';
 import { useUIStore } from '@/lib/store';
 import { usePortal } from '@/lib/hooks';
 
+type SearchResult = Pick<Product, 'id' | 'title' | 'slug' | 'category'>;
+
 const DUMMY_CATEGORIES: Pick<Category, 'title' | 'slug'>[] = [
   { title: 'Laptop', slug: 'laptop' },
   { title: 'Smartphone', slug: 'smartphone' },
@@ -32,7 +34,7 @@ export default function SearchModal() {
 
   const [searchQuery, setSearchQuery] = useState('');
 
-  const [searchResults, setSearchResults] = useState<Product[] | null>([]);
+  const [searchResults, setSearchResults] = useState<SearchResult[] | null>();
 
   const modalRef = useRef<HTMLDialogElement>(null);
 
@@ -54,16 +56,30 @@ export default function SearchModal() {
     }
   }, [isSearchModalOpen]);
 
+  useEffect(() => {
+    const query = searchQuery.trim().toLowerCase();
+
+    if (!query) return setSearchResults(undefined);
+
+    const timeoutId = setTimeout(() => void search(query), 500);
+
+    return () => clearTimeout(timeoutId);
+  }, [searchQuery]);
+
   useEffect(() => closeSearchModal, [closeSearchModal]);
 
-  const search = (query: string) => {
-    console.log(query);
+  const search = async (query: string) => {
+    const response = await fetch('/api/search', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(query),
+    });
 
-    // request data by search query
-    // ...
+    if (!response.ok) return setSearchResults(null);
 
-    // update the state with response data
-    // setSearchResults(data)
+    const searchResults = (await response.json()) as SearchResult[];
+
+    setSearchResults(searchResults);
   };
 
   const handleCancel = () => {
@@ -95,8 +111,6 @@ export default function SearchModal() {
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     setSearchQuery(event.target.value);
-
-    search(event.target.value);
   };
 
   return (
@@ -110,7 +124,7 @@ export default function SearchModal() {
             exit="hidden"
             variants={variants}
             onClick={handleClick}
-            className="w-full max-w-full h-full max-h-full m-0 p-0 block-start-auto block-end-auto bg-white backdrop:bg-black/30"
+            className="w-full max-w-full h-full max-h-full m-0 p-0 block-start-auto block-end-auto font-primary bg-white backdrop:bg-black/30"
           >
             <div className="w-full h-full flex flex-col">
               <div className="flex items-center shadow-stroke-b">
@@ -150,17 +164,7 @@ export default function SearchModal() {
                   </button>
                 </form>
               </div>
-              {searchResults && searchResults.length > 0 ? (
-                <ul>
-                  {searchResults.map((result) => (
-                    <ListItem
-                      key={result.id}
-                      href={`/store/${result.category}/${result.slug}`}
-                      text={result.title}
-                    />
-                  ))}
-                </ul>
-              ) : searchResults && searchResults.length === 0 ? (
+              {searchResults === undefined ? (
                 <ul>
                   {DUMMY_CATEGORIES.map((category) => (
                     <ListItem
@@ -170,12 +174,24 @@ export default function SearchModal() {
                     />
                   ))}
                 </ul>
+              ) : searchResults === null ? (
+                <p className="mt-36 text-body-sm-400 text-center text-slate-600">
+                  Something went wrong.
+                </p>
+              ) : searchResults.length > 0 ? (
+                <ul>
+                  {searchResults.map((result) => (
+                    <ListItem
+                      key={result.id}
+                      href={`/store/${result.category}/${result.slug}`}
+                      text={result.title}
+                    />
+                  ))}
+                </ul>
               ) : (
-                <div className="flex-1 grid place-items-center">
-                  <p className="text-body-sm-400 text-slate-600">
-                    No results found.
-                  </p>
-                </div>
+                <p className="mt-36 text-body-sm-400 text-center text-slate-600">
+                  No results found.
+                </p>
               )}
             </div>
           </motion.dialog>
