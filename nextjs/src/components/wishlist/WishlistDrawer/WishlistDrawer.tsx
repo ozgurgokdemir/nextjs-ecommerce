@@ -15,12 +15,12 @@ export default function WishlistDrawer(props: WishlistDrawerProps) {
 
   return (
     <Drawer isOpen={isOpen} onClose={onClose}>
-      <div className="p-6 flex justify-end">
+      <div className="flex justify-end p-6">
         <button type="button" onClick={onClose}>
           <XMarkIcon className="h-6" />
         </button>
       </div>
-      <div className="px-12 flex flex-col gap-4">
+      <div className="flex flex-col gap-4 px-12">
         <h5 className="font-secondary text-heading-3xl">Your Favourites</h5>
         <p className="text-body-base-400 text-slate-600">
           {cartItems.length > 0

@@ -13,7 +13,7 @@ export default function MenuItem(props: MenuItemProps) {
   return (
     <button
       className={clsx(
-        'w-full flex items-center justify-between px-6',
+        'flex w-full items-center justify-between px-6',
         size === 'medium' ? 'h-16' : 'h-20',
         disabled && 'opacity-50',
         className

@@ -37,7 +37,7 @@ export default function CartModal() {
     <Modal
       isOpen={isCartOpen}
       onClose={closeCart}
-      className="w-full max-w-[30rem] flex flex-col"
+      className="flex w-full max-w-[30rem] flex-col"
     >
       <AnimatePresence initial={false} mode="popLayout">
         {cartItems.length > 0 ? (
@@ -48,7 +48,7 @@ export default function CartModal() {
             exit="hidden"
             variants={variants.cartContent}
           >
-            <ul className="pt-6 flex flex-col max-h-[28.5rem] overflow-x-hidden overflow-y-auto">
+            <ul className="flex max-h-[28.5rem] flex-col overflow-y-auto overflow-x-hidden pt-6">
               <AnimatePresence initial={false}>
                 {cartItems.map((item) => (
                   <motion.li
@@ -66,7 +66,7 @@ export default function CartModal() {
                 ))}
               </AnimatePresence>
             </ul>
-            <div className="p-12 pt-6 flex flex-col gap-6">
+            <div className="flex flex-col gap-6 p-12 pt-6">
               <div className="flex items-center justify-between">
                 <span className="text-label-base-600 text-slate-400">
                   TOTAL
@@ -97,14 +97,14 @@ export default function CartModal() {
             animate="show"
             exit="hidden"
             variants={variants.cartContent}
-            className="p-12 relative flex flex-col gap-4"
+            className="relative flex flex-col gap-4 p-12"
           >
-            <div className="p-6 absolute top-0 right-0">
+            <div className="absolute top-0 right-0 p-6">
               <button type="button" onClick={closeCart}>
                 <XMarkIcon className="h-6" />
               </button>
             </div>
-            <div className="w-36 h-36 mx-auto mb-4 bg-slate-100 rounded-lg"></div>
+            <div className="mx-auto mb-4 h-36 w-36 rounded-lg bg-slate-100"></div>
             <Dialog.Title className="font-secondary text-heading-2xl">
               Your Shopping Cart is Empty
             </Dialog.Title>

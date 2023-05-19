@@ -124,9 +124,9 @@ export default function SearchModal() {
             exit="hidden"
             variants={variants}
             onClick={handleClick}
-            className="w-full max-w-full h-full max-h-full m-0 p-0 block-start-auto block-end-auto font-primary bg-white backdrop:bg-black/30"
+            className="m-0 h-full max-h-full w-full max-w-full bg-white p-0 font-primary block-start-auto block-end-auto backdrop:bg-black/30"
           >
-            <div className="w-full h-full flex flex-col">
+            <div className="flex h-full w-full flex-col">
               <div className="flex items-center shadow-stroke-b">
                 <button
                   type="button"
@@ -137,7 +137,7 @@ export default function SearchModal() {
                 </button>
                 <form
                   onSubmit={handleSubmit}
-                  className="w-full h-12 mr-6 flex items-center relative"
+                  className="relative mr-6 flex h-12 w-full items-center"
                 >
                   <input
                     ref={inputRef}
@@ -145,7 +145,7 @@ export default function SearchModal() {
                     placeholder="Search"
                     value={searchQuery}
                     onChange={handleChange}
-                    className="w-full h-full pl-3 pr-10 rounded-lg text-label-base-500 bg-slate-100 hover:bg-slate-50 focus:bg-white placeholder:text-label-base-600 placeholder:text-slate-400 search-cancel:hidden"
+                    className="h-full w-full rounded-lg bg-slate-100 pl-3 pr-10 text-label-base-500 placeholder:text-label-base-600 placeholder:text-slate-400 hover:bg-slate-50 focus:bg-white search-cancel:hidden"
                   />
                   <button
                     type="button"
@@ -175,7 +175,7 @@ export default function SearchModal() {
                   ))}
                 </ul>
               ) : searchResults === null ? (
-                <p className="mt-36 text-body-sm-400 text-center text-slate-600">
+                <p className="mt-36 text-center text-body-sm-400 text-slate-600">
                   Something went wrong.
                 </p>
               ) : searchResults.length > 0 ? (
@@ -189,7 +189,7 @@ export default function SearchModal() {
                   ))}
                 </ul>
               ) : (
-                <p className="mt-36 text-body-sm-400 text-center text-slate-600">
+                <p className="mt-36 text-center text-body-sm-400 text-slate-600">
                   No results found.
                 </p>
               )}

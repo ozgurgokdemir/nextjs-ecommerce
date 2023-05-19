@@ -22,13 +22,13 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
 
   return (
     <Fragment>
-      <header className="sticky z-40 top-0 inset-x-0 flex items-center justify-between">
+      <header className="sticky inset-x-0 top-0 z-40 flex items-center justify-between">
         <Link className="p-6" href="/">
           <XMarkIcon className="h-6" />
         </Link>
       </header>
       <motion.main
-        className="min-h-[calc(100vh-4.5rem)] flex flex-col"
+        className="flex min-h-[calc(100vh-4.5rem)] flex-col"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}

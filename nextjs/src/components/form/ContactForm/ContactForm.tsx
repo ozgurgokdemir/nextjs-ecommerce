@@ -29,7 +29,7 @@ export default function ContactForm() {
 
   return (
     <form
-      className="grid grid-cols-1 gap-6 bg-white sm:max-w-[37.75rem] sm:mx-auto sm:p-12 sm:rounded-lg sm:grid-cols-2 sm:shadow-lg sm:shadow-slate-400/10"
+      className="grid grid-cols-1 gap-6 bg-white sm:mx-auto sm:max-w-[37.75rem] sm:grid-cols-2 sm:rounded-lg sm:p-12 sm:shadow-lg sm:shadow-slate-400/10"
       onSubmit={(...args) => void handleSubmit(onSubmit)(...args)}
     >
       <div className="col-span-full flex flex-col gap-2 sm:pb-5">

@@ -30,8 +30,8 @@ export default function Home(props: Props) {
 
   return (
     <Fragment>
-      <section className="container py-12 grid gap-6 sm:min-h-fit sm:py-16 sm:grid-cols-2 sm:grid-rows-2 sm:gap-x-6 sm:gap-y-0">
-        <div className="flex flex-col gap-2 text-center sm:gap-4 sm:text-left sm:place-content-end">
+      <section className="container grid gap-6 py-12 sm:min-h-fit sm:grid-cols-2 sm:grid-rows-2 sm:gap-x-6 sm:gap-y-0 sm:py-16">
+        <div className="flex flex-col gap-2 text-center sm:place-content-end sm:gap-4 sm:text-left">
           <h1 className="font-secondary text-heading-2xl md:text-heading-3xl lg:text-display">
             {title}
           </h1>
@@ -39,10 +39,10 @@ export default function Home(props: Props) {
             {subtitle}
           </p>
         </div>
-        <div className="w-full aspect-square py-4 sm:py-0 sm:row-span-2 xl:w-[37.75rem] xl:aspect-4/3">
+        <div className="aspect-square w-full py-4 sm:row-span-2 sm:py-0 xl:aspect-4/3 xl:w-[37.75rem]">
           {image && (
             <Image
-              className="w-full h-full object-cover sm:-scale-x-100 sm:rotate-[45deg]"
+              className="h-full w-full object-cover sm:rotate-[45deg] sm:-scale-x-100"
               src={image.url}
               alt={image.alternativeText}
               width={604}
@@ -58,7 +58,7 @@ export default function Home(props: Props) {
           href="/register"
         />
         <Button
-          className="hidden sm:flex sm:mt-12 md:w-[18.125rem] md:mt-16"
+          className="hidden sm:mt-12 sm:flex md:mt-16 md:w-[18.125rem]"
           text="Get yours today"
           icon={ArrowLongRightIcon}
           onClick={openAuthModal.bind(null, 'register')}
@@ -103,7 +103,7 @@ export default function Home(props: Props) {
           </ul>
         </section>
       )}
-      <section className="px-6 py-8 bg-white transition-colors sm:py-16 sm:bg-slate-50">
+      <section className="bg-white px-6 py-8 transition-colors sm:bg-slate-50 sm:py-16">
         <ContactForm />
       </section>
     </Fragment>

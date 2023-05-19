@@ -9,7 +9,7 @@ const categories = [
 export default function StoreNav() {
   return (
     <nav
-      className="hidden h-24 container sm:flex items-center gap-4"
+      className="container hidden h-24 items-center gap-4 sm:flex"
       role="navigation"
       aria-label="Secondary"
     >

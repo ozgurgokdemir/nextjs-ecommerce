@@ -67,12 +67,12 @@ export default function Product({ product, otherProducts }: Props) {
 
   return (
     <Fragment>
-      <section className="py-6 container flex flex-col gap-6 sm:gap-12 md:py-16 md:flex-row md:justify-between">
-        <div className="flex-1 max-w-[37rem] flex flex-col gap-4">
-          <motion.div className="aspect-4/3 rounded-lg overflow-hidden">
+      <section className="container flex flex-col gap-6 py-6 sm:gap-12 md:flex-row md:justify-between md:py-16">
+        <div className="flex max-w-[37rem] flex-1 flex-col gap-4">
+          <motion.div className="aspect-4/3 overflow-hidden rounded-lg">
             <motion.div
               ref={carouselRef}
-              className="w-full h-full flex cursor-grab"
+              className="flex h-full w-full cursor-grab"
               animate={{ x: `-${currentImageIndex * 100}%` }}
               transition={{ ease: 'easeOut', duration: 0.3 }}
               drag="x"
@@ -87,10 +87,10 @@ export default function Product({ product, otherProducts }: Props) {
               {images.map((image, index) => (
                 <motion.div
                   key={index}
-                  className="min-w-full min-h-full first:rounded-l-lg last:rounded-r-lg overflow-hidden"
+                  className="min-h-full min-w-full overflow-hidden first:rounded-l-lg last:rounded-r-lg"
                 >
                   <Image
-                    className="w-full h-full object-cover"
+                    className="h-full w-full object-cover"
                     src={image.url}
                     alt={image.alternativeText}
                     {...limitImageSize(image, 592)}
@@ -108,14 +108,14 @@ export default function Product({ product, otherProducts }: Props) {
               <button
                 key={index}
                 className={clsx(
-                  'aspect-4/3 rounded-lg overflow-hidden transition-opacity duration-300',
+                  'aspect-4/3 overflow-hidden rounded-lg transition-opacity duration-300',
                   index !== currentImageIndex && 'opacity-50'
                 )}
                 type="button"
                 onClick={setCurrentImageIndex.bind(null, index)}
               >
                 <Image
-                  className="w-full h-full object-cover"
+                  className="h-full w-full object-cover"
                   src={image.url}
                   alt={`Image ${index + 1}`}
                   {...limitImageSize(image, 592)}
@@ -128,8 +128,8 @@ export default function Product({ product, otherProducts }: Props) {
             ))}
           </div>
         </div>
-        <div className="flex-1 flex md:justify-end">
-          <div className="flex flex-col gap-4 md:max-w-[25rem] sm:gap-6">
+        <div className="flex flex-1 md:justify-end">
+          <div className="flex flex-col gap-4 sm:gap-6 md:max-w-[25rem]">
             <h1 className="font-secondary text-heading-3xl text-slate-900 sm:text-heading-4xl">
               {title}
             </h1>
@@ -139,7 +139,7 @@ export default function Product({ product, otherProducts }: Props) {
               </span>
               <p className="text-body-base-400">{description}</p>
             </div>
-            <div className="hidden sm:flex items-center gap-2 font-secondary text-heading-3xl">
+            <div className="hidden items-center gap-2 font-secondary text-heading-3xl sm:flex">
               <span>{`$${newPrice}`}</span>
               {discount > 0 && (
                 <Fragment>
@@ -148,7 +148,7 @@ export default function Product({ product, otherProducts }: Props) {
                 </Fragment>
               )}
             </div>
-            <div className="hidden sm:flex gap-4">
+            <div className="hidden gap-4 sm:flex">
               <IconButton icon={HeartIcon} size="large" />
               <AnimatePresence initial={false} mode="popLayout">
                 <motion.div
@@ -177,7 +177,7 @@ export default function Product({ product, otherProducts }: Props) {
         </div>
       </section>
       {otherProducts.length > 0 && (
-        <section className="pt-12 flex flex-col sm:container sm:gap-6 sm:py-16">
+        <section className="flex flex-col pt-12 sm:container sm:gap-6 sm:py-16">
           <h2 className="px-6 font-secondary text-heading-2xl sm:px-0 sm:text-heading-3xl">
             Other Products
           </h2>

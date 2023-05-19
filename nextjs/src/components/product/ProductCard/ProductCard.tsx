@@ -117,20 +117,20 @@ export default function ProductCard({ product, className }: ProductCardProps) {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         className={clsx(
-          'transition-shadow sm:rounded-lg sm:overflow-hidden sm:border sm:border-slate-100 sm:bg-white sm:absolute sm:h-fit xl:hover:shadow-lg xl:hover:shadow-slate-400/10',
+          'transition-shadow sm:absolute sm:h-fit sm:overflow-hidden sm:rounded-lg sm:border sm:border-slate-100 sm:bg-white xl:hover:shadow-lg xl:hover:shadow-slate-400/10',
           className
         )}
       >
-        <Link className="flex gap-4 p-6 sm:p-0 sm:flex-col sm:gap-0" href={url}>
+        <Link className="flex gap-4 p-6 sm:flex-col sm:gap-0 sm:p-0" href={url}>
           <Image
-            className="w-24 h-24 rounded-lg object-cover sm:w-full sm:h-auto sm:rounded-none sm:aspect-4/3"
+            className="h-24 w-24 rounded-lg object-cover sm:aspect-4/3 sm:h-auto sm:w-full sm:rounded-none"
             src={images[0].url}
             alt={images[0].alternativeText}
             {...limitImageSize(images[0], 290)}
             blurDataURL={images[0].blurDataURL}
             placeholder="blur"
           />
-          <div className="flex-1 flex flex-col justify-between sm:flex-none sm:gap-3 sm:p-6 sm:pb-0 sm:justify-start">
+          <div className="flex flex-1 flex-col justify-between sm:flex-none sm:justify-start sm:gap-3 sm:p-6 sm:pb-0">
             <h5 className="text-label-lg-500 sm:text-label-xl-500">{title}</h5>
             <div className="flex items-center gap-1 font-secondary text-label-sm-600 sm:mb-3">
               <span>{`$${newPrice}`}</span>
@@ -162,7 +162,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
               variants={isDesktop ? variants.ctaContainer : undefined}
               className="hidden sm:block"
             >
-              <div className="pb-6 flex gap-4">
+              <div className="flex gap-4 pb-6">
                 <IconButton icon={HeartIcon} size="large" />
                 <AnimatePresence initial={false} mode="popLayout">
                   <motion.div

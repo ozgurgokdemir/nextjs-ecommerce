@@ -4,7 +4,7 @@ import { GoogleAuthButton } from '@/components/ui';
 
 export default function Login() {
   return (
-    <section className="px-8 py-12 flex flex-col gap-8">
+    <section className="flex flex-col gap-8 px-8 py-12">
       <div className="flex flex-col gap-4">
         <h1 className="font-secondary text-heading-2xl">Create Your Account</h1>
         <p className="text-body-sm-400 text-slate-600">

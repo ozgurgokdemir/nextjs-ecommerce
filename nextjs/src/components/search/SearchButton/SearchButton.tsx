@@ -8,7 +8,7 @@ export default function SearchButton() {
     <button
       type="button"
       onClick={openSearchModal}
-      className="w-60 h-12 rounded-lg flex items-center justify-between px-3 text-slate-400 bg-slate-100 hover:bg-slate-50 transition-colors"
+      className="flex h-12 w-60 items-center justify-between rounded-lg bg-slate-100 px-3 text-slate-400 transition-colors hover:bg-slate-50"
     >
       <p className="text-label-base-600">Search</p>
       <MagnifyingGlassIcon className="h-6" />

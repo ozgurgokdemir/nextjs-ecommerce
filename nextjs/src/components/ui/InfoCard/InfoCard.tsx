@@ -14,12 +14,12 @@ export default function InfoCard(props: InfoCardProps) {
   return (
     <div
       className={clsx(
-        'rounded-lg flex items-center gap-4 p-4 shadow-stroke-2 select-none',
+        'flex select-none items-center gap-4 rounded-lg p-4 shadow-stroke-2',
         'sm:shadow-md sm:shadow-slate-400/10 xl:w-[18.125rem]',
         className
       )}
     >
-      <div className="w-16 h-16 rounded-lg flex items-center justify-center bg-slate-100">
+      <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-slate-100">
         <Icon className="h-6 text-slate-400" />
       </div>
       <div>

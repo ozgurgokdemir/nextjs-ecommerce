@@ -28,7 +28,7 @@ export default function StoreLayout({ children }: StoreLayoutProps) {
       />
       <StoreNav />
       <motion.main
-        className="min-h-[calc(100vh-4.5rem)] pb-[4.5rem] flex flex-col sm:min-h-[calc(100vh-12rem)] sm:pb-0"
+        className="flex min-h-[calc(100vh-4.5rem)] flex-col pb-[4.5rem] sm:min-h-[calc(100vh-12rem)] sm:pb-0"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}

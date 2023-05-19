@@ -3,7 +3,7 @@ import { ShoppingBagIcon } from '@heroicons/react/24/solid';
 
 export default function Footer() {
   return (
-    <footer className="hidden sm:block py-16 bg-slate-900">
+    <footer className="hidden bg-slate-900 py-16 sm:block">
       <nav
         className="container flex justify-between text-slate-400"
         role="navigation"
@@ -16,10 +16,10 @@ export default function Footer() {
               eCommerce
             </span>
           </Link>
-          <ul className="ml-0.5 flex flex-col flex-1 gap-2">
+          <ul className="ml-0.5 flex flex-1 flex-col gap-2">
             <li>
               <Link
-                className="text-label-sm-500 hover:text-slate-100 transition-colors"
+                className="text-label-sm-500 transition-colors hover:text-slate-100"
                 href=""
               >
                 About Us
@@ -27,7 +27,7 @@ export default function Footer() {
             </li>
             <li>
               <Link
-                className="text-label-sm-500 hover:text-slate-100 transition-colors"
+                className="text-label-sm-500 transition-colors hover:text-slate-100"
                 href=""
               >
                 Terms & Conditions
@@ -35,7 +35,7 @@ export default function Footer() {
             </li>
             <li>
               <Link
-                className="text-label-sm-500 hover:text-slate-100 transition-colors"
+                className="text-label-sm-500 transition-colors hover:text-slate-100"
                 href=""
               >
                 Privacy Policy
@@ -48,7 +48,7 @@ export default function Footer() {
           <ul className="ml-0.5 flex flex-col gap-2">
             <li>
               <Link
-                className="text-label-sm-500 hover:text-slate-100 transition-colors"
+                className="text-label-sm-500 transition-colors hover:text-slate-100"
                 href="/store/laptop"
               >
                 Laptop
@@ -56,7 +56,7 @@ export default function Footer() {
             </li>
             <li>
               <Link
-                className="text-label-sm-500 hover:text-slate-100 transition-colors"
+                className="text-label-sm-500 transition-colors hover:text-slate-100"
                 href="/store/smartphone"
               >
                 Smartphone
@@ -64,7 +64,7 @@ export default function Footer() {
             </li>
             <li>
               <Link
-                className="text-label-sm-500 hover:text-slate-100 transition-colors"
+                className="text-label-sm-500 transition-colors hover:text-slate-100"
                 href="/store/smartwatch"
               >
                 Smartwatch
@@ -77,7 +77,7 @@ export default function Footer() {
           <ul className="ml-0.5 flex flex-col gap-2">
             <li>
               <a
-                className="text-label-sm-500 hover:text-slate-100 transition-colors"
+                className="text-label-sm-500 transition-colors hover:text-slate-100"
                 href="https://www.facebook.com/"
               >
                 Facebook
@@ -85,7 +85,7 @@ export default function Footer() {
             </li>
             <li>
               <a
-                className="text-label-sm-500 hover:text-slate-100 transition-colors"
+                className="text-label-sm-500 transition-colors hover:text-slate-100"
                 href="https://www.instagram.com/"
               >
                 Instagram
@@ -93,7 +93,7 @@ export default function Footer() {
             </li>
             <li>
               <a
-                className="text-label-sm-500 hover:text-slate-100 transition-colors"
+                className="text-label-sm-500 transition-colors hover:text-slate-100"
                 href="https://twitter.com/"
               >
                 Twitter

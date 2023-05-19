@@ -14,7 +14,7 @@ export default function Category({ title, products }: Props) {
 
   return (
     <section className="flex flex-col sm:container sm:gap-6 sm:py-16">
-      <h1 className="hidden sm:block px-0 font-secondary text-heading-3xl">
+      <h1 className="hidden px-0 font-secondary text-heading-3xl sm:block">
         {title.charAt(0).toUpperCase() + title.slice(1)}
       </h1>
       <ul className="grid grid-cols-1 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">

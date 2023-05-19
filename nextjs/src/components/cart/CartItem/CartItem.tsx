@@ -27,10 +27,10 @@ export default function CartItem({ item }: CartItemProps) {
   };
 
   return (
-    <div className="flex h-36 p-6 gap-4 sm:px-12 sm:gap-6">
+    <div className="flex h-36 gap-4 p-6 sm:gap-6 sm:px-12">
       <Link href={url}>
         <Image
-          className="w-24 h-24 rounded-lg object-cover"
+          className="h-24 w-24 rounded-lg object-cover"
           src={images[0].url}
           alt={images[0].alternativeText}
           {...limitImageSize(images[0], 96)}
@@ -38,7 +38,7 @@ export default function CartItem({ item }: CartItemProps) {
           placeholder="blur"
         />
       </Link>
-      <div className="flex-1 flex flex-col justify-center gap-6 text-label-base-600">
+      <div className="flex flex-1 flex-col justify-center gap-6 text-label-base-600">
         <Link className="w-fit" href={url}>
           <h5 className="text-label-lg-500">{title}</h5>
         </Link>
@@ -51,7 +51,7 @@ export default function CartItem({ item }: CartItemProps) {
               size="small"
               onClick={handleDecrement}
             />
-            <span className="w-8 font-secondary text-center">{quantity}</span>
+            <span className="w-8 text-center font-secondary">{quantity}</span>
             <IconButton
               className="hover:text-slate-800"
               icon={PlusIcon}

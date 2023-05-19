@@ -14,7 +14,7 @@ export default function GoogleAuthButton(props: GoogleAuthButtonProps) {
   return (
     <button
       className={clsx(
-        'h-12 px-6 flex items-center justify-center gap-3 rounded-lg whitespace-nowrap font-primary text-label-base-500 text-slate-800 bg-slate-100 hover:bg-slate-50 transition',
+        'flex h-12 items-center justify-center gap-3 whitespace-nowrap rounded-lg bg-slate-100 px-6 font-primary text-label-base-500 text-slate-800 transition hover:bg-slate-50',
         className
       )}
       type="button"

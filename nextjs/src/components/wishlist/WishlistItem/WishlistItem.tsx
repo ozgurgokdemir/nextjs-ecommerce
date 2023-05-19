@@ -34,19 +34,19 @@ export default function WishlistItem(props: WishlistItemProps) {
       <Link
         href={`store/${category}/${slug}`}
         className={clsx(
-          'flex h-36 p-6 gap-4 border-b border-b-slate-100',
+          'flex h-36 gap-4 border-b border-b-slate-100 p-6',
           className
         )}
       >
         <Image
-          className="w-24 h-24 rounded-lg object-cover"
+          className="h-24 w-24 rounded-lg object-cover"
           src={images[0].url}
           alt={images[0].alternativeText}
           {...limitImageSize(images[0], 96)}
           blurDataURL={images[0].blurDataURL}
           placeholder="blur"
         />
-        <div className="flex-1 flex flex-col justify-around h-full text-label-base-500">
+        <div className="flex h-full flex-1 flex-col justify-around text-label-base-500">
           <span>{title}</span>
           <div className="flex items-center gap-1 font-secondary text-label-sm-600">
             <span>{`$${newPrice}`}</span>

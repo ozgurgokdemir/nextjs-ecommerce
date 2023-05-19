@@ -20,8 +20,8 @@ export default function NavBar() {
   const { pathname } = useRouter();
 
   return (
-    <nav className="fixed z-40 bottom-0 inset-x-0 h-[4.5rem] flex shadow-stroke-t bg-white sm:hidden">
-      <Link className="h-full flex-1 flex items-center justify-center" href="/">
+    <nav className="fixed inset-x-0 bottom-0 z-40 flex h-[4.5rem] bg-white shadow-stroke-t sm:hidden">
+      <Link className="flex h-full flex-1 items-center justify-center" href="/">
         {pathname === '/' ? (
           <HomeIconSolid className="h-6" />
         ) : (
@@ -29,7 +29,7 @@ export default function NavBar() {
         )}
       </Link>
       <Link
-        className="h-full flex-1 flex items-center justify-center"
+        className="flex h-full flex-1 items-center justify-center"
         href="/store"
       >
         {pathname.startsWith('/store') ? (
@@ -39,7 +39,7 @@ export default function NavBar() {
         )}
       </Link>
       <Link
-        className="h-full relative flex-1 flex items-center justify-center"
+        className="relative flex h-full flex-1 items-center justify-center"
         href="/cart"
       >
         {pathname.startsWith('/cart') ? (
@@ -50,7 +50,7 @@ export default function NavBar() {
         <CartCounter className="top-3 right-[calc(50%_-_1.5rem)]" />
       </Link>
       <Link
-        className="h-full flex-1 flex items-center justify-center"
+        className="flex h-full flex-1 items-center justify-center"
         href="/wishlist"
       >
         {pathname.startsWith('/wishlist') ? (
@@ -60,7 +60,7 @@ export default function NavBar() {
         )}
       </Link>
       <Link
-        className="h-full flex-1 flex items-center justify-center"
+        className="flex h-full flex-1 items-center justify-center"
         href="/account"
       >
         {pathname.startsWith('/account') ? (

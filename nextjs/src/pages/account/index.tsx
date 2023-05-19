@@ -14,11 +14,11 @@ export default function Account() {
   return (
     <section className="flex flex-col sm:hidden">
       {session && (
-        <div className="px-6 py-8 flex items-center gap-4 shadow-stroke-b">
-          <div className="w-24 h-24 flex items-center justify-center rounded-full overflow-hidden bg-slate-100">
+        <div className="flex items-center gap-4 px-6 py-8 shadow-stroke-b">
+          <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-full bg-slate-100">
             {session.user.image ? (
               <Image
-                className="w-full h-full object-cover"
+                className="h-full w-full object-cover"
                 src={session.user.image}
                 alt={session.user.name}
                 width={96}
@@ -28,7 +28,7 @@ export default function Account() {
               <UserIcon className="h-12 text-slate-400" />
             )}
           </div>
-          <h1 className="flex-1 font-secondary text-heading-2xl text-slate-900 truncate">
+          <h1 className="flex-1 truncate font-secondary text-heading-2xl text-slate-900">
             {session.user.name}
           </h1>
         </div>

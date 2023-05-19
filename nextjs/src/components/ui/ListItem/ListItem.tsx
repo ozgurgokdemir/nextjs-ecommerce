@@ -38,7 +38,7 @@ function ListItemContent(props: ListItemProps) {
 
 export default function ListItem(props: ListItemProps) {
   return (
-    <li className="shadow-stroke-b bg-white hover:bg-slate-50 transition-colors">
+    <li className="bg-white shadow-stroke-b transition-colors hover:bg-slate-50">
       <ListItemContent {...props} />
     </li>
   );

@@ -43,9 +43,9 @@ export default function CartActionBar(props: Props) {
   const { title, amount, action, onAction } = props;
 
   return (
-    <div className="p-6 fixed z-40 bottom-0 inset-x-0 flex items-center justify-between gap-4 shadow-stroke-t bg-white sm:hidden">
-      <div className="w-24 flex flex-col justify-center">
-        <span className="text-label-base-600 text-slate-400 uppercase">
+    <div className="fixed inset-x-0 bottom-0 z-40 flex items-center justify-between gap-4 bg-white p-6 shadow-stroke-t sm:hidden">
+      <div className="flex w-24 flex-col justify-center">
+        <span className="text-label-base-600 uppercase text-slate-400">
           {title}
         </span>
         <span className="font-secondary text-label-xl-600">{`$${amount}`}</span>

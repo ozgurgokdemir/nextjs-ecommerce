@@ -41,7 +41,7 @@ export default function UserMenu() {
           <AnimatePresence>
             {open && (
               <Menu.Items
-                className="w-60 mt-3 absolute right-0 origin-top-right flex flex-col border rounded-lg border-slate-100 bg-white overflow-hidden"
+                className="absolute right-0 mt-3 flex w-60 origin-top-right flex-col overflow-hidden rounded-lg border border-slate-100 bg-white"
                 as={motion.ul}
                 static
                 initial="hidden"
@@ -53,7 +53,7 @@ export default function UserMenu() {
                   {({ active, disabled }) => (
                     <li
                       className={clsx(
-                        'shadow-stroke-b bg-white transition-colors',
+                        'bg-white shadow-stroke-b transition-colors',
                         active && 'bg-slate-50'
                       )}
                     >
@@ -65,7 +65,7 @@ export default function UserMenu() {
                   {({ active, disabled }) => (
                     <li
                       className={clsx(
-                        'shadow-stroke-b bg-white transition-colors',
+                        'bg-white shadow-stroke-b transition-colors',
                         active && 'bg-slate-50'
                       )}
                     >
@@ -77,7 +77,7 @@ export default function UserMenu() {
                   {({ active }) => (
                     <li
                       className={clsx(
-                        'shadow-stroke-b bg-white transition-colors',
+                        'bg-white shadow-stroke-b transition-colors',
                         active && 'bg-slate-50'
                       )}
                     >

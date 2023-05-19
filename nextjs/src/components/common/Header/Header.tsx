@@ -29,7 +29,7 @@ function CTA({ cta }: { cta?: CallToAction }) {
   if (!cta)
     return (
       <div className="p-6">
-        <div className="w-6 h-6"></div>
+        <div className="h-6 w-6"></div>
       </div>
     );
 
@@ -54,7 +54,7 @@ export default function Header(props: HeaderProps) {
   };
 
   return (
-    <header className="sticky z-40 top-0 inset-x-0 bg-white shadow-stroke-b">
+    <header className="sticky inset-x-0 top-0 z-40 bg-white shadow-stroke-b">
       <div className="flex items-center justify-between sm:hidden">
         <button className="p-6" type="button" onClick={handleNavigation}>
           {<NavIcon className="h-6" />}
@@ -63,7 +63,7 @@ export default function Header(props: HeaderProps) {
         {!children && <span className="text-label-base-600">{label}</span>}
         {!children && <CTA cta={cta} />}
       </div>
-      <div className="h-24 container hidden sm:flex items-center justify-between">
+      <div className="container hidden h-24 items-center justify-between sm:flex">
         <Link className="flex gap-3" href="/">
           <ShoppingBagIcon className="h-7" />
           <span className="font-secondary text-heading-2xl">eCommerce</span>

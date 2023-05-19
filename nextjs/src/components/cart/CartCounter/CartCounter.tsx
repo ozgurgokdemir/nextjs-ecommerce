@@ -31,12 +31,12 @@ export default function CartButton({ className }: Props) {
           exit="hidden"
           variants={variants}
           className={clsx(
-            'w-4 h-4 absolute pointer-events-none select-none',
+            'pointer-events-none absolute h-4 w-4 select-none',
             className
           )}
         >
-          <span className="w-full h-full inline-flex absolute rounded-full opacity-80 bg-red-400 animate-subtle-ping" />
-          <span className="w-full h-full flex flex-col justify-center relative rounded-full text-center text-label-sm-500 text-[0.625rem] text-slate-50 bg-red-400">
+          <span className="absolute inline-flex h-full w-full animate-subtle-ping rounded-full bg-red-400 opacity-80" />
+          <span className="relative flex h-full w-full flex-col justify-center rounded-full bg-red-400 text-center text-label-sm-500 text-[0.625rem] text-slate-50">
             {totalQuantity}
           </span>
         </motion.span>

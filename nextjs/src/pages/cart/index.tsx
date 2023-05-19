@@ -50,7 +50,7 @@ export default function Cart() {
                   animate="show"
                   exit="hidden"
                   variants={variants.cartItem}
-                  className="shadow-stroke-b last:shadow-none overflow-hidden"
+                  className="overflow-hidden shadow-stroke-b last:shadow-none"
                 >
                   <CartItem item={item} />
                 </motion.li>
@@ -65,9 +65,9 @@ export default function Cart() {
           animate="show"
           exit="hidden"
           variants={variants.cartContent}
-          className="px-6 flex-1 flex flex-col items-center justify-center gap-4 text-center"
+          className="flex flex-1 flex-col items-center justify-center gap-4 px-6 text-center"
         >
-          <div className="w-36 h-36 mb-4 bg-slate-100 rounded-lg"></div>
+          <div className="mb-4 h-36 w-36 rounded-lg bg-slate-100"></div>
           <h1 className="font-secondary text-heading-2xl">
             Your Shopping Cart <br /> is Empty
           </h1>

@@ -55,7 +55,7 @@ export default function Drawer(props: DrawerProps) {
               animate="show"
               exit="hidden"
               className={clsx(
-                'w-[30rem] h-full relative flex flex-col gap-8 bg-white',
+                'relative flex h-full w-[30rem] flex-col gap-8 bg-white',
                 placement === 'left' ? 'mr-auto' : 'ml-auto',
                 className
               )}

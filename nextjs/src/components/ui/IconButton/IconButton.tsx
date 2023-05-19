@@ -26,13 +26,13 @@ export default function IconButton(props: IconButtonProps) {
       className={clsx(
         'flex items-center justify-center transition',
         size === 'small'
-          ? 'w-6 h-6 rounded-md'
+          ? 'h-6 w-6 rounded-md'
           : size === 'medium'
-          ? 'w-9 h-9 rounded-lg'
-          : 'w-12 h-12 rounded-lg',
+          ? 'h-9 w-9 rounded-lg'
+          : 'h-12 w-12 rounded-lg',
         variant === 'primary'
-          ? 'text-slate-100 bg-slate-800 hover:bg-slate-700'
-          : 'text-slate-400 bg-slate-100 hover:bg-slate-50',
+          ? 'bg-slate-800 text-slate-100 hover:bg-slate-700'
+          : 'bg-slate-100 text-slate-400 hover:bg-slate-50',
         (disabled || isLoading) && 'cursor-not-allowed',
         className
       )}

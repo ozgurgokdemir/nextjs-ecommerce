@@ -23,9 +23,9 @@ export default function AuthModal() {
     <Modal
       isOpen={isAuthModalOpen}
       onClose={closeAuthModal}
-      className="w-full max-w-[30rem] relative overflow-hidden flex flex-col"
+      className="relative flex w-full max-w-[30rem] flex-col overflow-hidden"
     >
-      <div className="p-6 flex justify-end">
+      <div className="flex justify-end p-6">
         <button type="button" onClick={closeAuthModal}>
           <XMarkIcon className="h-6" />
         </button>
@@ -33,7 +33,7 @@ export default function AuthModal() {
       <AnimatePresence initial={false} mode="popLayout" custom={direction}>
         {page === 'login' ? (
           <motion.div
-            className="p-12 pt-0 flex flex-col gap-8 bg-white"
+            className="flex flex-col gap-8 bg-white p-12 pt-0"
             key="login"
             variants={prefersReducedMotion ? undefined : variants}
             custom={direction}
@@ -57,7 +57,7 @@ export default function AuthModal() {
           </motion.div>
         ) : (
           <motion.div
-            className="p-12 pt-0 flex flex-col gap-8 bg-white"
+            className="flex flex-col gap-8 bg-white p-12 pt-0"
             key="register"
             variants={prefersReducedMotion ? undefined : variants}
             custom={direction}

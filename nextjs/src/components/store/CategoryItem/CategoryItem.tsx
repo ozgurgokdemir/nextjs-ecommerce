@@ -13,13 +13,13 @@ export default function CategoryItem({ category }: CategoryItemProps) {
 
   return (
     <Link
-      className="h-24 flex items-center justify-between px-6"
+      className="flex h-24 items-center justify-between px-6"
       href={`/store/${slug}`}
     >
       <div className="flex items-center gap-6">
-        <div className="w-12 h-12 relative rounded-lg overflow-hidden">
+        <div className="relative h-12 w-12 overflow-hidden rounded-lg">
           <Image
-            className="w-full h-full object-cover"
+            className="h-full w-full object-cover"
             src={image.url}
             alt={image.alternativeText}
             {...limitImageSize(image, 96)}

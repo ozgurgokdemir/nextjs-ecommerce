@@ -37,7 +37,7 @@ export default function InputField(props: InputFieldProps) {
       {type === 'textarea' ? (
         <textarea
           className={clsx(
-            'min-h-[3rem] max-h-96 px-4 py-2.5 rounded-lg resize-none sm:resize-y border-2 border-slate-100 text-body-base-500',
+            'max-h-96 min-h-[3rem] resize-none rounded-lg border-2 border-slate-100 px-4 py-2.5 text-body-base-500 sm:resize-y',
             error && 'border-red-500'
           )}
           id={id}
@@ -47,7 +47,7 @@ export default function InputField(props: InputFieldProps) {
       ) : (
         <input
           className={clsx(
-            'h-12 px-4 rounded-lg border-2 border-slate-100 text-body-base-500',
+            'h-12 rounded-lg border-2 border-slate-100 px-4 text-body-base-500',
             error && 'border-red-500'
           )}
           id={id}
