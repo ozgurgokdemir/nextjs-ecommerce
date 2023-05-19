@@ -46,6 +46,40 @@ const backdropVariants = {
   },
 };
 
+const searchResultVariants = {
+  initial: ({ isMobile }: { isMobile: boolean }) => ({
+    height: isMobile ? 'auto' : 0,
+    opacity: 0,
+    left: '-3rem',
+    transition: { ease: 'easeIn', duration: 0.2 },
+  }),
+  hidden: ({ isMobile }: { isMobile: boolean }) => ({
+    height: isMobile ? 'auto' : 0,
+    opacity: 0,
+    left: 0,
+    transition: { ease: 'easeIn', duration: 0.2 },
+  }),
+  show: ({ index }: { index: number }) => ({
+    height: 'auto',
+    opacity: 1,
+    left: 0,
+    transition: { ease: 'easeOut', duration: 0.3, delay: index * 0.2 },
+  }),
+};
+
+const messageVariants = {
+  hidden: {
+    height: 0,
+    opacity: 0,
+    transition: { ease: 'easeIn', duration: 0.2 },
+  },
+  show: {
+    height: '12rem',
+    opacity: 1,
+    transition: { ease: 'easeOut', duration: 0.3 },
+  },
+};
+
 export default function SearchModal() {
   const { isSearchModalOpen, closeSearchModal } = useUIStore();
 
@@ -186,35 +220,72 @@ export default function SearchModal() {
                 </button>
               </form>
             </div>
-            {searchResults === undefined ? (
-              <ul>
-                {DUMMY_CATEGORIES.map((category) => (
-                  <ListItem
-                    key={category.slug}
-                    href={`/store/${category.slug}`}
-                    text={category.title}
-                  />
-                ))}
-              </ul>
-            ) : searchResults === null ? (
-              <p className="mt-36 text-center text-body-sm-400 text-slate-600 sm:mt-0 sm:grid sm:h-48 sm:place-items-center">
-                Something went wrong.
-              </p>
-            ) : searchResults.length > 0 ? (
-              <ul className="max-h-[28rem] overflow-y-auto">
-                {searchResults.map((result) => (
-                  <ListItem
-                    key={result.id}
-                    href={`/store/${result.category}/${result.slug}`}
-                    text={result.title}
-                  />
-                ))}
-              </ul>
-            ) : (
-              <p className="mt-36 text-center text-body-sm-400 text-slate-600 sm:mt-0 sm:grid sm:h-48 sm:place-items-center">
-                No results found.
-              </p>
-            )}
+            <AnimatePresence initial={false} mode="wait">
+              {searchResults === undefined ? (
+                <ul key="categories" className="overflow-x-hidden">
+                  {DUMMY_CATEGORIES.map((category, index) => (
+                    <motion.li
+                      key={category.slug}
+                      initial="initial"
+                      animate="show"
+                      exit="hidden"
+                      variants={searchResultVariants}
+                      custom={{ index, isMobile }}
+                      className="relative overflow-hidden bg-white shadow-stroke-b transition-colors hover:bg-slate-50"
+                    >
+                      <ListItem.Content
+                        href={`/store/${category.slug}`}
+                        text={category.title}
+                      />
+                    </motion.li>
+                  ))}
+                </ul>
+              ) : searchResults === null ? (
+                <motion.p
+                  key="errorMessage"
+                  initial="hidden"
+                  animate="show"
+                  exit="hidden"
+                  variants={messageVariants}
+                  className="mt-36 text-center text-body-sm-400 text-slate-600 sm:mt-0 sm:grid sm:h-48 sm:place-items-center"
+                >
+                  Something went wrong.
+                </motion.p>
+              ) : searchResults.length > 0 ? (
+                <ul
+                  key="searchResults"
+                  className="max-h-[28rem] overflow-y-auto overflow-x-hidden"
+                >
+                  {searchResults.map((result, index) => (
+                    <motion.li
+                      key={result.id}
+                      initial="initial"
+                      animate="show"
+                      exit="hidden"
+                      variants={searchResultVariants}
+                      custom={{ index, isMobile }}
+                      className="relative overflow-hidden bg-white shadow-stroke-b transition-colors hover:bg-slate-50"
+                    >
+                      <ListItem.Content
+                        href={`/store/${result.category}/${result.slug}`}
+                        text={result.title}
+                      />
+                    </motion.li>
+                  ))}
+                </ul>
+              ) : (
+                <motion.p
+                  key="notFoundMessage"
+                  initial="hidden"
+                  animate="show"
+                  exit="hidden"
+                  variants={messageVariants}
+                  className="mt-36 text-center text-body-sm-400 text-slate-600 sm:mt-0 sm:grid sm:h-48 sm:place-items-center"
+                >
+                  No results found.
+                </motion.p>
+              )}
+            </AnimatePresence>
           </Dialog.Panel>
         </Dialog>
       )}
