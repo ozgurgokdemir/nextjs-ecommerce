@@ -64,7 +64,7 @@ export default function Home(props: Props) {
           onClick={openAuthModal.bind(null, 'register')}
         />
       </section>
-      <section className="grid grid-cols-1 gap-4 px-6 pt-3 pb-8 sm:container sm:grid-cols-2 sm:gap-6 sm:py-12 xl:grid-cols-4">
+      <section className="grid grid-cols-1 gap-4 px-6 pb-8 pt-3 sm:container sm:grid-cols-2 sm:gap-6 sm:py-12 xl:grid-cols-4">
         <InfoCard
           icon={TruckIcon}
           title="Free Delivery"
