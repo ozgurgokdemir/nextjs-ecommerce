@@ -1,3 +1,4 @@
+'use client';
 import type { MouseEvent } from 'react';
 import type { Product } from '@/lib/types';
 import { Fragment, useState, useEffect, useRef } from 'react';

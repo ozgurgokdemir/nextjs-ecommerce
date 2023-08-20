@@ -1,5 +1,3 @@
-import type { GetStaticProps } from 'next';
-import type { Product, Image as ImageType } from '@/lib/types';
 import { Fragment } from 'react';
 import Image from 'next/image';
 import { ArrowLongRightIcon } from '@heroicons/react/24/outline';
@@ -9,24 +7,18 @@ import {
   CreditCardIcon,
   TagIcon,
 } from '@heroicons/react/24/solid';
-import { IndexLayout } from '@/components/layout';
 import { Button, InfoCard, LinkButton } from '@/components/ui';
 import { ProductCard } from '@/components/product';
 import { ContactForm } from '@/components/form';
 import { strapi } from '@/lib/api';
-import { useUIStore } from '@/lib/store';
+// import { useUIStore } from '@/lib/store';
 
-type Props = {
-  title: string | null;
-  subtitle: string | null;
-  image: ImageType | null;
-  products: Product[] | null;
-};
+export default async function Home() {
+  // const { openAuthModal } = useUIStore();
 
-export default function Home(props: Props) {
-  const { title, subtitle, image, products } = props;
+  const { title, subtitle, image } = await strapi.getHomePageData();
 
-  const { openAuthModal } = useUIStore();
+  const products = await strapi.getProducts({ discount: true, limit: 4 });
 
   return (
     <Fragment>
@@ -61,7 +53,7 @@ export default function Home(props: Props) {
           className="hidden sm:mt-12 sm:flex md:mt-16 md:w-[18.125rem]"
           text="Get yours today"
           icon={ArrowLongRightIcon}
-          onClick={openAuthModal.bind(null, 'register')}
+          // onClick={openAuthModal.bind(null, 'register')}
         />
       </section>
       <section className="grid grid-cols-1 gap-4 px-6 pb-8 pt-3 sm:container sm:grid-cols-2 sm:gap-6 sm:py-12 xl:grid-cols-4">
@@ -109,11 +101,3 @@ export default function Home(props: Props) {
     </Fragment>
   );
 }
-
-Home.PageLayout = IndexLayout;
-
-export const getStaticProps: GetStaticProps = async () => {
-  const { title, subtitle, image } = await strapi.getHomePageData();
-  const products = await strapi.getProducts({ discount: true, limit: 4 });
-  return { props: { title, subtitle, image, products }, revalidate: 3600 };
-};

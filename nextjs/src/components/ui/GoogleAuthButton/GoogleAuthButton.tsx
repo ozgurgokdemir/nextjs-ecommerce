@@ -1,3 +1,4 @@
+'use client';
 import type { ButtonHTMLAttributes } from 'react';
 import { clsx } from 'clsx';
 import { useAuth } from '@/lib/hooks';

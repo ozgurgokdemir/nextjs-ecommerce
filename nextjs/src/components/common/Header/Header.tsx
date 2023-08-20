@@ -1,5 +1,5 @@
 import type { ReactNode, ComponentType, SVGProps } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ShoppingBagIcon } from '@heroicons/react/24/solid';
 import { UserMenu } from '@/components/ui';

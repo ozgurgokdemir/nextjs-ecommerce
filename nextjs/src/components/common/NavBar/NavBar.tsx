@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import {
   HomeIcon as HomeIconOutline,
   Squares2X2Icon as Squares2X2IconOutline,
@@ -17,7 +17,7 @@ import {
 import { CartCounter } from '@/components/cart';
 
 export default function NavBar() {
-  const { pathname } = useRouter();
+  const pathname = usePathname();
 
   return (
     <nav className="fixed inset-x-0 bottom-0 z-40 flex h-[4.5rem] bg-white shadow-stroke-t sm:hidden">
@@ -47,7 +47,7 @@ export default function NavBar() {
         ) : (
           <ShoppingCartIconOutline className="h-6" />
         )}
-        <CartCounter className="top-3 right-[calc(50%_-_1.5rem)]" />
+        <CartCounter className="right-[calc(50%_-_1.5rem)] top-3" />
       </Link>
       <Link
         className="flex h-full flex-1 items-center justify-center"

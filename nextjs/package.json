@@ -12,7 +12,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.10",
     "@heroicons/react": "^2.0.14",
-    "@hookform/resolvers": "^2.9.11",
+    "@hookform/resolvers": "^3.2.0",
     "@plaiceholder/next": "^2.5.0",
     "@types/node": "20.5.1",
     "@types/react": "18.2.20",
@@ -29,7 +29,7 @@
     "react-hook-form": "^7.43.3",
     "sharp": "^0.32.1",
     "typescript": "5.1.6",
-    "zod": "^3.20.6",
+    "zod": "^3.22.2",
     "zustand": "^4.3.7"
   },
   "devDependencies": {

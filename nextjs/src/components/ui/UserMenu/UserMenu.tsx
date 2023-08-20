@@ -1,3 +1,4 @@
+'use client';
 import { Fragment } from 'react';
 import { Menu } from '@headlessui/react';
 import { AnimatePresence, motion } from 'framer-motion';
