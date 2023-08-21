@@ -20,11 +20,9 @@ const schema = z.object({
 
 type Schema = z.infer<typeof schema>;
 
-type RegisterFormProps = {
-  onLogIn?: () => void;
-};
+type RegisterFormProps = { withParams?: true };
 
-export default function RegisterForm({ onLogIn }: RegisterFormProps) {
+export default function RegisterForm({ withParams }: RegisterFormProps) {
   const {
     register,
     handleSubmit,
@@ -71,14 +69,13 @@ export default function RegisterForm({ onLogIn }: RegisterFormProps) {
         <Button type="submit" text="Sign Up" />
         <p className="text-body-xs-400 text-slate-600">
           Already have an account?{' '}
-          {onLogIn ? (
-            <button
+          {withParams ? (
+            <Link
               className="text-body-xs-500 text-slate-800"
-              type="button"
-              onClick={onLogIn}
+              href={{ query: { auth: 'login' } }}
             >
               Log In
-            </button>
+            </Link>
           ) : (
             <Link className="text-body-xs-500 text-slate-800" href="/login">
               Log In

@@ -7,15 +7,12 @@ import {
   CreditCardIcon,
   TagIcon,
 } from '@heroicons/react/24/solid';
-import { Button, InfoCard, LinkButton } from '@/components/ui';
+import { InfoCard, LinkButton } from '@/components/ui';
 import { ProductCard } from '@/components/product';
 import { ContactForm } from '@/components/form';
 import { strapi } from '@/lib/api';
-// import { useUIStore } from '@/lib/store';
 
 export default async function Home() {
-  // const { openAuthModal } = useUIStore();
-
   const { title, subtitle, image } = await strapi.getHomePageData();
 
   const products = await strapi.getProducts({ discount: true, limit: 4 });
@@ -49,11 +46,11 @@ export default async function Home() {
           icon={ArrowLongRightIcon}
           href="/register"
         />
-        <Button
+        <LinkButton
           className="hidden sm:mt-12 sm:flex md:mt-16 md:w-[18.125rem]"
           text="Get yours today"
           icon={ArrowLongRightIcon}
-          // onClick={openAuthModal.bind(null, 'register')}
+          href={{ query: { auth: 'register' } }}
         />
       </section>
       <section className="grid grid-cols-1 gap-4 px-6 pb-8 pt-3 sm:container sm:grid-cols-2 sm:gap-6 sm:py-12 xl:grid-cols-4">

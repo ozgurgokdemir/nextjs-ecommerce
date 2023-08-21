@@ -8,8 +8,7 @@ import {
   ArrowRightOnRectangleIcon,
 } from '@heroicons/react/24/solid';
 import { clsx } from 'clsx';
-import { Button, IconButton, MenuItem } from '@/components/ui';
-import { useUIStore } from '@/lib/store';
+import { Button, IconButton, LinkButton, MenuItem } from '@/components/ui';
 import { useAuth } from '@/lib/hooks';
 
 const variants = {
@@ -26,15 +25,13 @@ const variants = {
 };
 
 export default function UserMenu() {
-  const { openAuthModal } = useUIStore();
-
   const { status, logOut } = useAuth();
 
   const isAuthenticated = status === 'authenticated';
 
   return (
     <Menu as="div" className="relative">
-      {({ open }) => (
+      {({ open, close }) => (
         <Fragment>
           <Menu.Button as="div">
             <IconButton icon={UserIcon} size="large" />
@@ -88,23 +85,23 @@ export default function UserMenu() {
                 </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
-                    <li
-                      className="m-6 flex flex-col"
-                      onClick={
-                        isAuthenticated
-                          ? logOut
-                          : openAuthModal.bind(null, 'login')
-                      }
-                    >
-                      <Button
-                        className={active ? 'bg-slate-700' : ''}
-                        text={isAuthenticated ? 'Log out' : 'Log in'}
-                        icon={
-                          isAuthenticated
-                            ? ArrowRightOnRectangleIcon
-                            : ArrowLeftOnRectangleIcon
-                        }
-                      />
+                    <li className="m-6 flex flex-col">
+                      {isAuthenticated ? (
+                        <Button
+                          onClick={logOut}
+                          text={'Log out'}
+                          icon={ArrowRightOnRectangleIcon}
+                          className={active ? 'bg-slate-700' : ''}
+                        />
+                      ) : (
+                        <LinkButton
+                          href={{ query: { auth: 'register' } }}
+                          onClick={close}
+                          text={'Log in'}
+                          icon={ArrowLeftOnRectangleIcon}
+                          className={active ? 'bg-slate-700' : ''}
+                        />
+                      )}
                     </li>
                   )}
                 </Menu.Item>
