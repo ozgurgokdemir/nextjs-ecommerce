@@ -1,3 +1,4 @@
+'use client';
 import type { FormEventHandler, ChangeEventHandler } from 'react';
 import type { Category, Product } from '@/lib/types';
 import { useState, useRef, useEffect } from 'react';
@@ -201,7 +202,7 @@ export default function SearchModal() {
                   onClick={handleCancel}
                   tabIndex={-1}
                   className={clsx(
-                    'pointer-events-none absolute right-3 text-slate-400 sm:right-auto sm:left-3 sm:text-slate-800',
+                    'pointer-events-none absolute right-3 text-slate-400 sm:left-3 sm:right-auto sm:text-slate-800',
                     searchQuery.length > 0 && 'hidden sm:flex'
                   )}
                 >

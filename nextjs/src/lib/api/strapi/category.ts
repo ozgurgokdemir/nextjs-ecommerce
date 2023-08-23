@@ -9,7 +9,7 @@ type StrapiCategory = StrapiResponse<
 
 export async function getCategories() {
   const url = `${process.env.STRAPI_URL}/api/categories?populate=*`;
-  const response = await fetch(url);
+  const response = await fetch(url, { next: { revalidate: 3600 } });
   const { data } = (await response.json()) as StrapiCategory;
 
   if (!data) return null;

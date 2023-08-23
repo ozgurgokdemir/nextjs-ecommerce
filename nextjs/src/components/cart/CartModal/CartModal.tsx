@@ -1,3 +1,4 @@
+'use client';
 import { CreditCardIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import { Dialog } from '@headlessui/react';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -99,7 +100,7 @@ export default function CartModal() {
             variants={variants.cartContent}
             className="relative flex flex-col gap-4 p-12"
           >
-            <div className="absolute top-0 right-0 p-6">
+            <div className="absolute right-0 top-0 p-6">
               <button type="button" onClick={closeCart}>
                 <XMarkIcon className="h-6" />
               </button>

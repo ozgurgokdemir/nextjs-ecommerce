@@ -1,11 +1,13 @@
+'use client';
 import type { ReactNode, ComponentType, SVGProps } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { ShoppingBagIcon } from '@heroicons/react/24/solid';
 import { UserMenu } from '@/components/ui';
 import { SearchButton, SearchModal } from '@/components/search';
 import { CartButton, CartModal } from '@/components/cart';
 import { AuthModal } from '@/components/auth';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 type Navigation = {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
@@ -16,13 +18,6 @@ type Navigation = {
 type CallToAction = {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
   onClick: () => void;
-};
-
-type HeaderProps = {
-  nav: Navigation;
-  cta?: CallToAction;
-  label?: string;
-  children?: ReactNode;
 };
 
 function CTA({ cta }: { cta?: CallToAction }) {
@@ -42,26 +37,22 @@ function CTA({ cta }: { cta?: CallToAction }) {
   );
 }
 
-export default function Header(props: HeaderProps) {
-  const { nav, cta, label, children } = props;
-  const { icon: NavIcon, url, navigateBack } = nav;
-
-  const router = useRouter();
-
-  const handleNavigation = () => {
-    if (navigateBack) router.back();
-    else if (url) void router.push(url);
+export default function Header() {
+  const cta = {
+    icon: MagnifyingGlassIcon,
+    onClick: () => {
+      return;
+    },
   };
 
   return (
     <header className="sticky inset-x-0 top-0 z-40 bg-white shadow-stroke-b">
       <div className="flex items-center justify-between sm:hidden">
-        <button className="p-6" type="button" onClick={handleNavigation}>
-          {<NavIcon className="h-6" />}
-        </button>
-        {children}
-        {!children && <span className="text-label-base-600">{label}</span>}
-        {!children && <CTA cta={cta} />}
+        <Link className="p-6" type="button" href="/">
+          <ShoppingBagIcon className="h-6" />
+        </Link>
+        <span className="text-label-base-600">{}</span>
+        <CTA cta={cta} />
       </div>
       <div className="container hidden h-24 items-center justify-between sm:flex">
         <Link className="flex gap-3" href="/">

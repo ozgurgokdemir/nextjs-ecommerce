@@ -1,3 +1,4 @@
+'use client';
 import type { SubmitHandler } from 'react-hook-form';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';

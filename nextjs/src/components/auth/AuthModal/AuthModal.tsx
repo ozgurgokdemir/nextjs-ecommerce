@@ -1,3 +1,4 @@
+'use client';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { XMarkIcon } from '@heroicons/react/24/solid';

@@ -1,3 +1,4 @@
+'use client';
 import { clsx } from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useCartStore } from '@/lib/store';
@@ -36,7 +37,7 @@ export default function CartButton({ className }: Props) {
           )}
         >
           <span className="absolute inline-flex h-full w-full animate-subtle-ping rounded-full bg-red-400 opacity-80" />
-          <span className="relative flex h-full w-full flex-col justify-center rounded-full bg-red-400 text-center text-label-sm-500 text-[0.625rem] text-slate-50">
+          <span className="relative flex h-full w-full flex-col justify-center rounded-full bg-red-400 text-center text-[0.625rem] text-label-sm-500 text-slate-50">
             {totalQuantity}
           </span>
         </motion.span>

@@ -3,3 +3,4 @@ export { default as Footer } from './Footer';
 export { default as NavBar } from './NavBar';
 export { default as StoreNav } from './StoreNav';
 export { default as CartActionBar } from './CartActionBar';
+export { default as MainContent } from './MainContent';
