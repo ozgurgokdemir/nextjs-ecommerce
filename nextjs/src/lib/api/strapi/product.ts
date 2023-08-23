@@ -32,7 +32,7 @@ async function fetchProducts(filters: string[]) {
   filters.forEach((filter) => params.push(filter));
 
   const url = `${process.env.STRAPI_URL}/api/products?${params.join('&')}`;
-  const response = await fetch(url);
+  const response = await fetch(url, { next: { revalidate: 3600 } });
   const { data } = (await response.json()) as StrapiResponse<StrapiProduct[]>;
 
   if (!data) return null;
