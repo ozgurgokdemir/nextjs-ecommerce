@@ -1,5 +1,5 @@
+'use client';
 import { AnimatePresence, motion } from 'framer-motion';
-import { CartLayout } from '@/components/layout';
 import { CartItem } from '@/components/cart';
 import { useCartStore } from '@/lib/store';
 
@@ -80,5 +80,3 @@ export default function Cart() {
     </AnimatePresence>
   );
 }
-
-Cart.PageLayout = CartLayout;
