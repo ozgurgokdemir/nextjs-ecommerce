@@ -6,7 +6,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { signOut } from 'next-auth/react';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/app/api/auth/[...nextauth]/options';
 import { Button, LinkButton, ListItem } from '@/components/ui';
 
 export default async function Account() {

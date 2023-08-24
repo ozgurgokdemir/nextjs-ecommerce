@@ -1,19 +1,11 @@
-import type { NextApiResponse } from 'next';
-import type { NextAuthOptions } from 'next-auth';
-import NextAuth from 'next-auth';
-import GoogleProvider from 'next-auth/providers/google';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import NextAuth, { type AuthOptions } from 'next-auth';
+import { authOptions } from './options';
 
-export const authOptions: NextAuthOptions = {
-  providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    }),
-  ],
-};
+type NextAuthType = (
+  ...args: [AuthOptions] | [NextApiRequest, NextApiResponse, AuthOptions]
+) => Promise<Response> | Promise<void | NextApiResponse>;
 
-type NextAuthReturn = Promise<Response> | Promise<void | NextApiResponse>;
-
-const handler = NextAuth(authOptions) as NextAuthReturn;
+const handler = NextAuth(authOptions) as NextAuthType;
 
 export { handler as GET, handler as POST };
