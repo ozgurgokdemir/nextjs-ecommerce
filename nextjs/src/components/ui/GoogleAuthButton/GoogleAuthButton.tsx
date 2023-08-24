@@ -1,7 +1,7 @@
 'use client';
 import type { ButtonHTMLAttributes } from 'react';
 import { clsx } from 'clsx';
-import { useAuth } from '@/lib/hooks';
+import { signIn } from 'next-auth/react';
 
 type GoogleAuthButtonProps = {
   className?: string;
@@ -10,8 +10,6 @@ type GoogleAuthButtonProps = {
 export default function GoogleAuthButton(props: GoogleAuthButtonProps) {
   const { className, ...restProps } = props;
 
-  const { logInWithGoogle } = useAuth();
-
   return (
     <button
       className={clsx(
@@ -19,7 +17,7 @@ export default function GoogleAuthButton(props: GoogleAuthButtonProps) {
         className
       )}
       type="button"
-      onClick={logInWithGoogle}
+      onClick={() => void signIn('google')}
       {...restProps}
     >
       <svg

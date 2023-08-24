@@ -1,5 +1,4 @@
 import { LoginForm } from '@/components/auth';
-import { AuthLayout } from '@/components/layout';
 import { GoogleAuthButton } from '@/components/ui';
 
 export default function Login() {
@@ -19,5 +18,3 @@ export default function Login() {
     </section>
   );
 }
-
-Login.PageLayout = AuthLayout;

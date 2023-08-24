@@ -1,8 +1,7 @@
 import { RegisterForm } from '@/components/auth';
-import { AuthLayout } from '@/components/layout';
 import { GoogleAuthButton } from '@/components/ui';
 
-export default function Login() {
+export default function Register() {
   return (
     <section className="flex flex-col gap-8 px-8 py-12">
       <div className="flex flex-col gap-4">
@@ -19,5 +18,3 @@ export default function Login() {
     </section>
   );
 }
-
-Login.PageLayout = AuthLayout;
