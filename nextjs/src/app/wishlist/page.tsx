@@ -1,4 +1,4 @@
-import { IndexLayout } from '@/components/layout';
+'use client';
 import { WishlistItem } from '@/components/wishlist';
 import { useCartStore } from '@/lib/store';
 
@@ -34,5 +34,3 @@ export default function Wishlist() {
     </section>
   );
 }
-
-Wishlist.PageLayout = IndexLayout;
