@@ -4,12 +4,13 @@ import {
   ArrowLeftOnRectangleIcon,
   ArrowRightOnRectangleIcon,
 } from '@heroicons/react/24/outline';
-import { AccountLayout } from '@/components/layout';
+import { signOut } from 'next-auth/react';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { Button, LinkButton, ListItem } from '@/components/ui';
-import { useAuth } from '@/lib/hooks';
 
-export default function Account() {
-  const { session, logOut } = useAuth();
+export default async function Account() {
+  const session = await getServerSession(authOptions);
 
   return (
     <section className="flex flex-col sm:hidden">
@@ -47,7 +48,7 @@ export default function Account() {
           className="mx-6 my-8"
           text="Log out"
           icon={ArrowRightOnRectangleIcon}
-          onClick={logOut}
+          onClick={void signOut}
         />
       ) : (
         <LinkButton
@@ -60,5 +61,3 @@ export default function Account() {
     </section>
   );
 }
-
-Account.PageLayout = AccountLayout;
