@@ -1,58 +1,132 @@
 'use client';
-import type { ReactNode, ComponentType, SVGProps } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import type { ComponentType, SVGProps, ComponentProps } from 'react';
+import type { AppRouterInstance } from 'next/dist/shared/lib/app-router-context';
+import { usePathname, useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ShoppingBagIcon } from '@heroicons/react/24/solid';
+import {
+  MagnifyingGlassIcon,
+  ChevronLeftIcon,
+  HeartIcon,
+} from '@heroicons/react/24/outline';
 import { UserMenu } from '@/components/ui';
 import { SearchButton, SearchModal } from '@/components/search';
 import { CartButton, CartModal } from '@/components/cart';
 import { AuthModal } from '@/components/auth';
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-
-type Navigation = {
-  icon: ComponentType<SVGProps<SVGSVGElement>>;
-  url?: string;
-  navigateBack?: boolean;
-};
 
 type CallToAction = {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
-  onClick: () => void;
+  href?: ComponentProps<typeof Link>['href'];
+  onClick?: () => void;
 };
 
-function CTA({ cta }: { cta?: CallToAction }) {
-  if (!cta)
+type Params = {
+  category?: string;
+  product?: string;
+};
+
+type GetHeader = (
+  pathname: string,
+  params: Params,
+  router: AppRouterInstance
+) => {
+  title: string;
+  left: CallToAction;
+  right: CallToAction;
+};
+
+const getHeader: GetHeader = (pathname, params, router) => {
+  const navigateHome = {
+    icon: ShoppingBagIcon,
+    href: '/',
+  };
+
+  const navigateBack = {
+    icon: ChevronLeftIcon,
+    onClick: () => router.back(),
+  };
+
+  const openSearch = {
+    icon: MagnifyingGlassIcon,
+    href: { query: { search: '' } },
+  };
+
+  const addToWishlist = {
+    icon: HeartIcon,
+    onClick: () => undefined,
+  };
+
+  const defaultHeader = {
+    title: '',
+    left: navigateHome,
+    right: openSearch,
+  };
+
+  if (params.product) {
+    return {
+      title: 'Details',
+      left: navigateBack,
+      right: addToWishlist,
+    };
+  }
+
+  if (params.category) {
+    return {
+      title: params.category.charAt(0).toUpperCase() + params.category.slice(1),
+      left: navigateBack,
+      right: openSearch,
+    };
+  }
+
+  if (pathname === '/store') {
+    return { ...defaultHeader, title: 'Store' };
+  }
+
+  if (pathname === '/cart') {
+    return { ...defaultHeader, title: 'Cart' };
+  }
+
+  if (pathname === '/wishlist') {
+    return { ...defaultHeader, title: 'Wishlist' };
+  }
+
+  if (pathname === '/account') {
+    return { ...defaultHeader, title: 'Account' };
+  }
+
+  return defaultHeader;
+};
+
+function HeaderCTA({ icon: Icon, href, onClick }: CallToAction) {
+  if (href) {
     return (
-      <div className="p-6">
-        <div className="h-6 w-6"></div>
-      </div>
+      <Link href={href} onClick={onClick} className="p-6">
+        <Icon className="h-6" />
+      </Link>
     );
-
-  const { icon: Icon, onClick } = cta;
-
+  }
   return (
-    <button className="p-6" type="button" onClick={onClick}>
+    <button type="button" onClick={onClick} className="p-6">
       <Icon className="h-6" />
     </button>
   );
 }
 
 export default function Header() {
-  const cta = {
-    icon: MagnifyingGlassIcon,
-    onClick: () => {
-      return;
-    },
-  };
+  const pathname = usePathname();
+
+  const params = useParams() as Params;
+
+  const router = useRouter();
+
+  const { title, left, right } = getHeader(pathname, params, router);
 
   return (
     <header className="sticky inset-x-0 top-0 z-40 bg-white shadow-stroke-b">
       <div className="flex items-center justify-between sm:hidden">
-        <Link className="p-6" type="button" href="/">
-          <ShoppingBagIcon className="h-6" />
-        </Link>
-        <span className="text-label-base-600">{}</span>
-        <CTA cta={cta} />
+        <HeaderCTA {...left} />
+        <span className="text-label-base-600">{title}</span>
+        <HeaderCTA {...right} />
       </div>
       <div className="container hidden h-24 items-center justify-between sm:flex">
         <Link className="flex gap-3" href="/">
