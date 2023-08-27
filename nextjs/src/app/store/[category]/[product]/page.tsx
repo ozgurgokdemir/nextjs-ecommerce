@@ -17,7 +17,7 @@ export async function generateStaticParams() {
   return products.map(({ category, slug }) => ({ category, product: slug }));
 }
 
-type Params = Awaited<ReturnType<typeof generateStaticParams>>[0];
+export type Params = Awaited<ReturnType<typeof generateStaticParams>>[0];
 
 type Props = { params: Params };
 
