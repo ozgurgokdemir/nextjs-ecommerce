@@ -30,8 +30,8 @@ dependencies:
     specifier: ^0.7.0
     version: 0.7.0
   clsx:
-    specifier: ^1.2.1
-    version: 1.2.1
+    specifier: ^2.0.0
+    version: 2.0.0
   eslint:
     specifier: 8.47.0
     version: 8.47.0
@@ -62,6 +62,9 @@ dependencies:
   sharp:
     specifier: ^0.32.1
     version: 0.32.1
+  tailwind-merge:
+    specifier: ^1.14.0
+    version: 1.14.0
   typescript:
     specifier: 5.1.6
     version: 5.1.6
@@ -6972,7 +6975,7 @@ packages:
       normalize-path: 3.0.0
       readdirp: 3.6.0
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: true
 
   /chownr@1.1.4:
@@ -7137,14 +7140,6 @@ packages:
         integrity: sha512-3Pe/CF1Nn94hyhIYpjtiLhdCoEoz0DqQ+988E9gmeEdQZlojxnOb74wctFyuwWQHzqyf9X7C7MG8juUpqBJT8w==,
       }
     engines: { node: '>=0.8' }
-    dev: false
-
-  /clsx@1.2.1:
-    resolution:
-      {
-        integrity: sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==,
-      }
-    engines: { node: '>=6' }
     dev: false
 
   /clsx@2.0.0:
@@ -9345,10 +9340,10 @@ packages:
         integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==,
       }
 
-  /fsevents@2.3.2:
+  /fsevents@2.3.3:
     resolution:
       {
-        integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==,
+        integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==,
       }
     engines: { node: ^8.16.0 || ^10.6.0 || >=11.0.0 }
     os: [darwin]
@@ -10588,7 +10583,7 @@ packages:
       micromatch: 4.0.5
       walker: 1.0.8
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: true
 
   /jest-mock@27.5.1:
@@ -14595,6 +14590,13 @@ packages:
         integrity: sha512-AsS729u2RHUfEra9xJrE39peJcc2stq2+poBXX8bcM08Y6g9j/i/PUzwNQqkaJde7Ntg1TO7bSREbR5sdosQ+g==,
       }
     dev: true
+
+  /tailwind-merge@1.14.0:
+    resolution:
+      {
+        integrity: sha512-3mFKyCo/MBcgyOTlrY8T7odzZFx+w+qKSMAmdFzRvqBfLlSigU6TZnlFHK0lkMwj9Bj8OYU+9yW9lmGuS0QEnQ==,
+      }
+    dev: false
 
   /tailwindcss@3.3.3:
     resolution:
