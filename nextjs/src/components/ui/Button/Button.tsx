@@ -1,15 +1,20 @@
 import type { ComponentProps, ComponentType, SVGProps } from 'react';
+import type { OverrideProps, AllOrNothing } from '@/lib/types/helpers';
 import { buttonVariants } from './variants';
 import Spinner from '../Spinner';
 
-type ButtonProps = Omit<ComponentProps<'button'>, 'children'> & {
-  text: string;
-  variant?: 'primary' | 'secondary';
-  size?: 'medium' | 'large';
-  isLoading?: boolean;
-  loadingText?: string;
-  icon?: ComponentType<SVGProps<SVGSVGElement>>;
-};
+type ButtonProps = OverrideProps<
+  Omit<ComponentProps<'button'>, 'children'>,
+  {
+    text: string;
+    variant?: 'primary' | 'secondary';
+    size?: 'medium' | 'large';
+    icon?: ComponentType<SVGProps<SVGSVGElement>>;
+  } & AllOrNothing<{
+    isLoading: boolean;
+    loadingText?: string;
+  }>
+>;
 
 export default function Button(props: ButtonProps) {
   const {
