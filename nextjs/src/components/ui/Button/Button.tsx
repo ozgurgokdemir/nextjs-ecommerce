@@ -1,6 +1,6 @@
 import type { ComponentProps, ComponentType, SVGProps } from 'react';
 import type { OverrideProps, AllOrNothing } from '@/lib/types/helpers';
-import { buttonStyles } from './variants';
+import { buttonStyles } from './Button.styles';
 import Spinner from '../Spinner';
 
 type ButtonProps = OverrideProps<
