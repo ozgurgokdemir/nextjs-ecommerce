@@ -1,6 +1,6 @@
 import type { ComponentProps, ComponentType, SVGProps } from 'react';
 import type { OverrideProps, AllOrNothing } from '@/lib/types/helpers';
-import { buttonVariants } from './variants';
+import { buttonStyles } from './variants';
 import Spinner from '../Spinner';
 
 type ButtonProps = OverrideProps<
@@ -32,7 +32,7 @@ export default function Button(props: ButtonProps) {
 
   return (
     <button
-      className={buttonVariants({ variant, size, className })}
+      className={buttonStyles({ variant, size, className })}
       type={type}
       disabled={disabled || isLoading}
       {...restProps}

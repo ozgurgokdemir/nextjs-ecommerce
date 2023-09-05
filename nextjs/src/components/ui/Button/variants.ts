@@ -1,6 +1,7 @@
 import { cva } from 'class-variance-authority';
+import { twMerge } from '@/lib/utils/tailwind-merge';
 
-export const buttonVariants = cva(
+const buttonVariants = cva(
   'flex items-center justify-center whitespace-nowrap rounded-lg px-6 font-primary transition disabled:cursor-not-allowed',
   {
     variants: {
@@ -19,3 +20,7 @@ export const buttonVariants = cva(
     },
   }
 );
+
+export const buttonStyles: typeof buttonVariants = (variants) => {
+  return twMerge(buttonVariants(variants));
+};
