@@ -1,7 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter, Poppins } from 'next/font/google';
-import Providers from '@/components/providers';
+import { SessionProvider } from '@/components/providers';
 import {
   Footer,
   Header,
@@ -35,13 +35,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body className={`${inter.variable} ${poppins.variable} font-primary`}>
-        <Providers>
+        <SessionProvider>
           <Header />
           <StoreNav />
           <MainContent>{children}</MainContent>
           <Footer />
           <NavBar />
-        </Providers>
+        </SessionProvider>
       </body>
     </html>
   );
