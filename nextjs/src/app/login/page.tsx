@@ -1,5 +1,5 @@
 import { LoginForm } from '@/components/auth';
-import { GoogleAuthButton } from '@/components/ui';
+import { GoogleAuthButton } from '@/components/auth';
 
 export default function Login() {
   return (

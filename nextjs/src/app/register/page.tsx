@@ -1,5 +1,5 @@
 import { RegisterForm } from '@/components/auth';
-import { GoogleAuthButton } from '@/components/ui';
+import { GoogleAuthButton } from '@/components/auth';
 
 export default function Register() {
   return (

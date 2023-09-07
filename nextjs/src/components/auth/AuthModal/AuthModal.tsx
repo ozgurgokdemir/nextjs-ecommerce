@@ -3,8 +3,8 @@ import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import { Dialog } from '@headlessui/react';
-import { GoogleAuthButton, Modal } from '@/components/ui';
-import { LoginForm, RegisterForm } from '@/components/auth';
+import { Modal } from '@/components/ui';
+import { LoginForm, RegisterForm, GoogleAuthButton } from '@/components/auth';
 
 const variants = {
   enter: (direction: number) => ({ x: `${direction * 100}%`, opacity: 0 }),

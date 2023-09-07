@@ -9,4 +9,3 @@ export { default as InputField } from './InputField';
 export { default as Drawer } from './Drawer';
 export { default as Modal } from './Modal';
 export { default as UserMenu } from './UserMenu';
-export { default as GoogleAuthButton } from './GoogleAuthButton';
