@@ -1,13 +1,15 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter, Poppins } from 'next/font/google';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/options';
 import { SessionProvider } from '@/components/providers';
 import {
-  Footer,
   Header,
-  MainContent,
-  NavBar,
   StoreNav,
+  MainContent,
+  Footer,
+  NavBar,
 } from '@/components/common';
 
 const inter = Inter({
@@ -31,11 +33,13 @@ export const metadata: Metadata = {
 
 type RootLayoutProps = { children: React.ReactNode };
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default async function RootLayout({ children }: RootLayoutProps) {
+  const session = await getServerSession(authOptions);
+
   return (
     <html lang="en">
       <body className={`${inter.variable} ${poppins.variable} font-primary`}>
-        <SessionProvider>
+        <SessionProvider session={session}>
           <Header />
           <StoreNav />
           <MainContent>{children}</MainContent>

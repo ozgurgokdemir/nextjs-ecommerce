@@ -17,7 +17,7 @@ export default function GoogleAuthButton(props: GoogleAuthButtonProps) {
         className
       )}
       type="button"
-      onClick={() => void signIn('google')}
+      onClick={() => void signIn('google', { callbackUrl: '/account' })}
       {...restProps}
     >
       <svg
