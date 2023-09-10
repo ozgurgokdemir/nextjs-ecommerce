@@ -1,5 +1,5 @@
-import type { ComponentProps, ComponentType, SVGProps } from 'react';
-import type { OverrideProps, AllOrNothing } from '@/lib/types/helpers';
+import type { OverrideProps, Icon } from '@/lib/types';
+import { forwardRef, type ComponentProps } from 'react';
 import { buttonStyles } from './Button.styles';
 import Spinner from '../Spinner';
 
@@ -9,15 +9,14 @@ type ButtonProps = OverrideProps<
     text: string;
     variant?: 'primary' | 'secondary';
     size?: 'medium' | 'large';
-    icon?: ComponentType<SVGProps<SVGSVGElement>>;
-  } & AllOrNothing<{
-    isLoading: boolean;
+    isLoading?: boolean;
     loadingText?: string;
-  }>
+    icon?: Icon;
+  }
 >;
 
-export default function Button(props: ButtonProps) {
-  const {
+export default forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+  {
     text,
     variant = 'primary',
     size = 'large',
@@ -28,13 +27,15 @@ export default function Button(props: ButtonProps) {
     disabled,
     className,
     ...restProps
-  } = props;
-
+  },
+  ref
+) {
   return (
     <button
-      className={buttonStyles({ variant, size, className })}
+      ref={ref}
       type={type}
       disabled={disabled || isLoading}
+      className={buttonStyles({ variant, size, className })}
       {...restProps}
     >
       {isLoading && loadingText ? loadingText : text}
@@ -45,4 +46,4 @@ export default function Button(props: ButtonProps) {
       )}
     </button>
   );
-}
+});

@@ -1,22 +1,24 @@
 'use client';
 import type { ComponentProps } from 'react';
+import type { OverrideProps } from '@/lib/types';
 import { signOut } from 'next-auth/react';
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui';
 
-type SignOutButtonProps = ComponentProps<typeof Button> & {
-  showIcon?: true;
-  icon?: never;
-  onClick?: never;
-};
+type SignOutButtonProps = OverrideProps<
+  Omit<ComponentProps<typeof Button>, 'icon' | 'onClick'>,
+  { showIcon?: true }
+>;
 
-export default function SignOutButton(props: SignOutButtonProps) {
-  const { showIcon, ...restProps } = props;
+export default function SignOutButton({
+  showIcon,
+  ...restProps
+}: SignOutButtonProps) {
   return (
     <Button
-      {...restProps}
       icon={showIcon ? ArrowRightOnRectangleIcon : undefined}
       onClick={() => void signOut()}
+      {...restProps}
     />
   );
 }
