@@ -7,24 +7,24 @@ type LinkButtonProps = OverrideProps<
   ComponentProps<typeof Link>,
   {
     text: string;
-    size?: 'medium' | 'large';
     variant?: 'primary' | 'secondary';
+    size?: 'medium' | 'large';
     icon?: Icon;
   }
 >;
 
-export default forwardRef<HTMLAnchorElement, LinkButtonProps>(
-  function LinkButton(
+const LinkButton = forwardRef<HTMLAnchorElement, LinkButtonProps>(
+  (
     {
       text,
-      size = 'large',
       variant = 'primary',
+      size = 'large',
       icon: Icon,
       className,
       ...restProps
     },
     ref
-  ) {
+  ) => {
     return (
       <Link
         ref={ref}
@@ -37,3 +37,7 @@ export default forwardRef<HTMLAnchorElement, LinkButtonProps>(
     );
   }
 );
+
+LinkButton.displayName = 'LinkButton';
+
+export default LinkButton;

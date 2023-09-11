@@ -10,23 +10,16 @@ const meta: Meta<typeof Button> = {
   },
   args: {
     text: 'Button',
+    variant: 'primary',
+    size: 'large',
+    isLoading: false,
   },
   argTypes: {
     variant: {
       control: 'select',
-      table: {
-        defaultValue: {
-          summary: 'primary',
-        },
-      },
     },
     size: {
       control: 'select',
-      table: {
-        defaultValue: {
-          summary: 'large',
-        },
-      },
     },
     icon: {
       options: ['undefined', 'shopping-cart'],

@@ -11,23 +11,15 @@ const meta: Meta<typeof LinkButton> = {
   args: {
     href: '',
     text: 'Link Button',
+    variant: 'primary',
+    size: 'large',
   },
   argTypes: {
     variant: {
       control: 'select',
-      table: {
-        defaultValue: {
-          summary: 'primary',
-        },
-      },
     },
     size: {
       control: 'select',
-      table: {
-        defaultValue: {
-          summary: 'large',
-        },
-      },
     },
     icon: {
       options: ['undefined', 'shopping-cart'],

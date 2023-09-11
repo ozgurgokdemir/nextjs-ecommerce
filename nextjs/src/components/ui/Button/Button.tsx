@@ -15,35 +15,41 @@ type ButtonProps = OverrideProps<
   }
 >;
 
-export default forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  {
-    text,
-    variant = 'primary',
-    size = 'large',
-    isLoading,
-    loadingText,
-    icon: Icon,
-    type = 'button',
-    disabled,
-    className,
-    ...restProps
-  },
-  ref
-) {
-  return (
-    <button
-      ref={ref}
-      type={type}
-      disabled={disabled || isLoading}
-      className={buttonStyles({ variant, size, className })}
-      {...restProps}
-    >
-      {isLoading && loadingText ? loadingText : text}
-      {isLoading ? (
-        <Spinner size={size} variant={variant} />
-      ) : (
-        Icon && <Icon className={size === 'medium' ? 'h-4' : 'h-5'} />
-      )}
-    </button>
-  );
-});
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      text,
+      variant = 'primary',
+      size = 'large',
+      isLoading = false,
+      loadingText,
+      icon: Icon,
+      type = 'button',
+      disabled,
+      className,
+      ...restProps
+    },
+    ref
+  ) => {
+    return (
+      <button
+        ref={ref}
+        type={type}
+        disabled={disabled || isLoading}
+        className={buttonStyles({ variant, size, className })}
+        {...restProps}
+      >
+        {isLoading && loadingText ? loadingText : text}
+        {isLoading ? (
+          <Spinner size={size} variant={variant} />
+        ) : (
+          Icon && <Icon className={size === 'medium' ? 'h-4' : 'h-5'} />
+        )}
+      </button>
+    );
+  }
+);
+
+Button.displayName = 'Button';
+
+export default Button;
